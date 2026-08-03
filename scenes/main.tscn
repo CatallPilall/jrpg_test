@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://crjejmpbsmu4m"]
+
+[ext_resource type="Script" uid="uid://bc05l87je4i22" path="res://scripts/main.gd" id="1_o5qli"]
+
+[node name="Main" type="Node" unique_id=1831288809]
+script = ExtResource("1_o5qli")
+
+[node name="MainCanvasLayer" type="CanvasLayer" parent="." unique_id=1443004729]
+
+[node name="day_timer" type="Timer" parent="." unique_id=113409279]
+
+[connection signal="timeout" from="day_timer" to="." method="_on_day_timer_timeout"]

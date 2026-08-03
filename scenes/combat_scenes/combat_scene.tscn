@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cc84jggyuyv5o"]
+
+[ext_resource type="Script" uid="uid://da4ljo7hpjseb" path="res://scripts/combat_scripts/combat_scene.gd" id="1_oj6q5"]
+[ext_resource type="Script" uid="uid://ca6g6u3rj1rh3" path="res://scripts/combat_scripts/combat_manager.gd" id="2_gk5ye"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+
+[node name="combat_scene" type="Node2D" unique_id=178259104]
+script = ExtResource("1_oj6q5")
+
+[node name="ally_position_one" type="Node2D" parent="." unique_id=381864953]
+position = Vector2(175, 205)
+
+[node name="ally_one_Area2D" type="Area2D" parent="ally_position_one" unique_id=1359611693]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ally_position_one/ally_one_Area2D" unique_id=290816993]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="enemy_position_one" type="Node2D" parent="." unique_id=1908508256]
+position = Vector2(317, 147)
+
+[node name="enemy_one_Area2D" type="Area2D" parent="enemy_position_one" unique_id=2000337852]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_position_one/enemy_one_Area2D" unique_id=138045102]
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=963296659]
+position = Vector2(285, 191)
+zoom = Vector2(3, 3)
+
+[node name="combat_manager" type="Node" parent="." unique_id=368374353]
+script = ExtResource("2_gk5ye")
+
+[connection signal="input_event" from="ally_position_one/ally_one_Area2D" to="." method="_on_ally_one_area_2d_input_event"]
+[connection signal="input_event" from="enemy_position_one/enemy_one_Area2D" to="." method="_on_enemy_one_area_2d_input_event"]

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://tasye6gpjf2i"]
+
+[ext_resource type="Script" uid="uid://drqkuj2wy8ke1" path="res://scripts/unit_scripts/unit_goblin_brute.gd" id="1_qdwow"]
+[ext_resource type="Texture2D" uid="uid://bfknfimmiorme" path="res://assets/animations/IttyBitty_Enemies.png" id="2_6v32v"]
+
+[node name="unit_goblin_brute" type="Node2D" unique_id=1900533410]
+script = ExtResource("1_qdwow")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1688280935]
+texture = ExtResource("2_6v32v")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)

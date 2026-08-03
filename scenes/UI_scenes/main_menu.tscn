@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://c11ffrremg7yf"]
+
+[ext_resource type="Script" uid="uid://b7yo1wrundpex" path="res://scripts/UI_scripts/main_menu.gd" id="1_b1sf3"]
+
+[node name="main_menu" type="Control" unique_id=1615292461]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b1sf3")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1549292148]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 280
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 280
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1663846774]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1202936547]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 10
+
+[node name="Continue_Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=202220321]
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=209306638]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 10
+
+[node name="New_Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=1840436680]
+layout_mode = 2
+text = "New Game"
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1939415177]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 10
+
+[node name="Load_Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3" unique_id=4067831]
+layout_mode = 2
+disabled = true
+text = "Load Game"
+
+[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1371721622]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 10
+
+[node name="Options_Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer4" unique_id=1975778461]
+layout_mode = 2
+disabled = true
+text = "Options"
+
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=607204069]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 10
+
+[node name="Exit_Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer5" unique_id=1469312167]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer2/New_Button" to="." method="_on_new_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer5/Exit_Button" to="." method="_on_exit_button_pressed"]

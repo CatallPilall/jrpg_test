@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://cfufng44nb4rd"]
+
+[ext_resource type="Script" uid="uid://dfx4pkv2na3hb" path="res://scripts/UI_scripts/inventory_hud.gd" id="1_irlc2"]
+
+[node name="inventory_hud" type="Control" unique_id=1750072543]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_irlc2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=560490816]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1958925034]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=779869058]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer" unique_id=367131516]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1155585151]
+layout_mode = 2
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 20
+
+[node name="exit_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=291616581]
+layout_mode = 2
+text = "exit"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=332280453]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_one_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2" unique_id=273737525]
+layout_mode = 2
+text = "character_one"
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1952296037]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="character_two_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3" unique_id=381606678]
+layout_mode = 2
+text = "character_two"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=791458123]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/HBoxContainer/MarginContainer2" unique_id=1240607587]
+layout_mode = 2
+current_tab = 0
+
+[node name="Relics" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/TabContainer" unique_id=618622411]
+layout_mode = 2
+text = "Relics"
+metadata/_tab_index = 0
+
+[node name="Consumables" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/TabContainer" unique_id=986505771]
+visible = false
+layout_mode = 2
+text = "Consumables"
+metadata/_tab_index = 1
+
+[node name="Keys" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/TabContainer" unique_id=413995154]
+visible = false
+layout_mode = 2
+text = "Keys"
+metadata/_tab_index = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1460260935]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer3" unique_id=550148182]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer" unique_id=769147955]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer/MarginContainer" unique_id=2074013338]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer" unique_id=256609448]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2" unique_id=509116790]
+layout_mode = 2
+text = "Item description"
