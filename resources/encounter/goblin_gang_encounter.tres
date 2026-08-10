@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="encounter" format=3 uid="uid://ce1icev426vjh"]
+
+[ext_resource type="Resource" uid="uid://c0jacl6xvvq4u" path="res://resources/units/goblin_brute_unit.tres" id="1_2wlv1"]
+[ext_resource type="Script" uid="uid://bhkrh7qiqh1s5" path="res://scripts/resource_scripts/unit.gd" id="2_w2bg6"]
+[ext_resource type="Script" uid="uid://bd0ljl33bgnti" path="res://scripts/resource_scripts/encounter.gd" id="3_pyuei"]
+
+[resource]
+script = ExtResource("3_pyuei")
+enemy_one = ExtResource("1_2wlv1")
+enemy_two = ExtResource("1_2wlv1")
+enemy_three = ExtResource("1_2wlv1")
+enemy_four = ExtResource("1_2wlv1")
+enemy_five = ExtResource("1_2wlv1")
+encounter_sprite_location = "res://assets/portraits/goblin_combat_sprite.png"
+end_condition = 5

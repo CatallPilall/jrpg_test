@@ -9,4 +9,8 @@ script = ExtResource("1_o5qli")
 
 [node name="day_timer" type="Timer" parent="." unique_id=113409279]
 
+[node name="level_scenes" type="Node" parent="." unique_id=1357924759]
+
+[node name="combat_scenes" type="Node" parent="." unique_id=364705881]
+
 [connection signal="timeout" from="day_timer" to="." method="_on_day_timer_timeout"]

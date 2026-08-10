@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://bp533jpxebcw2"]
 
-[ext_resource type="Script" uid="uid://dyqwy38yyi3ti" path="res://scripts/encounter_scripts/test_encounter.gd" id="1_re06t"]
-[ext_resource type="Texture2D" uid="uid://bfknfimmiorme" path="res://assets/animations/IttyBitty_Enemies.png" id="2_ge0ff"]
+[ext_resource type="Script" uid="uid://dyqwy38yyi3ti" path="res://scripts/encounter_scripts/world_encounter.gd" id="1_wfk6b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 
-[node name="test_encounter" type="Node2D" unique_id=255067541]
-script = ExtResource("1_re06t")
+[node name="world_encounter" type="Node2D" unique_id=255067541]
+script = ExtResource("1_wfk6b")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=188563750]
 collision_mask = 2
@@ -15,8 +14,5 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_g4v7s")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=433697123]
-texture = ExtResource("2_ge0ff")
-region_enabled = true
-region_rect = Rect2(16, 0, 16, 16)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

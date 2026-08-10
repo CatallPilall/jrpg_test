@@ -7,15 +7,19 @@ func generate_signal_key() -> int:
 	return signal_key_counter
 
 @warning_ignore("unused_signal")
-signal execute_attack_skill(signal_key : int)
-@warning_ignore("unused_signal")
 signal display_unit_info(selected_unit : unit,signal_key : int)
 @warning_ignore("unused_signal")
 signal load_ui_scene(ui_scene : Control,signal_key : int)
 @warning_ignore("unused_signal")
 signal load_scene(scene : Node2D,signal_key : int)
 @warning_ignore("unused_signal")
+signal load_combat_scene(scene : combat_scene, signal_key : int)
+@warning_ignore("unused_signal")
+signal unload_combat_scene(overworld_encounter : Node2D,signal_key : int)
+@warning_ignore("unused_signal")
 signal load_hud_scene(hud_scene : Control,signal_key : int)
+@warning_ignore("unused_signal")
+signal hud_scene_has_loaded(signal_key : int)
 
 # Signals for day timer control -------------------------------------------------
 @warning_ignore("unused_signal")
@@ -30,13 +34,15 @@ signal unpause_day_timer(signal_key : int)
 
 # Signals for combat_manager ----------------------------------------------------
 @warning_ignore("unused_signal")
-signal combat_attack_button(signal_key : int)
+signal skill_button_pressed(skill_pressed : String, signal_key : int)
 @warning_ignore("unused_signal")
-signal combat_guard_button(signal_key : int)
+signal unit_targets_selected(targets : Array[unit], signal_key : int)
 @warning_ignore("unused_signal")
-signal combat_channel_button(signal_key : int)
+signal end_turn_button_pressed(signal_key : int)
 @warning_ignore("unused_signal")
-signal combat_skill_button(signal_key : int)
+signal new_selected_unit(selected_unit : unit, signal_key : int)
 @warning_ignore("unused_signal")
-signal combat_item_button(signal_key : int)
+signal remove_dead_unit(dead_unit : unit, signal_key : int)
+@warning_ignore("unused_signal")
+signal clean_up_skill(skill_to_clean : skill, signal_key : int)
 # -------------------------------------------------------------------------------

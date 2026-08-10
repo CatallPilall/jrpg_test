@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="unit" format=3 uid="uid://c22cp1oc36q8m"]
+
+[ext_resource type="Script" uid="uid://bhkrh7qiqh1s5" path="res://scripts/resource_scripts/unit.gd" id="1_8tvp8"]
+
+[resource]
+script = ExtResource("1_8tvp8")
+unit_sprite_path = "res://assets/portraits/brunhilde_combat_sprite.png"
+unit_name = "Brunhilde"
+unit_health = 100
+unit_atk = 20
+unit_def = 10
+unit_speed = 5

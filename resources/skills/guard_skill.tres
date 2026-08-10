@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://b77dd1v16v8qd"]
+
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skill.gd" id="1_r1apu"]
+
+[resource]
+script = ExtResource("1_r1apu")
+skill_type = 1
+skill_speed = 10
+skill_duration = 2
