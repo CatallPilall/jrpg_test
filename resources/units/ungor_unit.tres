@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="unit" format=3 uid="uid://hk6qfo6j15wa"]
+
+[ext_resource type="Script" uid="uid://bhkrh7qiqh1s5" path="res://scripts/resource_scripts/unit.gd" id="1_kjshp"]
+
+[resource]
+script = ExtResource("1_kjshp")
+unit_sprite_path = "res://assets/portraits/ungor_combat_sprite.png"
+unit_name = "Ungor"
+unit_health = 110
+unit_atk = 15
+unit_def = 15
+unit_speed = 3

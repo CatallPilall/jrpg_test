@@ -3,6 +3,11 @@ extends Node2D
 class_name combat_scene
 
 @onready var ally_position_one : Node2D = $ally_position_one
+@onready var ally_position_two: Node2D = $ally_position_two
+@onready var ally_position_three: Node2D = $ally_position_three
+@onready var ally_position_four: Node2D = $ally_position_four
+@onready var ally_position_five: Node2D = $ally_position_five
+
 @onready var enemy_position_one: Node2D = $enemy_position_one
 @onready var enemy_position_two: Node2D = $enemy_position_two
 @onready var enemy_position_three: Node2D = $enemy_position_three
@@ -36,10 +41,7 @@ func _ready() -> void:
 	
 	connect_to_remove_dead_unit()
 	
-	var new_ally_one_sprite = Sprite2D.new()
-	new_ally_one_sprite.texture = load(ally_team[0].unit_sprite_path)
-	ally_position_one.add_child(new_ally_one_sprite)
-	
+	load_ally_sprites()
 	load_enemy_sprites()
 	
 	var new_signal_key : int = EventBus.generate_signal_key()
@@ -47,6 +49,38 @@ func _ready() -> void:
 	new_signal_key = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"load_hud_scene","emit",new_signal_key)
 	EventBus.load_hud_scene.emit(new_combat_hud,new_signal_key)
+
+func load_ally_sprites():
+	if ally_team[0]:
+		var new_ally_one_sprite = Sprite2D.new()
+		new_ally_one_sprite.texture = load(ally_team[0].unit_sprite_path)
+		ally_position_one.add_child(new_ally_one_sprite)
+	else:
+		ally_position_one.hide()
+	if ally_team[1]:
+		var new_ally_two_sprite = Sprite2D.new()
+		new_ally_two_sprite.texture = load(ally_team[1].unit_sprite_path)
+		ally_position_two.add_child(new_ally_two_sprite)
+	else:
+		ally_position_two.hide()
+	if ally_team[2]:
+		var new_ally_three_sprite = Sprite2D.new()
+		new_ally_three_sprite.texture = load(ally_team[2].unit_sprite_path)
+		ally_position_three.add_child(new_ally_three_sprite)
+	else:
+		ally_position_three.hide()
+	if ally_team[3]:
+		var new_ally_four_sprite = Sprite2D.new()
+		new_ally_four_sprite.texture = load(ally_team[3].unit_sprite_path)
+		ally_position_four.add_child(new_ally_four_sprite)
+	else:
+		ally_position_four.hide()
+	if ally_team[4]:
+		var new_ally_five_sprite = Sprite2D.new()
+		new_ally_five_sprite.texture = load(ally_team[4].unit_sprite_path)
+		ally_position_five.add_child(new_ally_five_sprite)
+	else:
+		ally_position_five.hide()
 
 func load_enemy_sprites():
 	if enemy_one:
@@ -188,3 +222,40 @@ func _on_enemy_five_area_2d_input_event(_viewport: Node, event: InputEvent, _sha
 
 func _on_enemy_five_area_2d_mouse_entered() -> void:
 	_unit_hovered(enemy_five)
+
+
+func _on_ally_two_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	_unit_clicked(event,ally_team[1])
+
+
+func _on_ally_two_area_2d_mouse_entered() -> void:
+	_unit_hovered(ally_team[1])
+
+
+func _on_ally_three_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	_unit_clicked(event,ally_team[2])
+
+
+func _on_ally_three_area_2d_mouse_entered() -> void:
+	_unit_hovered(ally_team[2])
+
+
+func _on_ally_four_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	_unit_clicked(event,ally_team[3])
+
+
+func _on_ally_four_area_2d_mouse_entered() -> void:
+	_unit_hovered(ally_team[3])
+
+
+func _on_ally_five_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	_unit_clicked(event,ally_team[4])
+
+
+func _on_ally_five_area_2d_mouse_entered() -> void:
+	_unit_hovered(ally_team[4])
+
+
+func _on_enemy_team_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		ConsoleLog.DEBUG(self,"team area clicked")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://bmohv42728j3w"]
+
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skill.gd" id="1_nqiok"]
+
+[resource]
+script = ExtResource("1_nqiok")
+possible_target = 2
+skill_type = 1
+fire_damage = 35
+skill_speed = 2

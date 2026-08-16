@@ -5,6 +5,14 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7numd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1u0y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5s0fj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33x8s"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57qmd"]
@@ -25,6 +33,38 @@ position = Vector2(175, 205)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ally_position_one/ally_one_Area2D" unique_id=290816993]
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="ally_position_two" type="Node2D" parent="." unique_id=2114749486]
+position = Vector2(207, 205)
+
+[node name="ally_two_Area2D" type="Area2D" parent="ally_position_two" unique_id=615080112]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ally_position_two/ally_two_Area2D" unique_id=1729198483]
+shape = SubResource("RectangleShape2D_7numd")
+
+[node name="ally_position_three" type="Node2D" parent="." unique_id=2030073930]
+position = Vector2(240, 205)
+
+[node name="ally_three_Area2D" type="Area2D" parent="ally_position_three" unique_id=1441262609]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ally_position_three/ally_three_Area2D" unique_id=783549128]
+shape = SubResource("RectangleShape2D_p1u0y")
+
+[node name="ally_position_four" type="Node2D" parent="." unique_id=1033647617]
+position = Vector2(190, 238)
+
+[node name="ally_four_Area2D" type="Area2D" parent="ally_position_four" unique_id=640260593]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ally_position_four/ally_four_Area2D" unique_id=137287478]
+shape = SubResource("RectangleShape2D_5s0fj")
+
+[node name="ally_position_five" type="Node2D" parent="." unique_id=1767581760]
+position = Vector2(223, 238)
+
+[node name="ally_five_Area2D" type="Area2D" parent="ally_position_five" unique_id=1323542819]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ally_position_five/ally_five_Area2D" unique_id=1963127497]
+shape = SubResource("RectangleShape2D_33x8s")
 
 [node name="enemy_position_one" type="Node2D" parent="." unique_id=1908508256]
 position = Vector2(317, 147)
@@ -73,8 +113,23 @@ zoom = Vector2(3, 3)
 [node name="combat_manager" type="Node" parent="." unique_id=368374353]
 script = ExtResource("2_gk5ye")
 
+[node name="enemy_team_Area2D" type="Area2D" parent="." unique_id=170020467]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_team_Area2D" unique_id=2108280760]
+position = Vector2(0, -1.9808197)
+scale = Vector2(1, 1.0243644)
+polygon = PackedVector2Array(325, 99, 392, 99, 411, 158, 294, 157)
+
 [connection signal="input_event" from="ally_position_one/ally_one_Area2D" to="." method="_on_ally_one_area_2d_input_event"]
 [connection signal="mouse_entered" from="ally_position_one/ally_one_Area2D" to="." method="_on_ally_one_area_2d_mouse_entered"]
+[connection signal="input_event" from="ally_position_two/ally_two_Area2D" to="." method="_on_ally_two_area_2d_input_event"]
+[connection signal="mouse_entered" from="ally_position_two/ally_two_Area2D" to="." method="_on_ally_two_area_2d_mouse_entered"]
+[connection signal="input_event" from="ally_position_three/ally_three_Area2D" to="." method="_on_ally_three_area_2d_input_event"]
+[connection signal="mouse_entered" from="ally_position_three/ally_three_Area2D" to="." method="_on_ally_three_area_2d_mouse_entered"]
+[connection signal="input_event" from="ally_position_four/ally_four_Area2D" to="." method="_on_ally_four_area_2d_input_event"]
+[connection signal="mouse_entered" from="ally_position_four/ally_four_Area2D" to="." method="_on_ally_four_area_2d_mouse_entered"]
+[connection signal="input_event" from="ally_position_five/ally_five_Area2D" to="." method="_on_ally_five_area_2d_input_event"]
+[connection signal="mouse_entered" from="ally_position_five/ally_five_Area2D" to="." method="_on_ally_five_area_2d_mouse_entered"]
 [connection signal="input_event" from="enemy_position_one/enemy_one_Area2D" to="." method="_on_enemy_one_area_2d_input_event"]
 [connection signal="mouse_entered" from="enemy_position_one/enemy_one_Area2D" to="." method="_on_enemy_one_area_2d_mouse_entered"]
 [connection signal="input_event" from="enemy_position_two/enemy_two_Area2D" to="." method="_on_enemy_two_area_2d_input_event"]
@@ -85,3 +140,4 @@ script = ExtResource("2_gk5ye")
 [connection signal="mouse_entered" from="enemy_position_four/enemy_four_Area2D" to="." method="_on_enemy_four_area_2d_mouse_entered"]
 [connection signal="input_event" from="enemy_position_five/enemy_five_Area2D" to="." method="_on_enemy_five_area_2d_input_event"]
 [connection signal="mouse_entered" from="enemy_position_five/enemy_five_Area2D" to="." method="_on_enemy_five_area_2d_mouse_entered"]
+[connection signal="input_event" from="enemy_team_Area2D" to="." method="_on_enemy_team_area_2d_input_event"]

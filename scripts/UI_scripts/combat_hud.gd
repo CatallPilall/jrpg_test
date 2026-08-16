@@ -2,20 +2,70 @@ extends Control
 
 var is_display_unit_info_connected : bool = false
 var is_new_selected_unit_connected : bool = false
+var is_disable_combat_actions_connected : bool = false
+var is_enable_combat_hud_actions_connected : bool = false
 
 @onready var rich_text_label: RichTextLabel = $MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer2/RichTextLabel
 
 @onready var stat_portrait : TextureRect = $MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/TextureRect
 @onready var selected_unit_portrait : TextureRect = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2/TextureRect
 
+@onready var attack_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/attack_button
+@onready var guard_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/guard_button
+@onready var channel_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/channel_button
+@onready var item_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer4/item_button
+@onready var skill_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/skill_button
+
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	connect_to_display_unit_info()
 	connect_to_new_selected_unit()
+	connect_to_disable_combat_hud_actions()
+	connect_to_enable_combat_hud_actions()
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","emit",new_signal_key)
 	EventBus.hud_scene_has_loaded.emit(new_signal_key)
+
+func connect_to_disable_combat_hud_actions():
+	if not is_disable_combat_actions_connected:
+		is_disable_combat_actions_connected = true
+		EventBus.disable_combat_hud_actions.connect(_disable_combat_hud_actions)
+		ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","connected",1)
+
+func disconnect_from_disable_combat_hud_actions():
+	if is_disable_combat_actions_connected:
+		is_disable_combat_actions_connected = false
+		EventBus.disable_combat_hud_actions.disconnect(_disable_combat_hud_actions)
+		ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","disconnected",0)
+
+func _disable_combat_hud_actions(signal_key):
+	attack_button.disabled = true
+	guard_button.disabled = true
+	channel_button.disabled = true
+	skill_button.disabled = true
+	item_button.disabled = true
+	ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","processed",signal_key)
+
+func connect_to_enable_combat_hud_actions():
+	if not is_enable_combat_hud_actions_connected:
+		is_enable_combat_hud_actions_connected = true
+		EventBus.enable_combat_hud_actions.connect(_enable_combat_hud_actions)
+		ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","connected",1)
+
+func disconnect_from_enable_combat_hud_actions():
+	if is_enable_combat_hud_actions_connected:
+		is_enable_combat_hud_actions_connected = false
+		EventBus.enable_combat_hud_actions.disconnect(_enable_combat_hud_actions)
+		ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","disconnected",0)
+
+func _enable_combat_hud_actions(signal_key):
+	attack_button.disabled = false
+	guard_button.disabled = false
+	channel_button.disabled = false
+	skill_button.disabled = false
+	item_button.disabled = false
+	ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","processed",signal_key)
 
 func connect_to_display_unit_info():
 	if not is_display_unit_info_connected:

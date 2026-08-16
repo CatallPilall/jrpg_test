@@ -73,11 +73,19 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2" unique_id=311816128]
 layout_mode = 2
 
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=583843439]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3" unique_id=2033360886]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3/ScrollContainer" unique_id=1374550379]
+layout_mode = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=214063472]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_right = -50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer" unique_id=1400555084]
 layout_mode = 2
@@ -125,7 +133,6 @@ text = "Item"
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=77617921]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 50
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2" unique_id=992166545]
 layout_mode = 2

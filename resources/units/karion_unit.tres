@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="unit" format=3 uid="uid://8bqiyuh4e3im"]
+
+[ext_resource type="Script" uid="uid://bhkrh7qiqh1s5" path="res://scripts/resource_scripts/unit.gd" id="1_pfjxc"]
+
+[resource]
+script = ExtResource("1_pfjxc")
+unit_sprite_path = "res://assets/portraits/karion_combat_sprite.png"
+unit_name = "Karion"
+unit_health = 75
+unit_atk = 30
+unit_def = 5
+unit_speed = 7

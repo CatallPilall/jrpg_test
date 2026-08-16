@@ -9,4 +9,5 @@ unit_name = "Goblin Brute"
 unit_health = 50
 unit_atk = 10
 unit_def = 5
+unit_fire_resist = 5
 unit_speed = 2
