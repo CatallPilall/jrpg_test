@@ -20,8 +20,8 @@ func disconnect_from_remove_dead_unit():
 		EventBus.remove_dead_unit.disconnect(_remove_dead_unit)
 		ConsoleLog.SIGNAL(self,"remove_dead_unit","disconnected",0)
 
-enum enum_targeting{SELF,SINGLE_ENEMY,TEAM_ENEMY}
-@export var possible_target : enum_targeting
+enum enum_skill_targeting{NONE,SELF,SINGLE_ENEMY,TEAM_ENEMY}
+@export var skill_targeting : enum_skill_targeting
 
 enum enum_skill_type{ATTACK,SPELL}
 @export var skill_type : enum_skill_type

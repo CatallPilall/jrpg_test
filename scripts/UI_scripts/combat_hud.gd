@@ -4,6 +4,10 @@ var is_display_unit_info_connected : bool = false
 var is_new_selected_unit_connected : bool = false
 var is_disable_combat_actions_connected : bool = false
 var is_enable_combat_hud_actions_connected : bool = false
+var is_make_combat_hud_skill_buttons_connected : bool = false
+var is_remove_combat_hud_skill_buttons_connected : bool = false
+
+var are_non_skill_buttons_disabled : bool = false
 
 @onready var rich_text_label: RichTextLabel = $MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer2/RichTextLabel
 
@@ -16,6 +20,8 @@ var is_enable_combat_hud_actions_connected : bool = false
 @onready var item_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer4/item_button
 @onready var skill_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/skill_button
 
+@onready var skill_buttons_vbox: VBoxContainer = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3/ScrollContainer/skill_buttons_vbox
+
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -23,9 +29,65 @@ func _ready() -> void:
 	connect_to_new_selected_unit()
 	connect_to_disable_combat_hud_actions()
 	connect_to_enable_combat_hud_actions()
+	connect_to_make_combat_hud_skill_buttons()
+	connect_to_remove_combat_hud_skill_buttons()
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","emit",new_signal_key)
 	EventBus.hud_scene_has_loaded.emit(new_signal_key)
+
+func connect_to_remove_combat_hud_skill_buttons():
+	if not is_remove_combat_hud_skill_buttons_connected:
+		is_remove_combat_hud_skill_buttons_connected = true
+		EventBus.remove_combat_hud_skill_buttons.connect(_remove_combat_hud_skill_buttons)
+		ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","connected",1)
+
+func disconnect_fromremove_combat_hud_skill_buttons():
+	if is_remove_combat_hud_skill_buttons_connected:
+		is_remove_combat_hud_skill_buttons_connected = false
+		EventBus.remove_combat_hud_skill_buttons.disconnect(_remove_combat_hud_skill_buttons)
+		ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","disconnected",0)
+
+func _remove_combat_hud_skill_buttons(signal_key : int):
+	if are_non_skill_buttons_disabled:
+		disable_non_skill_buttons(false)
+		clear_skill_buttons_vbox()
+	ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","processed",signal_key)
+
+func clear_skill_buttons_vbox():
+	var new_array : Array[Node] = skill_buttons_vbox.get_children()
+	for i in new_array:
+		i.queue_free()
+
+func connect_to_make_combat_hud_skill_buttons():
+	if not is_make_combat_hud_skill_buttons_connected:
+		is_make_combat_hud_skill_buttons_connected = true
+		EventBus.make_combat_hud_skill_buttons.connect(_make_combat_hud_skill_buttons)
+		ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","connected",1)
+
+func disconnect_from_make_combat_hud_skill_buttons():
+	if is_make_combat_hud_skill_buttons_connected:
+		is_make_combat_hud_skill_buttons_connected = false
+		EventBus.make_combat_hud_skill_buttons.disconnect(_make_combat_hud_skill_buttons)
+		ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","disconnected",0)
+
+func _make_combat_hud_skill_buttons(skill_array : Array[String],signal_key : int):
+	
+	for i in skill_array:
+		var new_button = Button.new()
+		new_button.text = i.capitalize()
+		new_button.pressed.connect(_on_skill_selected.bind(i))
+		skill_buttons_vbox.add_child.call_deferred(new_button)
+	
+	disable_non_skill_buttons(true)
+	ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","processed",signal_key)
+
+func disable_non_skill_buttons(disable : bool):
+	are_non_skill_buttons_disabled = disable
+	attack_button.disabled = disable
+	guard_button.disabled = disable
+	channel_button.disabled = disable
+	item_button.disabled = disable
+	
 
 func connect_to_disable_combat_hud_actions():
 	if not is_disable_combat_actions_connected:
@@ -131,6 +193,10 @@ func _on_skill_selected(selected_skill : String):
 
 func _on_skill_button_pressed() -> void:
 	ConsoleLog.INPUT("skill_button","pressed",[])
+	if are_non_skill_buttons_disabled:
+		_remove_combat_hud_skill_buttons(2)
+	else:
+		_on_skill_selected("skill")
 
 func _on_item_button_pressed() -> void:
 	ConsoleLog.INPUT("item_button","pressed",[])

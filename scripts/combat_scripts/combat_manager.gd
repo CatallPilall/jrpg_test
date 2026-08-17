@@ -2,10 +2,11 @@ extends Node
 
 var skill_dict : Dictionary[String,skill] = {
 	"attack":preload("res://resources/skills/attack_skill.tres"),
-	"guard":preload("res://resources/skills/guard_skill.tres")
+	"guard":preload("res://resources/skills/guard_skill.tres"),
+	"fireball":preload("res://resources/skills/fireball_skill.tres")
 }
 
-enum combat_state_machine {FIRST_CHARACTER,CHARACTER_SELECTED,SKILL_SELECTED,LAST_CHARACTER}
+enum combat_state_machine {FIRST_CHARACTER,CHARACTER_SELECTED,SKILL_PENDING,SKILL_SELECTED,LAST_CHARACTER}
 var combat_state : combat_state_machine
 
 var selected_unit_array_position : int
@@ -91,15 +92,27 @@ func disconnect_from_skill_button_pressed():
 		ConsoleLog.SIGNAL(self,"skill_button_pressed","disconnected",0)
 
 func _skill_button_pressed(skill_name : String, signal_key : int):
-	
-	var new_skill : skill = skill_dict.get(skill_name).duplicate()
-	
-	selected_skill = new_skill
-	
-	combat_state = combat_state_machine.SKILL_SELECTED
-	
-	ConsoleLog.INFO(self,["selected_skill","selected_unit"],[selected_skill,selected_unit])
-	ConsoleLog.SIGNAL(self,"skill_button_pressed","processed",signal_key)
+	if skill_name == "skill":
+		combat_state = combat_state_machine.SKILL_PENDING
+		var new_skill_array : Array[String]
+		for i in selected_unit.unit_skills:
+			new_skill_array.append(i)
+		var new_signal_key : int = EventBus.generate_signal_key()
+		ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","emit",new_signal_key)
+		EventBus.make_combat_hud_skill_buttons.emit(new_skill_array, new_signal_key)
+	else:
+		var new_skill : skill = skill_dict.get(skill_name).duplicate()
+		
+		selected_skill = new_skill
+		
+		combat_state = combat_state_machine.SKILL_SELECTED
+		ConsoleLog.INFO(self,["selected_skill","selected_unit"],[selected_skill,selected_unit])
+		
+		var new_signal_key : int = EventBus.generate_signal_key()
+		ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+		EventBus.apply_skill_targeting.emit(selected_skill.skill_targeting,new_signal_key)
+		
+		ConsoleLog.SIGNAL(self,"skill_button_pressed","processed",signal_key)
 
 func connect_to_unit_targets_selected():
 	if not is_unit_targets_selected_connected:
@@ -123,10 +136,19 @@ func _unit_targets_selected(selected_targets : Array[unit], signal_key : int):
 		ConsoleLog.SIGNAL(self,"unit_targets_selected","processed",signal_key)
 
 func cycle_ally_unit():
+	var new_signal_key : int = EventBus.generate_signal_key()
+	ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
+	EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+	
+	new_signal_key = EventBus.generate_signal_key()
+	ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+	EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,new_signal_key)
+	
 	if selected_unit_array_position == 4:
-		var new_signal_key : int = EventBus.generate_signal_key()
+		new_signal_key = EventBus.generate_signal_key()
 		ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","emit",new_signal_key)
 		EventBus.disable_combat_hud_actions.emit(new_signal_key)
+		
 		combat_state = combat_state_machine.LAST_CHARACTER
 	else:
 		selected_unit_array_position += 1
@@ -190,15 +212,33 @@ func undo_last_action():
 				combat_state = combat_state_machine.FIRST_CHARACTER
 			else:
 				combat_state = combat_state_machine.CHARACTER_SELECTED
+			
+			var new_signal_key :int = EventBus.generate_signal_key()
+			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+			EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,new_signal_key)
+			
 		combat_state_machine.CHARACTER_SELECTED:
 			selected_unit_array_position -= 1
 			selected_skill = skill_order_array.pop_back()
 			new_unit_selected()
 			combat_state = combat_state_machine.SKILL_SELECTED
+			
+			var new_signal_key :int = EventBus.generate_signal_key()
+			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+			EventBus.apply_skill_targeting.emit(selected_skill.skill_targeting,new_signal_key)
+			
 		combat_state_machine.LAST_CHARACTER:
 			selected_skill = skill_order_array.pop_back()
 			var new_signal_key : int = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
 			EventBus.enable_combat_hud_actions.emit(new_signal_key)
 			combat_state = combat_state_machine.SKILL_SELECTED
+		combat_state_machine.SKILL_PENDING:
+			var new_signal_key : int = EventBus.generate_signal_key()
+			ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
+			EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+			if selected_unit_array_position == 0:
+				combat_state = combat_state_machine.FIRST_CHARACTER
+			else:
+				combat_state = combat_state_machine.CHARACTER_SELECTED
 	ConsoleLog.INFO(self,["selected_character","selected_skill","state_machine","skill_array"],[selected_unit,selected_skill,combat_state,skill_order_array])

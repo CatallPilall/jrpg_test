@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_nqiok")
-possible_target = 2
+skill_targeting = 3
 skill_type = 1
 fire_damage = 35
 skill_speed = 2

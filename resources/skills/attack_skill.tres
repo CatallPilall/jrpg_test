@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_rd62m")
-possible_target = 1
+skill_targeting = 2
 phys_damage = 10
 skill_speed = 5

@@ -14,11 +14,27 @@ class_name combat_scene
 @onready var enemy_position_four: Node2D = $enemy_position_four
 @onready var enemy_position_five: Node2D = $enemy_position_five
 
+@onready var ally_one_area_2d: Area2D = $ally_position_one/ally_one_Area2D
+@onready var ally_two_area_2d: Area2D = $ally_position_two/ally_two_Area2D
+@onready var ally_three_area_2d: Area2D = $ally_position_three/ally_three_Area2D
+@onready var ally_four_area_2d: Area2D = $ally_position_four/ally_four_Area2D
+@onready var ally_five_area_2d: Area2D = $ally_position_five/ally_five_Area2D
+
+@onready var enemy_one_area_2d: Area2D = $enemy_position_one/enemy_one_Area2D
+@onready var enemy_two_area_2d: Area2D = $enemy_position_two/enemy_two_Area2D
+@onready var enemy_three_area_2d: Area2D = $enemy_position_three/enemy_three_Area2D
+@onready var enemy_four_area_2d: Area2D = $enemy_position_four/enemy_four_Area2D
+@onready var enemy_five_area_2d: Area2D = $enemy_position_five/enemy_five_Area2D
+
+@onready var enemy_team_area_2d: Area2D = $enemy_team_Area2D
+
+
 @onready var camera_2d: Camera2D = $Camera2D
 
 var combat_hud_packed_scene : PackedScene = preload("res://scenes/UI_scenes/combat_hud.tscn")
 
 var is_remove_dead_unit_connected : bool = false
+var is_apply_skill_targeting_connected : bool = false
 
 var ally_team : Array[unit]
 
@@ -40,6 +56,7 @@ func _ready() -> void:
 	copy_combat_team_locally()
 	
 	connect_to_remove_dead_unit()
+	connect_to_apply_skill_targeting()
 	
 	load_ally_sprites()
 	load_enemy_sprites()
@@ -49,6 +66,60 @@ func _ready() -> void:
 	new_signal_key = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"load_hud_scene","emit",new_signal_key)
 	EventBus.load_hud_scene.emit(new_combat_hud,new_signal_key)
+
+func connect_to_apply_skill_targeting():
+	if not is_apply_skill_targeting_connected:
+		is_apply_skill_targeting_connected = true
+		EventBus.apply_skill_targeting.connect(_apply_skill_targeting)
+		ConsoleLog.SIGNAL(self,"apply_skill_targeting","connected",1)
+
+func disconnect_from_apply_skill_targeting():
+	if is_apply_skill_targeting_connected:
+		is_apply_skill_targeting_connected = false
+		EventBus.apply_skill_targeting.disconnect(_apply_skill_targeting)
+		ConsoleLog.SIGNAL(self,"apply_skill_targeting","disconnected",0)
+
+func _apply_skill_targeting(skill_targeting : skill.enum_skill_targeting, signal_key : int):
+	ally_one_area_2d.show()
+	ally_two_area_2d.show()
+	ally_three_area_2d.show()
+	ally_four_area_2d.show()
+	ally_five_area_2d.show()
+	
+	enemy_one_area_2d.show()
+	enemy_two_area_2d.show()
+	enemy_three_area_2d.show()
+	enemy_four_area_2d.show()
+	enemy_five_area_2d.show()
+	
+	enemy_team_area_2d.hide()
+	
+	match skill_targeting:
+		skill.enum_skill_targeting.NONE:
+			return
+		skill.enum_skill_targeting.SINGLE_ENEMY:
+			ally_one_area_2d.hide()
+			ally_two_area_2d.hide()
+			ally_three_area_2d.hide()
+			ally_four_area_2d.hide()
+			ally_five_area_2d.hide()
+		skill.enum_skill_targeting.TEAM_ENEMY:
+			hide_individual_area_2d()
+			enemy_team_area_2d.show()
+	ConsoleLog.SIGNAL(self,"apply_skill_targeting","processed",signal_key)
+
+func hide_individual_area_2d():
+	ally_one_area_2d.hide()
+	ally_two_area_2d.hide()
+	ally_three_area_2d.hide()
+	ally_four_area_2d.hide()
+	ally_five_area_2d.hide()
+	
+	enemy_one_area_2d.hide()
+	enemy_two_area_2d.hide()
+	enemy_three_area_2d.hide()
+	enemy_four_area_2d.hide()
+	enemy_five_area_2d.hide()
 
 func load_ally_sprites():
 	if ally_team[0]:
@@ -258,4 +329,17 @@ func _on_ally_five_area_2d_mouse_entered() -> void:
 
 func _on_enemy_team_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("left_click"):
-		ConsoleLog.DEBUG(self,"team area clicked")
+		var new_targets : Array[unit]
+		if enemy_position_one.visible:
+			new_targets.append(enemy_one)
+		if enemy_position_two.visible:
+			new_targets.append(enemy_two)
+		if enemy_position_three.visible:
+			new_targets.append(enemy_three)
+		if enemy_position_four.visible:
+			new_targets.append(enemy_four)
+		if enemy_position_five.visible:
+			new_targets.append(enemy_five)
+		var new_signal_key : int = EventBus.generate_signal_key()
+		ConsoleLog.SIGNAL(self,"unit_targets_selected","emit",new_signal_key)
+		EventBus.unit_targets_selected.emit(new_targets,new_signal_key)
