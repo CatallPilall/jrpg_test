@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="item" format=3 uid="uid://bk5es7utkchxv"]
+
+[ext_resource type="Script" uid="uid://ddw4laaewb8pg" path="res://scripts/resource_scripts/item.gd" id="1_ytpkg"]
+
+[resource]
+script = ExtResource("1_ytpkg")
+item_name = "Brown leather boots"
+item_icon_path = "res://assets/icons/brown_leather_boots.png"
+item_description = "Well made leather boots ideal for running"
+item_type = 1
+item_value = 150

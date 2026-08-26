@@ -12,7 +12,10 @@ class_name unit
 @export var unit_def : int
 
 @export var unit_fire_resist : int
+@export var unit_poi_resist : int
 
 @export var unit_speed : int
 
-@export var unit_skills : Dictionary[String,int] = {"fireball":0}
+@export var unit_skills : Dictionary[String,int] = {
+	"fireball":0,
+	"firebolt":0}

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="item" format=3 uid="uid://dcxg0re5ji10k"]
+
+[ext_resource type="Resource" uid="uid://kphmgxtbfaf5" path="res://resources/skills/poison_spores_scroll_skill.tres" id="1_n1tpi"]
+[ext_resource type="Script" uid="uid://ddw4laaewb8pg" path="res://scripts/resource_scripts/item.gd" id="2_wlpct"]
+
+[resource]
+script = ExtResource("2_wlpct")
+item_name = "Poison spores scroll"
+item_icon_path = "res://assets/icons/poison_spores_scroll.png"
+item_description = "A spell scroll inscribed with the Poison spores"
+item_value = 50
+item_skill = ExtResource("1_n1tpi")
