@@ -34,6 +34,8 @@ signal unpause_day_timer(signal_key : int)
 
 # Signals for combat_manager ----------------------------------------------------
 @warning_ignore("unused_signal")
+signal combat_started(signal_key : int)
+@warning_ignore("unused_signal")
 signal skill_button_pressed(item_skill : skill, skill_pressed : String, signal_key : int)
 @warning_ignore("unused_signal")
 signal unit_targets_selected(targets : Array[unit], signal_key : int)
@@ -65,8 +67,12 @@ signal make_combat_hud_item_buttons(signal_key : int)
 signal item_button_pressed(item_pressed : item, signal_key : int)
 @warning_ignore("unused_signal")
 signal disable_item_button(disabled : bool, signal_key : int)
+@warning_ignore("unused_signal")
+signal combat_ended(signal_key : int)
 # -------------------------------------------------------------------------------
 # Signals for skills and relics -------------------------------------------------
 @warning_ignore("unused_signal")
 signal new_turn(signal_key : int)
+@warning_ignore("unused_signal")
+signal calculating_skill_speed(caster : unit, casted_skill : skill, signal_key : int)
 # -------------------------------------------------------------------------------
