@@ -1,0 +1,10 @@
+[gd_resource type="Resource" format=3 uid="uid://brb1jlx0nogge"]
+
+[ext_resource type="Script" uid="uid://brlbr4olsgwi7" path="res://scripts/resource_scripts/skills/instant_damage.gd" id="1_hsp6l"]
+
+[resource]
+script = ExtResource("1_hsp6l")
+damage_type = 4
+base_value = 50.0
+stat_scaling = 1.0
+base_accuracy = 15.0

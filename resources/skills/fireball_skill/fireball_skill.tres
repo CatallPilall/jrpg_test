@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://chruqjtbthfnd"]
+
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="1_q6t1w"]
+[ext_resource type="Script" uid="uid://ctjul1gbliyjn" path="res://scripts/resource_scripts/skills/skill_fragment.gd" id="2_5aka2"]
+[ext_resource type="Resource" uid="uid://brb1jlx0nogge" path="res://resources/skills/fireball_skill/fireball_instant_damage.tres" id="3_bqned"]
+
+[resource]
+script = ExtResource("1_q6t1w")
+primary_skill_targeting = 3
+skill_type = 1
+skill_fragments = Array[ExtResource("2_5aka2")]([ExtResource("3_bqned")])

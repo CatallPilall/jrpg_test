@@ -1,10 +1,8 @@
 extends Node
 
 var skill_dict : Dictionary[String,skill] = {
-	"attack":preload("res://resources/skills/attack_skill.tres"),
-	"guard":preload("res://resources/skills/guard_skill.tres"),
-	"fireball":preload("res://resources/skills/fireball_skill.tres"),
-	"firebolt":preload("res://resources/skills/firebolt_skill.tres")
+	"attack":preload("res://resources/skills/attack_skill/attack_skill.tres"),
+	"fireball":preload("res://resources/skills/fireball_skill/fireball_skill.tres")
 }
 
 enum combat_state_machine {FIRST_CHARACTER,CHARACTER_SELECTED,SKILL_PENDING,SKILL_SELECTED,LAST_CHARACTER,ITEM_SELECTED}
@@ -129,7 +127,7 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 		
 		var new_signal_key : int = EventBus.generate_signal_key()
 		ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-		EventBus.apply_skill_targeting.emit(selected_skill.skill_targeting,new_signal_key)
+		EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,new_signal_key)
 		
 		ConsoleLog.SIGNAL(self,"skill_button_pressed","processed",signal_key)
 
@@ -173,7 +171,6 @@ func disconnect_from_unit_targets_selected():
 func _unit_targets_selected(selected_targets : Array[unit], signal_key : int):
 	if selected_skill:
 		selected_skill.set_caster_and_targets(selected_unit,selected_targets)
-		selected_skill.display_skill_data()
 		queue_skill(selected_skill)
 		selected_skill = null
 		cycle_ally_unit()
