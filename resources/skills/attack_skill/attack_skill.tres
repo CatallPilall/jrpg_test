@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="skill" format=3 uid="uid://ctwl4a1qh1kgs"]
 
 [ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="1_tsas4"]
-[ext_resource type="Script" uid="uid://ctjul1gbliyjn" path="res://scripts/resource_scripts/skills/skill_fragment.gd" id="2_ybpmf"]
-[ext_resource type="Resource" uid="uid://ba870sk1htqs6" path="res://resources/skills/attack_skill/attack_skill_instant_damage.tres" id="3_lbxfb"]
+[ext_resource type="Resource" uid="uid://rskv7gcqmr4n" path="res://resources/skills/attack_skill/attack_skill_instant_damage_fragment.tres" id="1_vm7ok"]
 
 [resource]
 script = ExtResource("1_tsas4")
 primary_skill_targeting = 2
-skill_fragments = Array[ExtResource("2_ybpmf")]([ExtResource("3_lbxfb")])
+skill_speed = 5
+first_skill_fragment = ExtResource("1_vm7ok")

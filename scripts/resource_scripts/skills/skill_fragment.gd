@@ -23,4 +23,30 @@ enum enum_stat_buff {
 
 @export var duration : int
 
-@abstract func execute_skill_fragment(caster : unit, target : unit)
+@export var primary_target_defining_fragment : bool
+var primary_defined_targets : Array[unit]
+
+@export var secondary_target_defining_fragment : bool
+var secondary_defined_targets : Array[unit]
+
+@export var child_skill_fragment : skill_fragment
+
+func iterate_through_skill_fragments(caster : unit, primary_targets : Array[unit], secondary_targets : Array[unit], turn_one : bool):
+	var relevant_targets : Array[unit]
+	
+	if targeting == enum_targeting.PRIMARY:
+		relevant_targets = primary_targets
+	else:
+		relevant_targets = secondary_targets
+	
+	for target in relevant_targets:
+		execute_skill_fragment(caster, target, turn_one)
+	
+	if child_skill_fragment:
+		if not primary_target_defining_fragment:
+			primary_defined_targets = primary_targets
+		if not secondary_target_defining_fragment:
+			secondary_defined_targets = secondary_targets
+		child_skill_fragment.iterate_through_skill_fragments(caster, primary_defined_targets, secondary_defined_targets, turn_one)
+
+@abstract func execute_skill_fragment(caster : unit, tatget : unit, turn_one : bool)

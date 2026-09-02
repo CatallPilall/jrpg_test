@@ -119,7 +119,7 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 		ConsoleLog.SIGNAL(self,"make_combat_hud_item_buttons","emit",new_signal_key)
 		EventBus.make_combat_hud_item_buttons.emit(new_signal_key)
 	else:
-		var new_skill : skill = skill_dict.get(skill_name).duplicate()
+		var new_skill : skill = skill_dict.get(skill_name).duplicate_deep(2)
 		selected_skill = new_skill
 		
 		combat_state = combat_state_machine.SKILL_SELECTED
