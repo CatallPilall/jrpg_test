@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://omml6robfrl2"]
+
+[ext_resource type="Resource" uid="uid://cqyigercr1ndt" path="res://resources/skills/poison_cloud_skill/poison_cloud_instant_damage_skill_fragment.tres" id="1_sakkk"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_l7b0e"]
+
+[resource]
+script = ExtResource("2_l7b0e")
+primary_skill_targeting = 3
+skill_type = 1
+skill_speed = 2
+skill_duration = 4
+first_skill_fragment = ExtResource("1_sakkk")

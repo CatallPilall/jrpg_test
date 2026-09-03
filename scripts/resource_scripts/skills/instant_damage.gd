@@ -3,7 +3,7 @@ extends skill_fragment
 var consistent_spell_cast : bool = true
 var spellcast_value : float
 
-func execute_skill_fragment(caster : unit, target : unit, turn_one : bool):
+func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, _skill_duration : int):
 	if turn_one:
 		match damage_type:
 			enum_damage_type.PIERCE:
@@ -18,17 +18,13 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool):
 				deal_magic_damage(caster,target,"elec_efficiency","elec_def")
 			enum_damage_type.ICE:
 				deal_magic_damage(caster,target,"ice_efficiency","ice_def")
-	
 
 func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 	var hit_chance = base_accuracy + caster.active_stats.get("accuracy") - target.active_stats.get("evasion")
 	var hit = roll_d_hundred()
 	if hit < hit_chance:
 		ConsoleLog.DEBUG(self,"hit")
-		if primary_target_defining_fragment:
-			primary_defined_targets.append(target)
-		if secondary_target_defining_fragment:
-			secondary_defined_targets.append(target)
+		add_unit_to_defined_targets(target)
 		
 		var damage_fork : float = 1 + (hit_chance - hit)/100
 		var resulting_damage : float = ((base_value * stat_scaling + caster.active_stats.get("phys_atk"))*damage_fork)
@@ -68,7 +64,7 @@ func deal_magic_damage(caster : unit, target : unit, magic_efficiency : String, 
 		overcast = true
 	
 	consistent_spell_cast = false
-	
+	add_unit_to_defined_targets(target)
 	var resulting_damage : float = (base_value + caster.active_stats.get("magic_atk") * stat_scaling) * caster_efficiency / 100
 	if overcast:
 		resulting_damage = resulting_damage * 1.5
@@ -77,6 +73,3 @@ func deal_magic_damage(caster : unit, target : unit, magic_efficiency : String, 
 	target.active_stats.set("health_points",remaining_target_health)
 	ConsoleLog.INFO(self,["consistent_spell_cast","overcast","caster_efficiency","resulting_damage","negated_damage"],
 	[spellcast_value,overcast,caster_efficiency,resulting_damage,negated_damage])
-
-func roll_d_hundred() -> int:
-	return randi_range(1,100)

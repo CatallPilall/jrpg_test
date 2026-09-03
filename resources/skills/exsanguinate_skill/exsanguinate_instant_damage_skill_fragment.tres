@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://1pnpbenclyka"]
+
+[ext_resource type="Script" uid="uid://brlbr4olsgwi7" path="res://scripts/resource_scripts/skills/instant_damage.gd" id="1_b8x8q"]
+[ext_resource type="Resource" uid="uid://d1ptsw0goab57" path="res://resources/skills/exsanguinate_skill/exsanguinate_dot_damage_skill_fragment.tres" id="1_k83ul"]
+
+[resource]
+script = ExtResource("1_b8x8q")
+damage_type = 2
+base_value = 15.0
+stat_scaling = 1.0
+base_accuracy = 100.0
+primary_target_defining_fragment = true
+child_skill_fragment = ExtResource("1_k83ul")

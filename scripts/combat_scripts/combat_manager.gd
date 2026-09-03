@@ -2,7 +2,9 @@ extends Node
 
 var skill_dict : Dictionary[String,skill] = {
 	"attack":preload("res://resources/skills/attack_skill/attack_skill.tres"),
-	"fireball":preload("res://resources/skills/fireball_skill/fireball_skill.tres")
+	"fireball":preload("res://resources/skills/fireball_skill/fireball_skill.tres"),
+	"exsanguinate":preload("res://resources/skills/exsanguinate_skill/exsanguinate_skill.tres"),
+	"poison cloud":preload("res://resources/skills/poison_cloud_skill/poison_cloud_skill.tres")
 }
 
 enum combat_state_machine {FIRST_CHARACTER,CHARACTER_SELECTED,SKILL_PENDING,SKILL_SELECTED,LAST_CHARACTER,ITEM_SELECTED}

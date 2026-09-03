@@ -29,16 +29,17 @@ func set_caster_and_targets(new_caster : unit, new_targets : Array[unit]):
 	total_speed = skill_speed + caster.active_stats.get("speed")
 
 func execute_skill():
-	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one)
+	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
 	
 	turn_one = false
-	
 	if skill_duration == 0:
 		prepare_skill_for_deletion()
 	else:
-		skill_duration -= skill_duration
+		skill_duration = skill_duration -1
+	ConsoleLog.DEBUG(self, "skill_duration: "+ str(skill_duration))
 
 func prepare_skill_for_deletion():
+	first_skill_fragment.clean_up_skill_fragment()
 	first_skill_fragment = null
 	primary_targets.clear()
 	secondary_targets.clear()

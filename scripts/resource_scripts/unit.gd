@@ -84,5 +84,10 @@ var active_stats : Dictionary[String,float] = {
 	"lucky_chance":0
 }
 
+var bleed_dots : Array[skill_fragment]
+var poison_dots : Array[skill_fragment]
+
 @export var unit_skills : Dictionary[String,int] = {
-	"fireball":0}
+	"fireball":0,
+	"exsanguinate":0,
+	"poison cloud":0}

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://d1ptsw0goab57"]
+
+[ext_resource type="Script" uid="uid://de50osoq5h1f2" path="res://scripts/resource_scripts/skills/dot_damage.gd" id="1_yhpsk"]
+
+[resource]
+script = ExtResource("1_yhpsk")
+damage_type = 8
+base_value = 10.0
+duration = 2

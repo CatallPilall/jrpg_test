@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://cqyigercr1ndt"]
+
+[ext_resource type="Resource" uid="uid://b85b0qqor18pi" path="res://resources/skills/poison_cloud_skill/poison_cloud_dot_damage_skill_fragment.tres" id="1_jnvuo"]
+[ext_resource type="Script" uid="uid://brlbr4olsgwi7" path="res://scripts/resource_scripts/skills/instant_damage.gd" id="2_lxjjn"]
+
+[resource]
+script = ExtResource("2_lxjjn")
+damage_type = 4
+base_accuracy = -100.0
+primary_target_defining_fragment = true
+child_skill_fragment = ExtResource("1_jnvuo")

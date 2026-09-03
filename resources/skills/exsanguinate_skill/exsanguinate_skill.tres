@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://40vl5xtf7yy3"]
+
+[ext_resource type="Resource" uid="uid://1pnpbenclyka" path="res://resources/skills/exsanguinate_skill/exsanguinate_instant_damage_skill_fragment.tres" id="1_ihxl1"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_pwurk"]
+
+[resource]
+script = ExtResource("2_pwurk")
+skill_speed = 4
+skill_duration = 3
+first_skill_fragment = ExtResource("1_ihxl1")

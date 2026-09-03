@@ -2,6 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c0jacl6xvvq4u" path="res://resources/units/goblin_brute_unit.tres" id="1_7bdw4"]
 [ext_resource type="Script" uid="uid://bd0ljl33bgnti" path="res://scripts/resource_scripts/encounter.gd" id="2_7bdw4"]
+[ext_resource type="Script" uid="uid://bhkrh7qiqh1s5" path="res://scripts/resource_scripts/unit.gd" id="2_m5npb"]
 
 [resource]
 script = ExtResource("2_7bdw4")
