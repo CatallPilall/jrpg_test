@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3 uid="uid://cr7rg5qj76e44"]
+
+[ext_resource type="Resource" uid="uid://d2h2nhs84ysf5" path="res://resources/skills/shock_skill/shock_skill_buff_debuff_skill_fragment.tres" id="1_lfy0e"]
+[ext_resource type="Script" uid="uid://brlbr4olsgwi7" path="res://scripts/resource_scripts/skills/instant_damage.gd" id="2_eu7qb"]
+
+[resource]
+script = ExtResource("2_eu7qb")
+damage_type = 5
+base_value = 10.0
+stat_scaling = 1.0
+scaling_stat = 13
+base_accuracy = 10.0
+primary_target_defining_fragment = true
+child_skill_fragment = ExtResource("1_lfy0e")

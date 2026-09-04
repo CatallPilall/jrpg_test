@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://dinjunbfx5osg"]
+
+[ext_resource type="Resource" uid="uid://cr7rg5qj76e44" path="res://resources/skills/shock_skill/shock_skill_instant_damage_skill_fragment.tres" id="1_fk641"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_yfixg"]
+
+[resource]
+script = ExtResource("2_yfixg")
+primary_skill_targeting = 2
+skill_type = 1
+skill_speed = 2
+skill_duration = 3
+first_skill_fragment = ExtResource("1_fk641")

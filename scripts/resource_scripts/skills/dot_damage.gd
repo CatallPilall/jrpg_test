@@ -56,3 +56,6 @@ func execute_poisoned(caster : unit, target : unit):
 		var remaining_target_health : int = roundi(target.active_stats.get("health_points") - negated_damage)
 		target.active_stats.set("health_points",remaining_target_health)
 		ConsoleLog.INFO(self,["resulting_damage","negated_damage"],[resulting_damage,negated_damage])
+
+func reverse_buff(_target : unit):
+	pass

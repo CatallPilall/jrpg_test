@@ -7,5 +7,6 @@ script = ExtResource("1_m8efg")
 damage_type = 1
 base_value = 20.0
 stat_scaling = 1.0
+scaling_stat = 3
 base_accuracy = 100.0
 primary_target_defining_fragment = true

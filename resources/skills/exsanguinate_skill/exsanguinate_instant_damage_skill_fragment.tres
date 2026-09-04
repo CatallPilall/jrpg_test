@@ -8,6 +8,7 @@ script = ExtResource("1_b8x8q")
 damage_type = 2
 base_value = 15.0
 stat_scaling = 1.0
+scaling_stat = 3
 base_accuracy = 100.0
 primary_target_defining_fragment = true
 child_skill_fragment = ExtResource("1_k83ul")

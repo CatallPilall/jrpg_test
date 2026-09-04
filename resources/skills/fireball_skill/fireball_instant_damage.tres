@@ -7,5 +7,6 @@ script = ExtResource("1_hsp6l")
 damage_type = 4
 base_value = 50.0
 stat_scaling = 1.0
+scaling_stat = 13
 base_accuracy = 50.0
 primary_target_defining_fragment = true

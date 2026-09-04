@@ -29,7 +29,7 @@ var base_stats : Dictionary[String,float] = {
 	"speed":0,
 	"status_def":0,
 	"phys_atk":0,
-	"phys_def":0,
+	"phys_def":10,
 	"pierce_def":0,
 	"slash_def":0,
 	"blud_def":0,
@@ -59,7 +59,7 @@ var active_stats : Dictionary[String,float] = {
 	"speed":0,
 	"status_def":0,
 	"phys_atk":0,
-	"phys_def":0,
+	"phys_def":10,
 	"pierce_def":0,
 	"slash_def":0,
 	"blud_def":0,
@@ -74,7 +74,7 @@ var active_stats : Dictionary[String,float] = {
 	"elec_def":0,
 	"ice_def":0,
 	"fire_efficiency":100,
-	"elec_efficiency":0,
+	"elec_efficiency":100,
 	"ice_efficiency":0,
 	"backfire_chance":0,
 	"poof_chance":0,
@@ -86,8 +86,15 @@ var active_stats : Dictionary[String,float] = {
 
 var bleed_dots : Array[skill_fragment]
 var poison_dots : Array[skill_fragment]
+var curses : Array[skill_fragment]
+var weapon_buff : Array[skill_fragment]
+var body_buff : Array[skill_fragment]
+var aura_buff : Array[skill_fragment]
+var blessing : Array[skill_fragment]
+var stance : Array[skill_fragment]
 
 @export var unit_skills : Dictionary[String,int] = {
 	"fireball":0,
 	"exsanguinate":0,
-	"poison cloud":0}
+	"poison cloud":0,
+	"shock":0}

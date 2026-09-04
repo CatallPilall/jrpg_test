@@ -27,7 +27,7 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		add_unit_to_defined_targets(target)
 		
 		var damage_fork : float = 1 + (hit_chance - hit)/100
-		var resulting_damage : float = ((base_value * stat_scaling + caster.active_stats.get("phys_atk"))*damage_fork)
+		var resulting_damage : float = ((base_value + caster.active_stats.get(get_scaling_stat()) * stat_scaling)*damage_fork)
 		var crit_chance : float = base_crit_chance + caster.active_stats.get("crit_chance")
 		if roll_d_hundred() <= crit_chance:
 			resulting_damage = resulting_damage + resulting_damage * caster.active_stats.get("crit_efficiency")/100
@@ -65,7 +65,7 @@ func deal_magic_damage(caster : unit, target : unit, magic_efficiency : String, 
 	
 	consistent_spell_cast = false
 	add_unit_to_defined_targets(target)
-	var resulting_damage : float = (base_value + caster.active_stats.get("magic_atk") * stat_scaling) * caster_efficiency / 100
+	var resulting_damage : float = (base_value + caster.active_stats.get(get_scaling_stat()) * stat_scaling) * caster_efficiency / 100
 	if overcast:
 		resulting_damage = resulting_damage * 1.5
 	var negated_damage : float = resulting_damage * (100 - target.active_stats.get(defensive_stat))/100
@@ -73,3 +73,6 @@ func deal_magic_damage(caster : unit, target : unit, magic_efficiency : String, 
 	target.active_stats.set("health_points",remaining_target_health)
 	ConsoleLog.INFO(self,["consistent_spell_cast","overcast","caster_efficiency","resulting_damage","negated_damage"],
 	[spellcast_value,overcast,caster_efficiency,resulting_damage,negated_damage])
+
+func reverse_buff(_target : unit):
+	pass

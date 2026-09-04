@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_pwurk")
+primary_skill_targeting = 2
 skill_speed = 4
 skill_duration = 3
 first_skill_fragment = ExtResource("1_ihxl1")
