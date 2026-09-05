@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_lxjjn")
-damage_type = 4
+damage_type = 7
 scaling_stat = 13
 base_accuracy = -100.0
 primary_target_defining_fragment = true

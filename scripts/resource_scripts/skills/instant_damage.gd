@@ -18,6 +18,8 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, _skil
 				deal_magic_damage(caster,target,"elec_efficiency","elec_def")
 			enum_damage_type.ICE:
 				deal_magic_damage(caster,target,"ice_efficiency","ice_def")
+			enum_damage_type.POI:
+				deal_magic_damage(caster,target,"poi_efficiency","poi_def")
 
 func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 	var hit_chance = base_accuracy + caster.active_stats.get("accuracy") - target.active_stats.get("evasion")

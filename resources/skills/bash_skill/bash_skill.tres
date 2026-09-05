@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://c5dek3vjke0c8"]
+
+[ext_resource type="Resource" uid="uid://duoebd52u8ggl" path="res://resources/skills/bash_skill/bash_skill_instant_damage_skill_fragment.tres" id="1_8c80h"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_ni2c8"]
+
+[resource]
+script = ExtResource("2_ni2c8")
+primary_skill_targeting = 2
+skill_speed = 3
+skill_duration = 2
+first_skill_fragment = ExtResource("1_8c80h")

@@ -87,14 +87,24 @@ var active_stats : Dictionary[String,float] = {
 var bleed_dots : Array[skill_fragment]
 var poison_dots : Array[skill_fragment]
 var curses : Array[skill_fragment]
+
 var weapon_buff : Array[skill_fragment]
 var body_buff : Array[skill_fragment]
 var aura_buff : Array[skill_fragment]
 var blessing : Array[skill_fragment]
 var stance : Array[skill_fragment]
 
+var disarm : Array[skill_fragment]
+var silence : Array[skill_fragment]
+var root : Array[skill_fragment]
+var sleep : Array[skill_fragment]
+var stun : Array[skill_fragment]
+var paralyze : Array[skill_fragment]
+
 @export var unit_skills : Dictionary[String,int] = {
 	"fireball":0,
 	"exsanguinate":0,
 	"poison cloud":0,
-	"shock":0}
+	"shock":0,
+	"bash":0,
+	"cleanse":0}

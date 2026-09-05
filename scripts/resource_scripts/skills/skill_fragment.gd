@@ -8,6 +8,9 @@ enum enum_targeting {PRIMARY,SECONDARY}
 enum enum_damage_type {NONE,PIERCE,SLASH,BLUD,FIRE,ELEC,ICE,POI,BLEED}
 @export var damage_type : enum_damage_type
 
+enum enum_crowd_control_type {NONE,DISARM,SILENCE,ROOT,SLEEP,STUN,PARALYZE}
+@export var crowd_control_type : enum_crowd_control_type
+
 enum enum_buff_type {NONE,WEAPON,BODY,AURA,BLESSING,STANCE,CURSE}
 @export var buff_type : enum_buff_type
 
@@ -52,7 +55,7 @@ func iterate_through_skill_fragments(caster : unit, primary_targets : Array[unit
 			secondary_defined_targets = secondary_targets
 		child_skill_fragment.iterate_through_skill_fragments(caster, primary_defined_targets, secondary_defined_targets, turn_one, skill_duration)
 
-@abstract func execute_skill_fragment(caster : unit, tatget : unit, turn_one : bool, skill_duration : int)
+@abstract func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, skill_duration : int)
 
 func clean_up_skill_fragment():
 	if child_skill_fragment:
@@ -71,6 +74,7 @@ func roll_d_hundred() -> int:
 	return randi_range(1,100)
 
 func cleanse_buff(target : unit, buff_array : Array[skill_fragment]):
+	ConsoleLog.DEBUG(self," array to cleanse: " + str(buff_array))
 	for buff_skill_fragment in buff_array:
 		buff_skill_fragment.reverse_buff(target)
 	buff_array.clear()

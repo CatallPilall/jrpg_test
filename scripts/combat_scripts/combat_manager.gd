@@ -5,7 +5,9 @@ var skill_dict : Dictionary[String,skill] = {
 	"fireball":preload("res://resources/skills/fireball_skill/fireball_skill.tres"),
 	"exsanguinate":preload("res://resources/skills/exsanguinate_skill/exsanguinate_skill.tres"),
 	"poison cloud":preload("res://resources/skills/poison_cloud_skill/poison_cloud_skill.tres"),
-	"shock":preload("res://resources/skills/shock_skill/shock_skill.tres")
+	"shock":preload("res://resources/skills/shock_skill/shock_skill.tres"),
+	"bash":preload("res://resources/skills/bash_skill/bash_skill.tres"),
+	"cleanse":preload("res://resources/skills/cleanse_skill/cleanse_skill.tres")
 }
 
 enum combat_state_machine {FIRST_CHARACTER,CHARACTER_SELECTED,SKILL_PENDING,SKILL_SELECTED,LAST_CHARACTER,ITEM_SELECTED}

@@ -25,7 +25,7 @@ func execute_skill_fragment(_caster : unit, target : unit, turn_one : bool, skil
 				filter_buff_stats(target,false,1)
 			enum_buff_type.CURSE:
 				filter_buff_stats(target,true,1)
-	if skill_duration == 1:
+	if skill_duration == 0:
 		match buff_type:
 			enum_buff_type.CURSE:
 				for curse : skill_fragment in target.curses:
@@ -111,19 +111,20 @@ func hit_debuff(target : unit, buff_stat : String, is_curse : bool, reversing : 
 
 func apply_buff_debuff(target : unit, buff_stat : String, reversing : int):
 	
-	match buff_type:
-		enum_buff_type.CURSE:
-			target.curses.append(self)
-		enum_buff_type.WEAPON:
-			target.weapon_buff.append(self)
-		enum_buff_type.BODY:
-			target.body_buff.append(self)
-		enum_buff_type.AURA:
-			target.aura_buff.append(self)
-		enum_buff_type.STANCE:
-			target.stance.append(self)
-		enum_buff_type.BLESSING:
-			target.blessing.append(self)
+	if reversing == 1:
+		match buff_type:
+			enum_buff_type.CURSE:
+				target.curses.append(self)
+			enum_buff_type.WEAPON:
+				target.weapon_buff.append(self)
+			enum_buff_type.BODY:
+				target.body_buff.append(self)
+			enum_buff_type.AURA:
+				target.aura_buff.append(self)
+			enum_buff_type.STANCE:
+				target.stance.append(self)
+			enum_buff_type.BLESSING:
+				target.blessing.append(self)
 	
 	var resulting_buff = (base_value + target.base_stats.get(get_scaling_stat()) * stat_scaling) * reversing
 	var updated_target_stat = target.active_stats.get(buff_stat) + resulting_buff
