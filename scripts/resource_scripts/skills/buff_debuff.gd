@@ -104,6 +104,7 @@ func hit_debuff(target : unit, buff_stat : String, is_curse : bool, reversing : 
 		var cast = target.active_stats.get("status_def") + roll_d_hundred()
 		if cast < base_accuracy:
 			apply_buff_debuff(target, buff_stat, reversing)
+			add_unit_to_defined_targets(target)
 		else:
 			ConsoleLog.DEBUG(self," debuff missed")
 	else:
