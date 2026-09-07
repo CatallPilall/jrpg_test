@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://fqnb17jfwgg8"]
+
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="1_xtmvo"]
+
+[resource]
+script = ExtResource("1_xtmvo")
+buff_type = 2
+stat_buff = 3
+first_buff = true
+base_value = 15.0
+scaling_stat = 3

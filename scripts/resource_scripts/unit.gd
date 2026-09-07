@@ -107,4 +107,6 @@ var paralyze : Array[skill_fragment]
 	"poison cloud":0,
 	"shock":0,
 	"bash":0,
-	"cleanse":0}
+	"cleanse":0,
+	"power surge":0,
+	"strength leech":0}

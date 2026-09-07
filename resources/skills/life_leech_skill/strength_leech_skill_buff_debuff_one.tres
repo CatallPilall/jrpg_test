@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://bq0fvircn6pxc"]
+
+[ext_resource type="Resource" uid="uid://dagn5q7ms78rj" path="res://resources/skills/life_leech_skill/strength_leech_skill_buff_debuff_two.tres" id="1_ituyg"]
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="2_ar8ln"]
+
+[resource]
+script = ExtResource("2_ar8ln")
+buff_type = 6
+stat_buff = 3
+base_value = -12.0
+scaling_stat = 13
+base_accuracy = 100.0
+child_skill_fragment = ExtResource("1_ituyg")

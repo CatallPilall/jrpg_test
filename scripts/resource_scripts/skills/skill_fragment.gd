@@ -51,7 +51,12 @@ func iterate_through_skill_fragments(caster : unit, primary_targets : Array[unit
 	if child_skill_fragment:
 		if not primary_target_defining_fragment:
 			primary_defined_targets = primary_targets
-		if not secondary_target_defining_fragment:
+		if secondary_target_defining_fragment:
+			if primary_defined_targets.is_empty():
+				secondary_defined_targets.clear()
+			else:
+				secondary_defined_targets = secondary_targets
+		else:
 			secondary_defined_targets = secondary_targets
 		child_skill_fragment.iterate_through_skill_fragments(caster, primary_defined_targets, secondary_defined_targets, turn_one, skill_duration)
 
@@ -67,8 +72,6 @@ func clean_up_skill_fragment():
 func add_unit_to_defined_targets(target : unit):
 	if primary_target_defining_fragment:
 		primary_defined_targets.append(target)
-	if secondary_target_defining_fragment:
-		secondary_defined_targets.append(target)
 
 func roll_d_hundred() -> int:
 	return randi_range(1,100)
