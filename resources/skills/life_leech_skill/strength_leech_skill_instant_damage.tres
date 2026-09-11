@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3 uid="uid://b5ge0w6ibe7ml"]
+
+[ext_resource type="Resource" uid="uid://bq0fvircn6pxc" path="res://resources/skills/life_leech_skill/strength_leech_skill_buff_debuff_one.tres" id="1_2phrp"]
+[ext_resource type="Script" uid="uid://brlbr4olsgwi7" path="res://scripts/resource_scripts/skills/instant_damage.gd" id="2_dihcs"]
+
+[resource]
+script = ExtResource("2_dihcs")
+damage_type = 2
+base_value = 10.0
+stat_scaling = 1.0
+scaling_stat = 3
+base_crit_chance = 10.0
+base_accuracy = 100.0
+primary_target_defining_fragment = true
+child_skill_fragment = ExtResource("1_2phrp")

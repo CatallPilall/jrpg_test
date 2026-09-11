@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://d2h2nhs84ysf5"]
+
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="1_c3c33"]
+
+[resource]
+script = ExtResource("1_c3c33")
+buff_type = 6
+stat_buff = 4
+first_buff = true
+base_value = -15.0
+stat_scaling = -0.1
+scaling_stat = 4
+base_accuracy = 100.0

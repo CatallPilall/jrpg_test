@@ -1,10 +1,15 @@
 extends Node
 
 var skill_dict : Dictionary[String,skill] = {
-	"attack":preload("res://resources/skills/attack_skill.tres"),
-	"guard":preload("res://resources/skills/guard_skill.tres"),
-	"fireball":preload("res://resources/skills/fireball_skill.tres"),
-	"firebolt":preload("res://resources/skills/firebolt_skill.tres")
+	"attack":preload("res://resources/skills/attack_skill/attack_skill.tres"),
+	"fireball":preload("res://resources/skills/fireball_skill/fireball_skill.tres"),
+	"exsanguinate":preload("res://resources/skills/exsanguinate_skill/exsanguinate_skill.tres"),
+	"poison cloud":preload("res://resources/skills/poison_cloud_skill/poison_cloud_skill.tres"),
+	"shock":preload("res://resources/skills/shock_skill/shock_skill.tres"),
+	"bash":preload("res://resources/skills/bash_skill/bash_skill.tres"),
+	"cleanse":preload("res://resources/skills/cleanse_skill/cleanse_skill.tres"),
+	"power surge":preload("res://resources/skills/power_surge_skill/power_surge_skill.tres"),
+	"strength leech":preload("res://resources/skills/life_leech_skill/strength_leech_skill.tres")
 }
 
 enum combat_state_machine {FIRST_CHARACTER,CHARACTER_SELECTED,SKILL_PENDING,SKILL_SELECTED,LAST_CHARACTER,ITEM_SELECTED}
@@ -121,7 +126,7 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 		ConsoleLog.SIGNAL(self,"make_combat_hud_item_buttons","emit",new_signal_key)
 		EventBus.make_combat_hud_item_buttons.emit(new_signal_key)
 	else:
-		var new_skill : skill = skill_dict.get(skill_name).duplicate()
+		var new_skill : skill = skill_dict.get(skill_name).duplicate_deep(2)
 		selected_skill = new_skill
 		
 		combat_state = combat_state_machine.SKILL_SELECTED
@@ -129,7 +134,7 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 		
 		var new_signal_key : int = EventBus.generate_signal_key()
 		ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-		EventBus.apply_skill_targeting.emit(selected_skill.skill_targeting,new_signal_key)
+		EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,selected_unit,new_signal_key)
 		
 		ConsoleLog.SIGNAL(self,"skill_button_pressed","processed",signal_key)
 
@@ -170,16 +175,16 @@ func disconnect_from_unit_targets_selected():
 		EventBus.unit_targets_selected.disconnect(_unit_targets_selected)
 		ConsoleLog.SIGNAL(self,"unit_targets_selected","disconnected",0)
 
-func _unit_targets_selected(selected_targets : Array[unit], signal_key : int):
+func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : Array[unit], signal_key : int):
+	ConsoleLog.DEBUG(self,"_unit_targets_selected caught secondary_targets: " + str(secondary_targets))
 	if selected_skill:
-		selected_skill.set_caster_and_targets(selected_unit,selected_targets)
-		selected_skill.display_skill_data()
+		selected_skill.set_caster_and_targets(selected_unit,selected_targets, secondary_targets)
 		queue_skill(selected_skill)
 		selected_skill = null
 		cycle_ally_unit()
 	if selected_item:
 		item_usage_array[selected_unit_array_position] = true
-		selected_item.item_skill.set_caster_and_targets(selected_unit,selected_targets)
+		selected_item.item_skill.set_caster_and_targets(selected_unit,selected_targets, secondary_targets)
 		selected_item.item_skill.execute_skill()
 		TeamRoster.consumables.erase(selected_item)
 		selected_item = null
@@ -206,7 +211,7 @@ func cycle_ally_unit():
 	
 	new_signal_key = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-	EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,new_signal_key)
+	EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
 	
 	if selected_unit_array_position == TeamRoster.combat_team.size()-1:
 		new_signal_key = EventBus.generate_signal_key()
@@ -286,7 +291,7 @@ func undo_last_action():
 			
 			var new_signal_key :int = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-			EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,new_signal_key)
+			EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
 			
 		combat_state_machine.CHARACTER_SELECTED:
 			selected_unit_array_position -= 1
@@ -296,7 +301,7 @@ func undo_last_action():
 			
 			var new_signal_key :int = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-			EventBus.apply_skill_targeting.emit(selected_skill.skill_targeting,new_signal_key)
+			EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,null,new_signal_key)
 			
 		combat_state_machine.LAST_CHARACTER:
 			selected_skill = skill_order_array.pop_back()
@@ -319,7 +324,7 @@ func undo_last_action():
 			
 			new_signal_key = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-			EventBus.apply_skill_targeting.emit(selected_item.item_skill.skill_targeting,new_signal_key)
+			EventBus.apply_skill_targeting.emit(selected_item.item_skill.primary_skill_targeting,selected_item.item_skill.secondary_skill_targeting,null,new_signal_key)
 			
 			selected_item = null
 			

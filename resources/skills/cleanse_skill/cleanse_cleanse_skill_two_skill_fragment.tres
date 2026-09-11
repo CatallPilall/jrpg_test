@@ -1,0 +1,8 @@
+[gd_resource type="Resource" format=3 uid="uid://barkaorduq8hq"]
+
+[ext_resource type="Script" uid="uid://3s5gvly0lia0" path="res://scripts/resource_scripts/skills/cleanse.gd" id="1_17kxp"]
+
+[resource]
+script = ExtResource("1_17kxp")
+damage_type = 8
+crowd_control_type = 6

@@ -120,6 +120,81 @@ position = Vector2(0, -1.9808197)
 scale = Vector2(1, 1.0243644)
 polygon = PackedVector2Array(325, 99, 392, 99, 411, 158, 294, 157)
 
+[node name="ally_team_Area2D" type="Area2D" parent="." unique_id=1714493635]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_team_Area2D" unique_id=383018595]
+polygon = PackedVector2Array(156, 189, 262, 188, 235, 253, 178, 253)
+
+[node name="enemy_front_line_Area2D" type="Area2D" parent="." unique_id=151964880]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_front_line_Area2D" unique_id=2086806736]
+polygon = PackedVector2Array(304, 135, 304, 158, 406, 158, 405, 136)
+
+[node name="enemy_back_line_Area2D" type="Area2D" parent="." unique_id=655725580]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_back_line_Area2D" unique_id=231699689]
+polygon = PackedVector2Array(324, 98, 324, 121, 392, 121, 391, 98)
+
+[node name="ally_front_line_Area2D" type="Area2D" parent="." unique_id=962254006]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_front_line_Area2D" unique_id=826901967]
+polygon = PackedVector2Array(161, 194, 161, 216, 253, 216, 254, 192)
+
+[node name="ally_back_line_Area2D" type="Area2D" parent="." unique_id=1804849560]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_back_line_Area2D" unique_id=159847711]
+polygon = PackedVector2Array(177, 226, 176, 249, 238, 249, 237, 226)
+
+[node name="enemy_left_flank_Area2D" type="Area2D" parent="." unique_id=2102770382]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_left_flank_Area2D" unique_id=1650211796]
+polygon = PackedVector2Array(323, 95, 352, 95, 326, 161, 296, 160)
+
+[node name="enemy_right_flank_Area2D" type="Area2D" parent="." unique_id=2079905757]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_right_flank_Area2D" unique_id=1683398287]
+polygon = PackedVector2Array(365, 94, 382, 161, 413, 161, 391, 93)
+
+[node name="ally_left_flank_Area2D" type="Area2D" parent="." unique_id=1880400119]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_left_flank_Area2D" unique_id=1486530380]
+polygon = PackedVector2Array(154, 191, 177, 254, 207, 254, 186, 191)
+
+[node name="ally_right_flank_Area2D" type="Area2D" parent="." unique_id=1167874132]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_right_flank_Area2D" unique_id=412385545]
+polygon = PackedVector2Array(230, 192, 208, 254, 236, 254, 259, 192)
+
+[node name="enemy_area_one_Area2D" type="Area2D" parent="." unique_id=1801461493]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_area_one_Area2D" unique_id=559950347]
+polygon = PackedVector2Array(300, 157, 335, 95, 356, 157)
+
+[node name="enemy_area_two_Area2D" type="Area2D" parent="." unique_id=681947040]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_area_two_Area2D" unique_id=227248575]
+polygon = PackedVector2Array(338, 98, 357, 156, 387, 98)
+
+[node name="enemy_area_three_Area2D" type="Area2D" parent="." unique_id=1367483768]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemy_area_three_Area2D" unique_id=19195888]
+polygon = PackedVector2Array(358, 155, 388, 99, 407, 156)
+
+[node name="ally_area_one_Area2D" type="Area2D" parent="." unique_id=776059113]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_area_one_Area2D" unique_id=518370242]
+polygon = PackedVector2Array(177, 248, 156, 194, 210, 193)
+
+[node name="ally_area_two_Area2D" type="Area2D" parent="." unique_id=140495236]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_area_two_Area2D" unique_id=797390872]
+polygon = PackedVector2Array(178, 248, 210, 194, 235, 248)
+
+[node name="ally_area_three_Area2D" type="Area2D" parent="." unique_id=1557020238]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ally_area_three_Area2D" unique_id=2022075000]
+polygon = PackedVector2Array(211, 193, 236, 248, 259, 192)
+
 [connection signal="input_event" from="ally_position_one/ally_one_Area2D" to="." method="_on_ally_one_area_2d_input_event"]
 [connection signal="mouse_entered" from="ally_position_one/ally_one_Area2D" to="." method="_on_ally_one_area_2d_mouse_entered"]
 [connection signal="input_event" from="ally_position_two/ally_two_Area2D" to="." method="_on_ally_two_area_2d_input_event"]
@@ -141,3 +216,18 @@ polygon = PackedVector2Array(325, 99, 392, 99, 411, 158, 294, 157)
 [connection signal="input_event" from="enemy_position_five/enemy_five_Area2D" to="." method="_on_enemy_five_area_2d_input_event"]
 [connection signal="mouse_entered" from="enemy_position_five/enemy_five_Area2D" to="." method="_on_enemy_five_area_2d_mouse_entered"]
 [connection signal="input_event" from="enemy_team_Area2D" to="." method="_on_enemy_team_area_2d_input_event"]
+[connection signal="input_event" from="ally_team_Area2D" to="." method="_on_ally_team_area_2d_input_event"]
+[connection signal="input_event" from="enemy_front_line_Area2D" to="." method="_on_enemy_front_line_area_2d_input_event"]
+[connection signal="input_event" from="enemy_back_line_Area2D" to="." method="_on_enemy_back_line_area_2d_input_event"]
+[connection signal="input_event" from="ally_front_line_Area2D" to="." method="_on_ally_front_line_area_2d_input_event"]
+[connection signal="input_event" from="ally_back_line_Area2D" to="." method="_on_ally_back_line_area_2d_input_event"]
+[connection signal="input_event" from="enemy_left_flank_Area2D" to="." method="_on_enemy_left_flank_area_2d_input_event"]
+[connection signal="input_event" from="enemy_right_flank_Area2D" to="." method="_on_enemy_right_flank_area_2d_input_event"]
+[connection signal="input_event" from="ally_left_flank_Area2D" to="." method="_on_ally_left_flank_area_2d_input_event"]
+[connection signal="input_event" from="ally_right_flank_Area2D" to="." method="_on_ally_right_flank_area_2d_input_event"]
+[connection signal="input_event" from="enemy_area_one_Area2D" to="." method="_on_enemy_area_one_area_2d_input_event"]
+[connection signal="input_event" from="enemy_area_two_Area2D" to="." method="_on_enemy_area_two_area_2d_input_event"]
+[connection signal="input_event" from="enemy_area_three_Area2D" to="." method="_on_enemy_area_three_area_2d_input_event"]
+[connection signal="input_event" from="ally_area_one_Area2D" to="." method="_on_ally_area_one_area_2d_input_event"]
+[connection signal="input_event" from="ally_area_two_Area2D" to="." method="_on_ally_area_two_area_2d_input_event"]
+[connection signal="input_event" from="ally_area_three_Area2D" to="." method="_on_ally_area_three_area_2d_input_event"]

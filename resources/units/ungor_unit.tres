@@ -6,7 +6,3 @@
 script = ExtResource("1_kjshp")
 unit_sprite_path = "res://assets/portraits/ungor_combat_sprite.png"
 unit_name = "Ungor"
-unit_health = 110
-unit_atk = 15
-unit_def = 15
-unit_speed = 3

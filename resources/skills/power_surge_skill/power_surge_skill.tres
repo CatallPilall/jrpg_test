@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://c7pfq0r6udjmj"]
+
+[ext_resource type="Resource" uid="uid://fqnb17jfwgg8" path="res://resources/skills/power_surge_skill/power_surge_buff_debuff_skill_fragment.tres" id="1_hn6hj"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_3cc3e"]
+
+[resource]
+script = ExtResource("2_3cc3e")
+primary_skill_targeting = 1
+skill_type = 1
+skill_speed = 2
+skill_duration = 3
+first_skill_fragment = ExtResource("1_hn6hj")

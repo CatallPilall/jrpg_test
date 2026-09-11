@@ -27,6 +27,21 @@ class_name combat_scene
 @onready var enemy_five_area_2d: Area2D = $enemy_position_five/enemy_five_Area2D
 
 @onready var enemy_team_area_2d: Area2D = $enemy_team_Area2D
+@onready var ally_team_area_2d: Area2D = $ally_team_Area2D
+@onready var enemy_front_line_area_2d: Area2D = $enemy_front_line_Area2D
+@onready var enemy_back_line_area_2d: Area2D = $enemy_back_line_Area2D
+@onready var ally_front_line_area_2d: Area2D = $ally_front_line_Area2D
+@onready var ally_back_line_area_2d: Area2D = $ally_back_line_Area2D
+@onready var enemy_left_flank_area_2d: Area2D = $enemy_left_flank_Area2D
+@onready var enemy_right_flank_area_2d: Area2D = $enemy_right_flank_Area2D
+@onready var ally_left_flank_area_2d: Area2D = $ally_left_flank_Area2D
+@onready var ally_right_flank_area_2d: Area2D = $ally_right_flank_Area2D
+@onready var enemy_area_one_area_2d: Area2D = $enemy_area_one_Area2D
+@onready var enemy_area_two_area_2d: Area2D = $enemy_area_two_Area2D
+@onready var enemy_area_three_area_2d: Area2D = $enemy_area_three_Area2D
+@onready var ally_area_one_area_2d: Area2D = $ally_area_one_Area2D
+@onready var ally_area_two_area_2d: Area2D = $ally_area_two_Area2D
+@onready var ally_area_three_area_2d: Area2D = $ally_area_three_Area2D
 
 
 @onready var camera_2d: Camera2D = $Camera2D
@@ -37,6 +52,8 @@ var is_remove_dead_unit_connected : bool = false
 var is_apply_skill_targeting_connected : bool = false
 
 var ally_team : Array[unit]
+
+var secondary_targets : Array[unit]
 
 var enemy_one : unit
 var enemy_two : unit 
@@ -61,6 +78,8 @@ func _ready() -> void:
 	load_ally_sprites()
 	load_enemy_sprites()
 	
+	_apply_skill_targeting(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,2)
+	
 	var new_signal_key : int = EventBus.generate_signal_key()
 	var new_combat_hud : Control = combat_hud_packed_scene.instantiate()
 	new_signal_key = EventBus.generate_signal_key()
@@ -79,7 +98,7 @@ func disconnect_from_apply_skill_targeting():
 		EventBus.apply_skill_targeting.disconnect(_apply_skill_targeting)
 		ConsoleLog.SIGNAL(self,"apply_skill_targeting","disconnected",0)
 
-func _apply_skill_targeting(skill_targeting : skill.enum_skill_targeting, signal_key : int):
+func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting, secondary_skill_targeting : skill.enum_skill_targeting, casting_unit : unit, signal_key : int):
 	ally_one_area_2d.show()
 	ally_two_area_2d.show()
 	ally_three_area_2d.show()
@@ -93,10 +112,39 @@ func _apply_skill_targeting(skill_targeting : skill.enum_skill_targeting, signal
 	enemy_five_area_2d.show()
 	
 	enemy_team_area_2d.hide()
+	ally_team_area_2d.hide()
+	enemy_front_line_area_2d.hide()
+	enemy_back_line_area_2d.hide()
+	ally_front_line_area_2d.hide()
+	ally_back_line_area_2d.hide()
+	enemy_left_flank_area_2d.hide()
+	enemy_right_flank_area_2d.hide()
+	ally_left_flank_area_2d.hide()
+	ally_right_flank_area_2d.hide()
+	enemy_area_one_area_2d.hide()
+	enemy_area_two_area_2d.hide()
+	enemy_area_three_area_2d.hide()
+	ally_area_one_area_2d.hide()
+	ally_area_two_area_2d.hide()
+	ally_area_three_area_2d.hide()
 	
-	match skill_targeting:
+	secondary_targets.clear()
+	
+	match primary_skill_targeting:
 		skill.enum_skill_targeting.NONE:
 			return
+		skill.enum_skill_targeting.SELF:
+			hide_individual_area_2d()
+			if ally_team[0] == casting_unit:
+				ally_one_area_2d.show()
+			elif ally_team[1] == casting_unit:
+				ally_two_area_2d.show()
+			elif ally_team[2] == casting_unit:
+				ally_three_area_2d.show()
+			elif ally_team[3] == casting_unit:
+				ally_four_area_2d.show()
+			elif ally_team[4] == casting_unit:
+				ally_five_area_2d.show()
 		skill.enum_skill_targeting.SINGLE_ENEMY:
 			ally_one_area_2d.hide()
 			ally_two_area_2d.hide()
@@ -106,6 +154,52 @@ func _apply_skill_targeting(skill_targeting : skill.enum_skill_targeting, signal
 		skill.enum_skill_targeting.TEAM_ENEMY:
 			hide_individual_area_2d()
 			enemy_team_area_2d.show()
+		skill.enum_skill_targeting.FRONT_ENEMY:
+			hide_individual_area_2d()
+			enemy_front_line_area_2d.show()
+		skill.enum_skill_targeting.BACK_ENEMY:
+			hide_individual_area_2d()
+			enemy_back_line_area_2d.show()
+		skill.enum_skill_targeting.LEFT_ENEMY:
+			hide_individual_area_2d()
+			enemy_left_flank_area_2d.show()
+		skill.enum_skill_targeting.RIGHT_ENEMY:
+			hide_individual_area_2d()
+			enemy_right_flank_area_2d.show()
+		skill.enum_skill_targeting.AREA_ENEMY:
+			hide_individual_area_2d()
+			enemy_area_one_area_2d.show()
+			enemy_area_two_area_2d.show()
+			enemy_area_three_area_2d.show()
+		skill.enum_skill_targeting.SINGLE_ALLY:
+			enemy_one_area_2d.hide()
+			enemy_two_area_2d.hide()
+			enemy_three_area_2d.hide()
+			enemy_four_area_2d.hide()
+			enemy_five_area_2d.hide()
+		skill.enum_skill_targeting.TEAM_ALLY:
+			hide_individual_area_2d()
+			ally_team_area_2d.show()
+		skill.enum_skill_targeting.FRONT_ALLY:
+			hide_individual_area_2d()
+			ally_front_line_area_2d.show()
+		skill.enum_skill_targeting.BACK_ALLY:
+			hide_individual_area_2d()
+			ally_back_line_area_2d.show()
+		skill.enum_skill_targeting.LEFT_ALLY:
+			hide_individual_area_2d()
+			ally_left_flank_area_2d.show()
+		skill.enum_skill_targeting.RIGHT_ALLY:
+			hide_individual_area_2d()
+			ally_right_flank_area_2d.show()
+		skill.enum_skill_targeting.AREA_ALLY:
+			hide_individual_area_2d()
+			ally_area_one_area_2d.show()
+			ally_area_two_area_2d.show()
+			ally_area_three_area_2d.show()
+	
+	set_secondary_targets(secondary_skill_targeting, casting_unit)
+	
 	ConsoleLog.SIGNAL(self,"apply_skill_targeting","processed",signal_key)
 
 func hide_individual_area_2d():
@@ -120,6 +214,66 @@ func hide_individual_area_2d():
 	enemy_three_area_2d.hide()
 	enemy_four_area_2d.hide()
 	enemy_five_area_2d.hide()
+
+func set_secondary_targets(skill_targeting : skill.enum_skill_targeting, caster : unit):
+	match skill_targeting:
+		skill.enum_skill_targeting.NONE:
+			return
+		skill.enum_skill_targeting.SELF:
+			secondary_targets.append(caster)
+		skill.enum_skill_targeting.TEAM_ENEMY:
+			append_units_into_secondary_targeting([enemy_one,enemy_two,enemy_three,enemy_four,enemy_five])
+		skill.enum_skill_targeting.FRONT_ENEMY:
+			append_units_into_secondary_targeting([enemy_one,enemy_two,enemy_three])
+		skill.enum_skill_targeting.BACK_ENEMY:
+			append_units_into_secondary_targeting([enemy_four,enemy_five])
+		skill.enum_skill_targeting.LEFT_ENEMY:
+			append_units_into_secondary_targeting([enemy_one,enemy_four])
+		skill.enum_skill_targeting.RIGHT_ENEMY:
+			append_units_into_secondary_targeting([enemy_three,enemy_five])
+		skill.enum_skill_targeting.TEAM_ALLY:
+			append_units_into_secondary_targeting(ally_team)
+		skill.enum_skill_targeting.FRONT_ALLY:
+			append_units_into_secondary_targeting([ally_team[0],ally_team[1],ally_team[2]])
+		skill.enum_skill_targeting.BACK_ALLY:
+			append_units_into_secondary_targeting([ally_team[3],ally_team[4]])
+		skill.enum_skill_targeting.LEFT_ALLY:
+			append_units_into_secondary_targeting([ally_team[0],ally_team[3]])
+		skill.enum_skill_targeting.RIGHT_ALLY:
+			append_units_into_secondary_targeting([ally_team[2],ally_team[4]])
+
+func append_units_into_secondary_targeting(targeted_units : Array[unit]):
+	for selected_unit in targeted_units:
+		if selected_unit == ally_team[0]:
+			if ally_one_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == ally_team[1]:
+			if ally_two_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == ally_team[2]:
+			if ally_three_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == ally_team[3]:
+			if ally_four_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == ally_team[4]:
+			if ally_five_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == enemy_one:
+			if enemy_one_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == enemy_two:
+			if enemy_two_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == enemy_three:
+			if enemy_three_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == enemy_four:
+			if enemy_four_area_2d.visible:
+				secondary_targets.append(selected_unit)
+		if selected_unit == enemy_five:
+			if enemy_five_area_2d.visible:
+				secondary_targets.append(selected_unit)
 
 func load_ally_sprites():
 	if ally_team[0]:
@@ -246,9 +400,10 @@ func _unit_left_clicked(selected_unit : unit):
 	ConsoleLog.INPUT("left_click","action_pressed",[selected_unit])
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"unit_targets_selected","emit",new_signal_key)
+	ConsoleLog.DEBUG(self,"_unit_left_clicked throws secondary_targets: " + str(secondary_targets))
 	var new_targets : Array[unit]
 	new_targets.append(selected_unit)
-	EventBus.unit_targets_selected.emit(new_targets,new_signal_key)
+	EventBus.unit_targets_selected.emit(new_targets,secondary_targets,new_signal_key)
 
 func _on_ally_one_area_2d_mouse_entered() -> void:
 	_unit_hovered(ally_team[0])
@@ -326,20 +481,103 @@ func _on_ally_five_area_2d_input_event(_viewport: Node, event: InputEvent, _shap
 func _on_ally_five_area_2d_mouse_entered() -> void:
 	_unit_hovered(ally_team[4])
 
+func interpret_complex_targeting(targeted_units : Array[unit]):
+	var new_targets : Array[unit]
+	for selected_unit in targeted_units:
+		if selected_unit == ally_team[0]:
+			if ally_position_one.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == ally_team[1]:
+			if ally_position_two.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == ally_team[2]:
+			if ally_position_three.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == ally_team[3]:
+			if ally_position_four.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == ally_team[4]:
+			if ally_position_five.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == enemy_one:
+			if enemy_position_one.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == enemy_two:
+			if enemy_position_two.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == enemy_three:
+			if enemy_position_three.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == enemy_four:
+			if enemy_position_four.visible:
+				new_targets.append(selected_unit)
+		if selected_unit == enemy_five:
+			if enemy_position_five.visible:
+				new_targets.append(selected_unit)
+	var new_signal_key : int = EventBus.generate_signal_key()
+	ConsoleLog.SIGNAL(self,"unit_targets_selected","emit",new_signal_key)
+	EventBus.unit_targets_selected.emit(new_targets,secondary_targets,new_signal_key)
 
 func _on_enemy_team_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("left_click"):
-		var new_targets : Array[unit]
-		if enemy_position_one.visible:
-			new_targets.append(enemy_one)
-		if enemy_position_two.visible:
-			new_targets.append(enemy_two)
-		if enemy_position_three.visible:
-			new_targets.append(enemy_three)
-		if enemy_position_four.visible:
-			new_targets.append(enemy_four)
-		if enemy_position_five.visible:
-			new_targets.append(enemy_five)
-		var new_signal_key : int = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"unit_targets_selected","emit",new_signal_key)
-		EventBus.unit_targets_selected.emit(new_targets,new_signal_key)
+		interpret_complex_targeting([enemy_one,enemy_two,enemy_three,enemy_four,enemy_five])
+
+func _on_ally_team_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting(ally_team)
+
+func _on_enemy_front_line_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([enemy_one,enemy_two,enemy_three])
+
+func _on_enemy_back_line_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([enemy_four,enemy_five])
+
+func _on_ally_front_line_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([ally_team[0],ally_team[1],ally_team[2]])
+
+func _on_ally_back_line_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([ally_team[3],ally_team[4]])
+
+func _on_enemy_left_flank_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([enemy_one,enemy_four])
+
+func _on_enemy_right_flank_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([enemy_three,enemy_five])
+
+func _on_ally_left_flank_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([ally_team[0],ally_team[3]])
+
+func _on_ally_right_flank_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([ally_team[2],ally_team[4]])
+
+func _on_enemy_area_one_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([enemy_one,enemy_two,enemy_four])
+
+func _on_enemy_area_two_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([enemy_two,enemy_four,enemy_five])
+
+func _on_enemy_area_three_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([enemy_two,enemy_three,enemy_five])
+
+func _on_ally_area_one_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([ally_team[0],ally_team[1],ally_team[3]])
+
+func _on_ally_area_two_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([ally_team[1],ally_team[3],ally_team[4]])
+
+func _on_ally_area_three_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_click"):
+		interpret_complex_targeting([ally_team[1],ally_team[2],ally_team[4]])

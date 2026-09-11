@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3 uid="uid://duoebd52u8ggl"]
+
+[ext_resource type="Resource" uid="uid://drqs62duhoj18" path="res://resources/skills/bash_skill/bash_skill_crowd_control_skill_fragment.tres" id="1_qjnaq"]
+[ext_resource type="Script" uid="uid://brlbr4olsgwi7" path="res://scripts/resource_scripts/skills/instant_damage.gd" id="2_vj0jo"]
+
+[resource]
+script = ExtResource("2_vj0jo")
+damage_type = 3
+base_value = 15.0
+stat_scaling = 0.5
+scaling_stat = 3
+base_accuracy = 100.0
+primary_target_defining_fragment = true
+child_skill_fragment = ExtResource("1_qjnaq")

@@ -8,9 +8,6 @@ var derek_uit : unit = preload("res://resources/units/derek_unit.tres")
 var karion_unit : unit = preload("res://resources/units/karion_unit.tres")
 var ungor_unit : unit = preload("res://resources/units/ungor_unit.tres")
 
-var small_heal_potion : item = preload("res://resources/items/small_healing_potion_item.tres")
-var poison_spores_scroll : item = preload("res://resources/items/poison_spores_scroll.tres")
-
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
 
@@ -22,12 +19,8 @@ func _on_brunhilde_button_pressed() -> void:
 	TeamRoster.put_unit_into_combat_team(derek_uit)
 	TeamRoster.put_unit_into_combat_team(karion_unit)
 	TeamRoster.put_unit_into_combat_team(ungor_unit)
-
-	TeamRoster.put_item_into_inventory(small_heal_potion)
-	TeamRoster.put_item_into_inventory(poison_spores_scroll)
-
-	# var test_level : Node2D = test_level_packed_scene.instantiate()
-	var test_level : Node2D = new_test_level_packed_scene.instantiate()
+	
+	var test_level : Node2D = test_level_packed_scene.instantiate()
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"load_scene","emit",new_signal_key)
 	EventBus.load_scene.emit(test_level,new_signal_key)

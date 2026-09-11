@@ -1,0 +1,10 @@
+[gd_resource type="Resource" format=3 uid="uid://drqs62duhoj18"]
+
+[ext_resource type="Script" uid="uid://o43rpetotbyv" path="res://scripts/resource_scripts/skills/crowd_control.gd" id="1_ks7el"]
+
+[resource]
+script = ExtResource("1_ks7el")
+crowd_control_type = 5
+stat_scaling = 0.5
+scaling_stat = 12
+base_accuracy = 100.0

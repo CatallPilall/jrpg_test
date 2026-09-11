@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://m03gt1ek1kkl"]
+
+[ext_resource type="Resource" uid="uid://barkaorduq8hq" path="res://resources/skills/cleanse_skill/cleanse_cleanse_skill_two_skill_fragment.tres" id="1_ormqf"]
+[ext_resource type="Script" uid="uid://3s5gvly0lia0" path="res://scripts/resource_scripts/skills/cleanse.gd" id="1_qa4pt"]
+
+[resource]
+script = ExtResource("1_qa4pt")
+damage_type = 7
+crowd_control_type = 5
+buff_type = 6
+child_skill_fragment = ExtResource("1_ormqf")

@@ -202,7 +202,7 @@ func _display_unit_info(selected_unit : unit, signal_key : int):
 	var new_text : String = ""
 	
 	var variable_names : Array[String] = ["name","health","atk","def","speed"]
-	var variable_values : Array = [selected_unit.unit_name,selected_unit.unit_health,selected_unit.unit_atk,selected_unit.unit_def,selected_unit.unit_speed]
+	var variable_values : Array = [selected_unit.unit_name,selected_unit.active_stats.get("health_points"),selected_unit.active_stats.get("phys_atk"),selected_unit.active_stats.get("phys_def"),selected_unit.active_stats.get("speed")]
 	
 	for i in range(variable_names.size()):
 		new_text += variable_names[i] + " : " + JSON.stringify(variable_values[i], "\t") + "\n"
