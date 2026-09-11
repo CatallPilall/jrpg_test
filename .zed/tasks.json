@@ -1,0 +1,16 @@
+[
+  {
+    "label": "Run Godot Game",
+    "command": "godot",
+    "args": ["--path", "$ZED_WORKTREE_ROOT"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Run Current Scene",
+    "command": "godot",
+    "args": ["--path", "$ZED_WORKTREE_ROOT", "$ZED_FILE"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  }
+]
