@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://bxpa8gvtiuff4"]
+
+[ext_resource type="Script" uid="uid://brmcv7l5s3x8q" path="res://scripts/resource_scripts/quest.gd" id="1_ugyjr"]
+
+[resource]
+script = ExtResource("1_ugyjr")
+quest_name = "Goblin raid"
+quest_description = "Goblins snuck in to the town, dispatch of them."

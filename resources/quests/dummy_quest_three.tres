@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://di0jyturfi4dy"]
+
+[ext_resource type="Script" uid="uid://brmcv7l5s3x8q" path="res://scripts/resource_scripts/quest.gd" id="1_fqco6"]
+
+[resource]
+script = ExtResource("1_fqco6")
+quest_name = "Under construction"
+quest_description = "The town has been growing lately and new houses are raised from ground up. Stone and lumber is in short supply and the people will pay good money for it."
