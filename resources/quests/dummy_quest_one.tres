@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="quest" format=3 uid="uid://b433wkpr1keo2"]
+
+[ext_resource type="Script" uid="uid://brmcv7l5s3x8q" path="res://scripts/resource_scripts/quest.gd" id="1_7u8wu"]
+
+[resource]
+script = ExtResource("1_7u8wu")
+quest_name = "My first quest"
+quest_description = "Things happen in the inventory. Check them out!"

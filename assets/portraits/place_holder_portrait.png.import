@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fjit6xmb8yde"
-path="res://.godot/imported/small_healing_potion.png-28086ea5bd77515e23271dbf81242c58.ctex"
+uid="uid://dfbchf70wjc6s"
+path="res://.godot/imported/place_holder_portrait.png-a3e228041e27000eaeb990a8aab92f63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/small_healing_potion.png"
-dest_files=["res://.godot/imported/small_healing_potion.png-28086ea5bd77515e23271dbf81242c58.ctex"]
+source_file="res://assets/portraits/place_holder_portrait.png"
+dest_files=["res://.godot/imported/place_holder_portrait.png-a3e228041e27000eaeb990a8aab92f63.ctex"]
 
 [params]
 
