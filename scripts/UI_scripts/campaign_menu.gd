@@ -1,6 +1,7 @@
 extends Control
 
 var test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/test_level.tscn")
+var new_test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/new_test_level.tscn")
 var brunhilde_unit : unit = preload("res://resources/units/brunhilde_unit.tres")
 var casandra_unit : unit = preload("res://resources/units/casandra_unit.tres")
 var derek_uit : unit = preload("res://resources/units/derek_unit.tres")

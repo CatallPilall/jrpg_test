@@ -8,14 +8,14 @@ var combat_scene_packed_scene : PackedScene = preload("res://scenes/combat_scene
 
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
-	
+
 	sprite_2d.texture = load(world_encounter.encounter_sprite_location)
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	var new_combat_scene : combat_scene = combat_scene_packed_scene.instantiate()
-	
+
 	_make_combat_scene(new_combat_scene)
-	
+
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"load_combat_scene","emit",new_signal_key)
 	EventBus.load_combat_scene.emit(new_combat_scene,new_signal_key)
