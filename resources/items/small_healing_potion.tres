@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://mfclb3bqp8g0"]
+
+[ext_resource type="Script" uid="uid://5brmccyrc7ua" path="res://scripts/resource_scripts/items/consumable.gd" id="1_jmw6d"]
+
+[resource]
+script = ExtResource("1_jmw6d")
+item_name = "Small healing potion"
+item_description = "A healing potion capable to instantly restore a small amount of health."
+item_value = 20

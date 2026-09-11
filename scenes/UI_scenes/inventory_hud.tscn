@@ -23,90 +23,238 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1958925034]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1783661055]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=779869058]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=715594479]
+layout_mode = 2
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1398973398]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=599207510]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 150
+
+[node name="exit_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=552579474]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/info_button")
+focus_neighbor_bottom = NodePath("../../../../MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/item_button")
+text = "Exit"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1907691193]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 50
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2" unique_id=1240620832]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1073938078]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 50
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer3" unique_id=1028131576]
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=682222395]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 49
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer4" unique_id=271897816]
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1165495824]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 50
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer5" unique_id=106995411]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1833461864]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.33
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=93524156]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=399134699]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer" unique_id=367131516]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer" unique_id=33115399]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1155585151]
+[node name="item_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1054732708]
 layout_mode = 2
-theme_override_constants/margin_right = 300
-theme_override_constants/margin_bottom = 20
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../info_button")
+focus_neighbor_bottom = NodePath("../skill_button")
+toggle_mode = true
+text = "Items"
 
-[node name="exit_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=291616581]
+[node name="skill_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=454118782]
 layout_mode = 2
-text = "exit"
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../item_button")
+focus_neighbor_bottom = NodePath("../equip_button")
+toggle_mode = true
+text = "Skills"
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=332280453]
+[node name="equip_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=259893548]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../skill_button")
+focus_neighbor_bottom = NodePath("../level_button")
+toggle_mode = true
+text = "Equip"
 
-[node name="character_one_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2" unique_id=273737525]
+[node name="level_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1622540549]
 layout_mode = 2
-text = "character_one"
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../equip_button")
+focus_neighbor_bottom = NodePath("../formation_button")
+toggle_mode = true
+text = "Level"
 
-[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1952296037]
+[node name="formation_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=379964735]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../level_button")
+focus_neighbor_bottom = NodePath("../logbook_button")
+toggle_mode = true
+text = "Formation"
 
-[node name="character_two_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3" unique_id=381606678]
+[node name="logbook_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1444716275]
 layout_mode = 2
-text = "character_two"
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../formation_button")
+focus_neighbor_bottom = NodePath("../info_button")
+toggle_mode = true
+text = "Logbook"
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=791458123]
+[node name="info_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1896283423]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../logbook_button")
+focus_neighbor_bottom = NodePath("../item_button")
+toggle_mode = true
+text = "Info"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1553119056]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer/HBoxContainer/MarginContainer2" unique_id=1240607587]
+[node name="select_container" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2" unique_id=1296511678]
 layout_mode = 2
-current_tab = 0
 
-[node name="Relics" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/TabContainer" unique_id=618622411]
-layout_mode = 2
-text = "Relics"
-metadata/_tab_index = 0
-
-[node name="Consumables" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/TabContainer" unique_id=986505771]
-visible = false
-layout_mode = 2
-text = "Consumables"
-metadata/_tab_index = 1
-
-[node name="Keys" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/TabContainer" unique_id=413995154]
-visible = false
-layout_mode = 2
-text = "Keys"
-metadata/_tab_index = 2
-
-[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1460260935]
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1832642423]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer3" unique_id=550148182]
+[node name="info_container" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3" unique_id=860909627]
 layout_mode = 2
+text = "bottom text"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer" unique_id=769147955]
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=2139129661]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer/MarginContainer" unique_id=2074013338]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3" unique_id=1864715477]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer" unique_id=256609448]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer" unique_id=1909604120]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2" unique_id=509116790]
+[node name="front_row_container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer" unique_id=1075506589]
 layout_mode = 2
-text = "Item description"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container" unique_id=1780694754]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+
+[node name="character_one_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container/MarginContainer" unique_id=380110764]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../MarginContainer2/character_two_button")
+focus_neighbor_bottom = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer/character_four_button")
+focus_next = NodePath("../../MarginContainer2/character_two_button")
+focus_previous = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer2/character_five_button")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container" unique_id=1744588736]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+
+[node name="character_two_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container/MarginContainer2" unique_id=518742517]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../MarginContainer/character_one_button")
+focus_neighbor_right = NodePath("../../MarginContainer3/character_three_button")
+focus_neighbor_bottom = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer2/character_five_button")
+focus_next = NodePath("../../MarginContainer3/character_three_button")
+focus_previous = NodePath("../../MarginContainer/character_one_button")
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container" unique_id=1032486788]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+
+[node name="character_three_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container/MarginContainer3" unique_id=454789496]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../MarginContainer2/character_two_button")
+focus_neighbor_bottom = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer2/character_five_button")
+focus_next = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer/character_four_button")
+focus_previous = NodePath("../../MarginContainer2/character_two_button")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer" unique_id=1578360715]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="back_row_container" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2" unique_id=1550293988]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2/back_row_container" unique_id=109702812]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+
+[node name="character_four_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2/back_row_container/MarginContainer" unique_id=1708449455]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../MarginContainer/front_row_container/MarginContainer/character_one_button")
+focus_neighbor_right = NodePath("../../MarginContainer2/character_five_button")
+focus_next = NodePath("../../MarginContainer2/character_five_button")
+focus_previous = NodePath("../../../../MarginContainer/front_row_container/MarginContainer3/character_three_button")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2/back_row_container" unique_id=1131534321]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 200
+
+[node name="character_five_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2/back_row_container/MarginContainer2" unique_id=1020236172]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../MarginContainer/character_four_button")
+focus_neighbor_top = NodePath("../../../../MarginContainer/front_row_container/MarginContainer2/character_two_button")
+focus_next = NodePath("../../../../MarginContainer/front_row_container/MarginContainer/character_one_button")
+focus_previous = NodePath("../../MarginContainer/character_four_button")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/exit_button" to="." method="_on_exit_button_pressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/item_button" to="." method="_on_item_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/skill_button" to="." method="_on_skill_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/logbook_button" to="." method="_on_logbook_button_toggled"]

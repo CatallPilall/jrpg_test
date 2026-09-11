@@ -21,7 +21,6 @@ var selected_unit : unit
 var combat_team_reference : Array[unit]
 
 var selected_skill : skill
-var selected_item : item
 
 var is_skill_button_pressed_connected : bool = false
 var is_unit_targets_selected_connected : bool = false
@@ -150,16 +149,7 @@ func disconnect_from_item_button_pressed():
 		EventBus.item_button_pressed.disconnect(_item_button_pressed)
 		ConsoleLog.SIGNAL(self,"item_button_pressed","disconnected",0)
 
-func _item_button_pressed(pressed_item : item, signal_key : int):
-	selected_item = pressed_item
-	var item_skill : skill = selected_item.item_skill
-	
-	combat_state = combat_state_machine.ITEM_SELECTED
-	ConsoleLog.INFO(self,["selected_skill","selected_unit"],[item_skill,selected_unit])
-		
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-	EventBus.apply_skill_targeting.emit(item_skill.skill_targeting,new_signal_key)
+func _item_button_pressed(_pressed_item : item, signal_key : int):
 	
 	ConsoleLog.SIGNAL(self,"item_button_pressed","processed",signal_key)
 
@@ -182,12 +172,6 @@ func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : 
 		queue_skill(selected_skill)
 		selected_skill = null
 		cycle_ally_unit()
-	if selected_item:
-		item_usage_array[selected_unit_array_position] = true
-		selected_item.item_skill.set_caster_and_targets(selected_unit,selected_targets, secondary_targets)
-		selected_item.item_skill.execute_skill()
-		TeamRoster.consumables.erase(selected_item)
-		selected_item = null
 		
 		if selected_unit_array_position == 0:
 			combat_state = combat_state_machine.FIRST_CHARACTER
@@ -313,21 +297,6 @@ func undo_last_action():
 			var new_signal_key : int = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
 			EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-			if selected_unit_array_position == 0:
-				combat_state = combat_state_machine.FIRST_CHARACTER
-			else:
-				combat_state = combat_state_machine.CHARACTER_SELECTED
-		combat_state_machine.ITEM_SELECTED:
-			var new_signal_key : int = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
-			EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-			
-			new_signal_key = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-			EventBus.apply_skill_targeting.emit(selected_item.item_skill.primary_skill_targeting,selected_item.item_skill.secondary_skill_targeting,null,new_signal_key)
-			
-			selected_item = null
-			
 			if selected_unit_array_position == 0:
 				combat_state = combat_state_machine.FIRST_CHARACTER
 			else:

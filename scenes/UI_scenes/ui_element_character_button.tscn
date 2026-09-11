@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://tbr6v86bqhx2"]
+
+[ext_resource type="Script" uid="uid://8bqheritalcn" path="res://scripts/UI_scripts/ui_element_character_button.gd" id="1_7fdts"]
+[ext_resource type="Texture2D" uid="uid://dfbchf70wjc6s" path="res://assets/portraits/place_holder_portrait.png" id="2_sutfl"]
+
+[node name="ui_element_character_button" type="Control" unique_id=128484359]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7fdts")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=307113199]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1392697285]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=958301724]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="character_portrait" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer" unique_id=1701771078]
+layout_mode = 2
+texture = ExtResource("2_sutfl")
+stretch_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1775988384]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer2" unique_id=765035959]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=657752769]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="character_name" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer" unique_id=828096027]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=2136203601]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=915480034]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="character_skillpoints" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer/MarginContainer" unique_id=597352055]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=1149747468]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="character_status" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer/MarginContainer2" unique_id=950658274]
+layout_mode = 2

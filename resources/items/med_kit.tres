@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://dnc6efq8klpk2"]
+
+[ext_resource type="Script" uid="uid://5brmccyrc7ua" path="res://scripts/resource_scripts/items/consumable.gd" id="1_35g1p"]
+
+[resource]
+script = ExtResource("1_35g1p")
+item_name = "Med-Kit"
+item_description = "A set of medical supplies designed to treat any wound."
+item_value = 7

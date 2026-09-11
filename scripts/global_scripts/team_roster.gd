@@ -8,6 +8,16 @@ var relics : Array[item]
 var consumables : Array[item]
 var valuables : Array[item]
 
+var logbook : Array[quest]
+
+func _ready() -> void:
+	var first_quest : quest = preload("res://resources/quests/dummy_quest_one.tres")
+	var second_quest : quest = preload("res://resources/quests/dummy_quest_two.tres")
+	var third_quest : quest = preload("res://resources/quests/dummy_quest_three.tres")
+	put_quest_into_logbook(first_quest)
+	put_quest_into_logbook(second_quest)
+	put_quest_into_logbook(third_quest)
+
 func put_unit_into_combat_team(new_unit : unit):
 	if combat_team.size()<5:
 		if not team_captain:
@@ -17,10 +27,9 @@ func put_unit_into_combat_team(new_unit : unit):
 
 func put_item_into_inventory(new_item : item):
 	var duped_item : item = new_item.duplicate()
-	match new_item.item_type:
-		item.enum_item_type.CONSUMABLE:
-			consumables.append(duped_item)
-		item.enum_item_type.RELIC:
-			relics.append(duped_item)
-		item.enum_item_type.VALUABLE:
-			valuables.append(duped_item)
+	
+	if new_item is consumable:
+		consumables.append(duped_item)
+
+func put_quest_into_logbook(new_quest : quest):
+	logbook.append(new_quest)
