@@ -80,6 +80,7 @@ func return_one_step():
 	else:
 		current_button_focus = return_chain.pop_back()
 		current_button_focus.grab_focus.call_deferred()
+		current_button_focus.set_pressed_no_signal(false)
 	
 	if undo_containers:
 		for cursor : Button in select_container.get_children():
@@ -181,12 +182,14 @@ func _on_item_button_toggled(toggled_on: bool) -> void:
 		undo_containers = true
 		return_chain.append(item_button)
 		fill_select_container(TeamRoster.consumables)
+		item_button.set_pressed_no_signal(true)
 
 func _on_logbook_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		undo_containers = true
 		return_chain.append(logbook_button)
 		fill_select_container(TeamRoster.logbook)
+		logbook_button.set_pressed_no_signal(true)
 
 func _on_exit_button_pressed() -> void:
 	queue_free()
@@ -195,3 +198,4 @@ func _on_skill_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		return_chain.append(skill_button)
 		select_unit_roster()
+		skill_button.set_pressed_no_signal(true)
