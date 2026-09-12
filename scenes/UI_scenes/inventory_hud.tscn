@@ -185,6 +185,7 @@ theme_override_constants/margin_right = 25
 
 [node name="character_one_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container/MarginContainer" unique_id=380110764]
 layout_mode = 2
+focus_neighbor_left = NodePath("../../MarginContainer3/character_three_button")
 focus_neighbor_right = NodePath("../../MarginContainer2/character_two_button")
 focus_neighbor_bottom = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer/character_four_button")
 focus_next = NodePath("../../MarginContainer2/character_two_button")
@@ -215,6 +216,7 @@ theme_override_constants/margin_right = 25
 [node name="character_three_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer/front_row_container/MarginContainer3" unique_id=454789496]
 layout_mode = 2
 focus_neighbor_left = NodePath("../../MarginContainer2/character_two_button")
+focus_neighbor_right = NodePath("../../MarginContainer/character_one_button")
 focus_neighbor_bottom = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer2/character_five_button")
 focus_next = NodePath("../../../../MarginContainer2/back_row_container/MarginContainer/character_four_button")
 focus_previous = NodePath("../../MarginContainer2/character_two_button")
@@ -235,6 +237,7 @@ theme_override_constants/margin_right = 25
 
 [node name="character_four_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/MarginContainer2/back_row_container/MarginContainer" unique_id=1708449455]
 layout_mode = 2
+focus_neighbor_left = NodePath("../../MarginContainer2/character_five_button")
 focus_neighbor_top = NodePath("../../../../MarginContainer/front_row_container/MarginContainer/character_one_button")
 focus_neighbor_right = NodePath("../../MarginContainer2/character_five_button")
 focus_next = NodePath("../../MarginContainer2/character_five_button")
@@ -251,6 +254,7 @@ theme_override_constants/margin_right = 200
 layout_mode = 2
 focus_neighbor_left = NodePath("../../MarginContainer/character_four_button")
 focus_neighbor_top = NodePath("../../../../MarginContainer/front_row_container/MarginContainer2/character_two_button")
+focus_neighbor_right = NodePath("../../MarginContainer/character_four_button")
 focus_next = NodePath("../../../../MarginContainer/front_row_container/MarginContainer/character_one_button")
 focus_previous = NodePath("../../MarginContainer/character_four_button")
 
