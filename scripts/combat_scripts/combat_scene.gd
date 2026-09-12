@@ -48,15 +48,12 @@ class_name combat_scene
 
 var combat_hud_packed_scene : PackedScene = preload("res://scenes/UI_scenes/combat_hud.tscn")
 
-var is_remove_dead_unit_connected : bool = false
-var is_apply_skill_targeting_connected : bool = false
-
 var ally_team : Array[unit]
 
 var secondary_targets : Array[unit]
 
 var enemy_one : unit
-var enemy_two : unit 
+var enemy_two : unit
 var enemy_three : unit
 var enemy_four : unit
 var enemy_five : unit
@@ -67,36 +64,29 @@ var overworld_encounter : Node2D
 
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
-	
+
 	camera_2d.make_current()
-	
+
 	copy_combat_team_locally()
-	
-	connect_to_remove_dead_unit()
-	connect_to_apply_skill_targeting()
-	
+
+	connect_signals()
+
 	load_ally_sprites()
 	load_enemy_sprites()
-	
+
 	_apply_skill_targeting(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,2)
-	
-	var new_signal_key : int = EventBus.generate_signal_key()
+
+	# var new_signal_key : int = EventBus.generate_signal_key()
 	var new_combat_hud : Control = combat_hud_packed_scene.instantiate()
-	new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"load_hud_scene","emit",new_signal_key)
-	EventBus.load_hud_scene.emit(new_combat_hud,new_signal_key)
+	# new_signal_key = EventBus.generate_signal_key()
+	ConsoleLog.DEBUG(self,"load_hud_scene : " + str(new_combat_hud))
+	SceneLoader.load_hud_scene(new_combat_hud)
 
-func connect_to_apply_skill_targeting():
-	if not is_apply_skill_targeting_connected:
-		is_apply_skill_targeting_connected = true
-		EventBus.apply_skill_targeting.connect(_apply_skill_targeting)
-		ConsoleLog.SIGNAL(self,"apply_skill_targeting","connected",1)
 
-func disconnect_from_apply_skill_targeting():
-	if is_apply_skill_targeting_connected:
-		is_apply_skill_targeting_connected = false
-		EventBus.apply_skill_targeting.disconnect(_apply_skill_targeting)
-		ConsoleLog.SIGNAL(self,"apply_skill_targeting","disconnected",0)
+func connect_signals():
+	EventBus.connect_function_with_signal(_remove_dead_unit, EventBus.remove_dead_unit)
+	EventBus.connect_function_with_signal(_apply_skill_targeting, EventBus.apply_skill_targeting)
+
 
 func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting, secondary_skill_targeting : skill.enum_skill_targeting, casting_unit : unit, signal_key : int):
 	ally_one_area_2d.show()
@@ -104,13 +94,13 @@ func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting
 	ally_three_area_2d.show()
 	ally_four_area_2d.show()
 	ally_five_area_2d.show()
-	
+
 	enemy_one_area_2d.show()
 	enemy_two_area_2d.show()
 	enemy_three_area_2d.show()
 	enemy_four_area_2d.show()
 	enemy_five_area_2d.show()
-	
+
 	enemy_team_area_2d.hide()
 	ally_team_area_2d.hide()
 	enemy_front_line_area_2d.hide()
@@ -127,9 +117,9 @@ func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting
 	ally_area_one_area_2d.hide()
 	ally_area_two_area_2d.hide()
 	ally_area_three_area_2d.hide()
-	
+
 	secondary_targets.clear()
-	
+
 	match primary_skill_targeting:
 		skill.enum_skill_targeting.NONE:
 			return
@@ -197,9 +187,9 @@ func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting
 			ally_area_one_area_2d.show()
 			ally_area_two_area_2d.show()
 			ally_area_three_area_2d.show()
-	
+
 	set_secondary_targets(secondary_skill_targeting, casting_unit)
-	
+
 	ConsoleLog.SIGNAL(self,"apply_skill_targeting","processed",signal_key)
 
 func hide_individual_area_2d():
@@ -208,7 +198,7 @@ func hide_individual_area_2d():
 	ally_three_area_2d.hide()
 	ally_four_area_2d.hide()
 	ally_five_area_2d.hide()
-	
+
 	enemy_one_area_2d.hide()
 	enemy_two_area_2d.hide()
 	enemy_three_area_2d.hide()
@@ -339,17 +329,6 @@ func load_enemy_sprites():
 	else:
 		enemy_position_five.hide()
 
-func connect_to_remove_dead_unit():
-	if not is_remove_dead_unit_connected:
-		is_remove_dead_unit_connected = true
-		EventBus.remove_dead_unit.connect(_remove_dead_unit)
-		ConsoleLog.SIGNAL(self,"remove_dead_unit","connected",1)
-
-func disconnect_from_remove_dead_unit():
-	if is_remove_dead_unit_connected:
-		is_remove_dead_unit_connected = false
-		EventBus.remove_dead_unit.disconnect(_remove_dead_unit)
-		ConsoleLog.SIGNAL(self,"remove_dead_unit","disconnected",0)
 
 func _remove_dead_unit(dead_unit : unit, signal_key : int):
 	combat_duration -= 1
@@ -364,19 +343,20 @@ func _remove_dead_unit(dead_unit : unit, signal_key : int):
 			enemy_position_four.hide()
 		enemy_five:
 			enemy_position_five.hide()
-	
+
 	if combat_duration <= 0:
 		end_combat()
-	
+
 	ConsoleLog.SIGNAL(self,"remove_dead_unit","processed",signal_key)
 
 func end_combat():
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"unload_combat_scene","emit",new_signal_key)
-	EventBus.unload_combat_scene.emit(overworld_encounter,new_signal_key)
-	new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"load_hud_scene","emit",new_signal_key)
-	EventBus.load_hud_scene.emit(null,new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	ConsoleLog.DEBUG(self,"unload_combat_scene : " + str(overworld_encounter))
+	SceneLoader.unload_combat_scene(overworld_encounter)
+
+	# new_signal_key = EventBus.generate_signal_key()
+	ConsoleLog.DEBUG(self,"load_hud_scene : " + str(overworld_encounter))
+	SceneLoader.load_hud_scene(null)
 
 func copy_combat_team_locally():
 	ally_team = TeamRoster.combat_team

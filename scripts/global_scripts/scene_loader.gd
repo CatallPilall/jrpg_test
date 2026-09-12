@@ -46,39 +46,52 @@ func init_vars(_called_by : Object, _main_canvas_layer : CanvasLayer, _combat_sc
 	is_initialized = true
 
 
+# func connect_signals() -> void:
+# 	if not _check_initialization():
+# 		return
+
+# 	EventBus.connect_function_with_signal(load_ui_scene, EventBus.load_ui_scene)
+# 	EventBus.connect_function_with_signal(load_scene, EventBus.load_scene)
+# 	EventBus.connect_function_with_signal(load_hud_scene, EventBus.load_hud_scene)
+# 	EventBus.connect_function_with_signal(load_combat_scene, EventBus.load_combat_scene)
+# 	EventBus.connect_function_with_signal(unload_combat_scene, EventBus.unload_combat_scene)
+
+
 func load_main_menu() -> void:
 	if not _check_initialization():
 		return
 	var new_main_menu : Control = main_menu_packed_scene.instantiate()
 	current_ui_scene = new_main_menu
 	main_canvas_layer.add_child(new_main_menu)
+	ConsoleLog.DEBUG(self, "load_main_menu")
 
 
 func load_pause_menu() -> void:
 	if not _check_initialization():
 		return
+	ConsoleLog.DEBUG(self, "load_pause_menu")
 
 
-func load_combat_scene(scene : combat_scene, signal_key : int):
+func load_combat_scene(scene : combat_scene):
 	if not _check_initialization():
 		return
 	current_scene.hide()
 	current_combat_scene = scene
 	combat_scenes.add_child.call_deferred(current_combat_scene)
-	ConsoleLog.SIGNAL(self, "load_combat_scene", "processed", signal_key)
+	ConsoleLog.DEBUG(self, "load_combat_scene")
 
 
-func unload_combat_scene(overworld_encounter : Node2D, signal_key : int):
+func unload_combat_scene(overworld_encounter : Node2D):
 	if not _check_initialization():
 		return
 	overworld_encounter.queue_free()
 	current_combat_scene.queue_free()
 	current_combat_scene = null
 	current_scene.show()
-	ConsoleLog.SIGNAL(self, "unload_combat_scene","processed", signal_key)
+	ConsoleLog.DEBUG(self, "unload_combat_scene")
 
 
-func load_ui_scene(ui_scene : Control, signal_key : int):
+func load_ui_scene(ui_scene : Control):
 	if not _check_initialization():
 		return
 
@@ -95,10 +108,10 @@ func load_ui_scene(ui_scene : Control, signal_key : int):
 		current_hud_scene = null
 	current_ui_scene = ui_scene
 	main_canvas_layer.add_child.call_deferred(ui_scene)
-	ConsoleLog.SIGNAL(self, "load_ui_scene","processed", signal_key)
+	ConsoleLog.DEBUG(self, "load_ui_scene")
 
 
-func load_hud_scene(hud_scene : Control, signal_key : int):
+func load_hud_scene(hud_scene : Control):
 	if not _check_initialization():
 		return
 
@@ -108,10 +121,10 @@ func load_hud_scene(hud_scene : Control, signal_key : int):
 	else:
 		current_hud_scene = hud_scene
 		main_canvas_layer.add_child.call_deferred(hud_scene)
-	ConsoleLog.SIGNAL(self, "load_hud_scene", "processed", signal_key)
+	ConsoleLog.DEBUG(self, "load_hud_scene")
 
 
-func load_scene(scene : Node2D, signal_key : int):
+func load_scene(scene : Node2D):
 	if not _check_initialization():
 		return
 
@@ -128,4 +141,4 @@ func load_scene(scene : Node2D, signal_key : int):
 		current_hud_scene = null
 	current_scene = scene
 	level_scenes.add_child.call_deferred(scene)
-	ConsoleLog.SIGNAL(self, "load_scene", "processed", signal_key)
+	ConsoleLog.DEBUG(self, "load_scene")

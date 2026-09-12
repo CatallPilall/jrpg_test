@@ -19,8 +19,9 @@ func _on_brunhilde_button_pressed() -> void:
 	TeamRoster.put_unit_into_combat_team(derek_uit)
 	TeamRoster.put_unit_into_combat_team(karion_unit)
 	TeamRoster.put_unit_into_combat_team(ungor_unit)
-	
+
 	var test_level : Node2D = test_level_packed_scene.instantiate()
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"load_scene","emit",new_signal_key)
-	EventBus.load_scene.emit(test_level,new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	ConsoleLog.DEBUG(self, "load_scene : " + str(test_level))
+	# EventBus.load_scene.emit(test_level,new_signal_key)
+	SceneLoader.load_scene(test_level)

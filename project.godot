@@ -19,8 +19,8 @@ run/size/no_focus=true
 
 ConsoleLog="*uid://fauukn85l6cu"
 EventBus="*uid://dptl1m0fqgmp7"
-SceneLoader="*uid://lgvx6jx1q0nk"
 TimerGlobal="*uid://ceo0pnpx8wduo"
+SceneLoader="*uid://lgvx6jx1q0nk"
 TeamRoster="*uid://bs6npauojgu5k"
 
 [display]

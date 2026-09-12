@@ -23,63 +23,38 @@ var combat_team_reference : Array[unit]
 var selected_skill : skill
 var selected_item : item
 
-var is_skill_button_pressed_connected : bool = false
-var is_unit_targets_selected_connected : bool = false
-var is_end_turn_button_pressed_connected : bool = false
-var is_hud_scene_has_loaded_connected : bool = false
-var is_clean_up_skill_connected : bool = false
-var is_combat_state_changed_via_combat_hud_connected : bool = false
-var is_item_button_pressed_connected : bool = false
-
 var skill_order_array : Array[skill]
 
 var item_usage_array : Array[bool]
 
+
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
-	connect_to_skill_button_pressed()
-	connect_to_unit_targets_selected()
-	connect_to_end_turn_button_pressed()
-	connect_to_hud_scene_has_loaded()
-	connect_to_clean_up_skill()
-	connect_to_combat_state_changed_via_combat_hud()
-	connect_to_item_button_pressed()
+	connect_signals()
 	store_combat_team_locally()
 	combat_state = combat_state_machine.FIRST_CHARACTER
 
-func connect_to_clean_up_skill():
-	if not is_clean_up_skill_connected:
-		is_clean_up_skill_connected = true
-		EventBus.clean_up_skill.connect(_clean_up_skill)
-		ConsoleLog.SIGNAL(self,"clean_up_skill","connected",1)
 
-func disconnect_from_clean_up_skill():
-	if is_clean_up_skill_connected:
-		is_clean_up_skill_connected = false
-		EventBus.clean_up_skill.disconnect(_clean_up_skill)
-		ConsoleLog.SIGNAL(self,"clean_up_skill","disconnected",0)
+func connect_signals():
+	EventBus.connect_function_with_signal(_skill_button_pressed, EventBus.skill_button_pressed)
+	EventBus.connect_function_with_signal(_unit_targets_selected, EventBus.unit_targets_selected)
+	EventBus.connect_function_with_signal(_end_turn_button_pressed, EventBus.end_turn_button_pressed)
+	EventBus.connect_function_with_signal(_hud_scene_has_loaded, EventBus.hud_scene_has_loaded)
+	EventBus.connect_function_with_signal(_clean_up_skill, EventBus.clean_up_skill)
+	EventBus.connect_function_with_signal(_combat_state_changed_via_combat_hud, EventBus.combat_state_changed_via_combat_hud)
+	EventBus.connect_function_with_signal(_item_button_pressed, EventBus.item_button_pressed)
+
 
 func _clean_up_skill(skill_to_clean : skill, signal_key : int):
 	skill_order_array.erase(skill_to_clean)
 	ConsoleLog.SIGNAL(self,"clean_up_skill","processed",signal_key)
 
-func connect_to_hud_scene_has_loaded():
-	if not is_hud_scene_has_loaded_connected:
-		is_hud_scene_has_loaded_connected = true
-		EventBus.hud_scene_has_loaded.connect(_hud_scene_has_loaded)
-		ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","connected",1)
-
-func disconnect_from_hud_scene_has_loaded():
-	if is_hud_scene_has_loaded_connected:
-		is_hud_scene_has_loaded_connected = false
-		EventBus.hud_scene_has_loaded.disconnect(_hud_scene_has_loaded)
-		ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","disconnected",0)
 
 func _hud_scene_has_loaded(signal_key : int):
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
-	
+
 	ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","processed",signal_key)
 
 func store_combat_team_locally():
@@ -94,22 +69,11 @@ func new_unit_selected():
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
-	
+
 	new_signal_key = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
 	EventBus.disable_item_button.emit(item_usage_array[selected_unit_array_position],new_signal_key)
 
-func connect_to_skill_button_pressed():
-	if not is_skill_button_pressed_connected:
-		is_skill_button_pressed_connected = true
-		EventBus.skill_button_pressed.connect(_skill_button_pressed)
-		ConsoleLog.SIGNAL(self,"skill_button_pressed","connected",1)
-
-func disconnect_from_skill_button_pressed():
-	if is_skill_button_pressed_connected:
-		is_skill_button_pressed_connected = false
-		EventBus.skill_button_pressed.disconnect(_skill_button_pressed)
-		ConsoleLog.SIGNAL(self,"skill_button_pressed","disconnected",0)
 
 func _skill_button_pressed(skill_name : String, signal_key : int):
 	if skill_name == "skill":
@@ -128,52 +92,30 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 	else:
 		var new_skill : skill = skill_dict.get(skill_name).duplicate_deep(2)
 		selected_skill = new_skill
-		
+
 		combat_state = combat_state_machine.SKILL_SELECTED
 		ConsoleLog.INFO(self,["selected_skill","selected_unit"],[selected_skill,selected_unit])
-		
+
 		var new_signal_key : int = EventBus.generate_signal_key()
 		ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 		EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,selected_unit,new_signal_key)
-		
+
 		ConsoleLog.SIGNAL(self,"skill_button_pressed","processed",signal_key)
 
-func connect_to_item_button_pressed():
-	if not is_item_button_pressed_connected:
-		is_item_button_pressed_connected = true
-		EventBus.item_button_pressed.connect(_item_button_pressed)
-		ConsoleLog.SIGNAL(self,"item_button_pressed","connected",1)
-
-func disconnect_from_item_button_pressed():
-	if is_item_button_pressed_connected:
-		is_item_button_pressed_connected = false
-		EventBus.item_button_pressed.disconnect(_item_button_pressed)
-		ConsoleLog.SIGNAL(self,"item_button_pressed","disconnected",0)
 
 func _item_button_pressed(pressed_item : item, signal_key : int):
 	selected_item = pressed_item
 	var item_skill : skill = selected_item.item_skill
-	
+
 	combat_state = combat_state_machine.ITEM_SELECTED
 	ConsoleLog.INFO(self,["selected_skill","selected_unit"],[item_skill,selected_unit])
-		
+
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 	EventBus.apply_skill_targeting.emit(item_skill.skill_targeting,new_signal_key)
-	
+
 	ConsoleLog.SIGNAL(self,"item_button_pressed","processed",signal_key)
 
-func connect_to_unit_targets_selected():
-	if not is_unit_targets_selected_connected:
-		is_unit_targets_selected_connected = true
-		EventBus.unit_targets_selected.connect(_unit_targets_selected)
-		ConsoleLog.SIGNAL(self,"unit_targets_selected","connected",1)
-
-func disconnect_from_unit_targets_selected():
-	if is_unit_targets_selected_connected:
-		is_unit_targets_selected_connected = false
-		EventBus.unit_targets_selected.disconnect(_unit_targets_selected)
-		ConsoleLog.SIGNAL(self,"unit_targets_selected","disconnected",0)
 
 func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : Array[unit], signal_key : int):
 	ConsoleLog.DEBUG(self,"_unit_targets_selected caught secondary_targets: " + str(secondary_targets))
@@ -188,36 +130,36 @@ func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : 
 		selected_item.item_skill.execute_skill()
 		TeamRoster.consumables.erase(selected_item)
 		selected_item = null
-		
+
 		if selected_unit_array_position == 0:
 			combat_state = combat_state_machine.FIRST_CHARACTER
 		else:
 			combat_state = combat_state_machine.CHARACTER_SELECTED
-		
+
 		var new_signal_key : int = EventBus.generate_signal_key()
 		ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
 		EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-		
+
 		new_signal_key = EventBus.generate_signal_key()
 		ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
 		EventBus.disable_item_button.emit(true,new_signal_key)
-		
+
 	ConsoleLog.SIGNAL(self,"unit_targets_selected","processed",signal_key)
 
 func cycle_ally_unit():
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
 	EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-	
+
 	new_signal_key = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 	EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
-	
+
 	if selected_unit_array_position == TeamRoster.combat_team.size()-1:
 		new_signal_key = EventBus.generate_signal_key()
 		ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","emit",new_signal_key)
 		EventBus.disable_combat_hud_actions.emit(new_signal_key)
-		
+
 		combat_state = combat_state_machine.LAST_CHARACTER
 	else:
 		selected_unit_array_position += 1
@@ -234,30 +176,19 @@ func sort_skill_order_array(a : skill, b : skill):
 		return true
 	return false
 
-func connect_to_end_turn_button_pressed():
-	if not is_end_turn_button_pressed_connected:
-		is_end_turn_button_pressed_connected = true
-		EventBus.end_turn_button_pressed.connect(_end_turn_button_pressed)
-		ConsoleLog.SIGNAL(self,"end_turn_button_pressed","connected",1)
-
-func disconnect_from_end_turn_button_pressed():
-	if is_end_turn_button_pressed_connected:
-		is_end_turn_button_pressed_connected = false
-		EventBus.end_turn_button_pressed.disconnect(_end_turn_button_pressed)
-		ConsoleLog.SIGNAL(self,"end_turn_button_pressed","disconnected",0)
 
 func _end_turn_button_pressed(signal_key : int):
 	skill_order_array = skill_order_array.filter(func(n): return n != null)
 	for i : skill in skill_order_array:
 		i.execute_skill()
-	
+
 	for i in item_usage_array:
 		i = false
-	
+
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"combat_turn_ended","emit",new_signal_key)
 	EventBus.combat_turn_ended.emit(new_signal_key)
-	
+
 	start_new_turn()
 	ConsoleLog.SIGNAL(self,"end_turn_button_pressed","processed",signal_key)
 
@@ -268,17 +199,18 @@ func start_new_turn():
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
 	EventBus.enable_combat_hud_actions.emit(new_signal_key)
-	
-	new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"new_turn","emit",new_signal_key)
-	EventBus.new_turn.emit(new_signal_key)
+
+	# HÄÄÄÄÄÄ ?????????
+	# nirgends connected, why do we need it?
+	# new_signal_key = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"new_turn","emit",new_signal_key)
+	# EventBus.new_turn.emit(new_signal_key)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click"):
 		undo_last_action()
 
 func undo_last_action():
-	
 	match combat_state:
 		combat_state_machine.FIRST_CHARACTER:
 			return
@@ -288,21 +220,21 @@ func undo_last_action():
 				combat_state = combat_state_machine.FIRST_CHARACTER
 			else:
 				combat_state = combat_state_machine.CHARACTER_SELECTED
-			
+
 			var new_signal_key :int = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 			EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
-			
+
 		combat_state_machine.CHARACTER_SELECTED:
 			selected_unit_array_position -= 1
 			selected_skill = skill_order_array.pop_back()
 			new_unit_selected()
 			combat_state = combat_state_machine.SKILL_SELECTED
-			
+
 			var new_signal_key :int = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 			EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,null,new_signal_key)
-			
+
 		combat_state_machine.LAST_CHARACTER:
 			selected_skill = skill_order_array.pop_back()
 			var new_signal_key : int = EventBus.generate_signal_key()
@@ -321,13 +253,13 @@ func undo_last_action():
 			var new_signal_key : int = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
 			EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-			
+
 			new_signal_key = EventBus.generate_signal_key()
 			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 			EventBus.apply_skill_targeting.emit(selected_item.item_skill.primary_skill_targeting,selected_item.item_skill.secondary_skill_targeting,null,new_signal_key)
-			
+
 			selected_item = null
-			
+
 			if selected_unit_array_position == 0:
 				combat_state = combat_state_machine.FIRST_CHARACTER
 			else:
@@ -335,17 +267,6 @@ func undo_last_action():
 
 	ConsoleLog.INFO(self,["selected_character","selected_skill","state_machine","skill_array"],[selected_unit,selected_skill,combat_state,skill_order_array])
 
-func connect_to_combat_state_changed_via_combat_hud():
-	if not is_combat_state_changed_via_combat_hud_connected:
-		is_combat_state_changed_via_combat_hud_connected = true
-		EventBus.combat_state_changed_via_combat_hud.connect(_combat_state_changed_via_combat_hud)
-		ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","connected",1)
-
-func disconnect_from_combat_state_changed_via_combat_hud():
-	if is_combat_state_changed_via_combat_hud_connected:
-		is_combat_state_changed_via_combat_hud_connected = false
-		EventBus.combat_state_changed_via_combat_hud.disconnect(_combat_state_changed_via_combat_hud)
-		ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","disconnected",0)
 
 func _combat_state_changed_via_combat_hud(signal_key : int):
 	if selected_unit_array_position == 0:
