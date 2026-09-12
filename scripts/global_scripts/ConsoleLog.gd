@@ -1,6 +1,6 @@
 extends Node
 
-enum output_type{MESSAGE,DEBUG,INFO,ERROR,SIGNAL,INPUT,SCENE}
+enum output_type{MESSAGE,DEBUG,INFO,WARNING,ERROR,SIGNAL,INPUT,SCENE}
 
 func MESSAGE(messenger : Object, text : String):
 	var new_message : String = JSON.stringify(messenger) + " : " + text
@@ -17,6 +17,10 @@ func DEBUG(messenger : Object, text : String):
 func ERROR(messenger : Object, script_and_row : String, text : String):
 	var new_message : String = JSON.stringify(messenger) + " at: " + script_and_row + " " + text
 	write(output_type.ERROR,new_message)
+
+func WARNING(messenger : Object, script_and_row : String, text : String):
+	var new_message : String = JSON.stringify(messenger) + " at: " + script_and_row + " " + text
+	write(output_type.WARNING,new_message)
 
 func INFO(messenger : Object, variable_names : Array[String], variable_values : Array):
 	var array_string : String = ""
@@ -72,6 +76,9 @@ func write(type : output_type, message : String):
 		output_type.ERROR:
 			prefix_text = "[ERROR]"
 			color = "red"
+		output_type.WARNING:
+			prefix_text = "[WARNING]"
+			color = "orange"
 		output_type.INFO:
 			prefix_text = "[INFO]"
 			color = "magenta"
