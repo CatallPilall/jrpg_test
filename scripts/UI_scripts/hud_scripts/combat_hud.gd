@@ -21,22 +21,22 @@ var item_button_disabled : bool = false
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	connect_signals()
+	_connect_signals()
 
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","emit",new_signal_key)
-	EventBus.hud_scene_has_loaded.emit(new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"combat_hud_has_loaded","emit",new_signal_key)
+	# EventBus.combat_hud_has_loaded.emit(new_signal_key)
 
 
-func connect_signals() -> void:
-	EventBus.connect_function_with_signal(_display_unit_info, EventBus.display_unit_info)
-	EventBus.connect_function_with_signal(_new_selected_unit, EventBus.new_selected_unit)
-	EventBus.connect_function_with_signal(_disable_combat_hud_actions, EventBus.disable_combat_hud_actions)
-	EventBus.connect_function_with_signal(_enable_combat_hud_actions, EventBus.enable_combat_hud_actions)
-	EventBus.connect_function_with_signal(_make_combat_hud_skill_buttons, EventBus.make_combat_hud_skill_buttons)
-	EventBus.connect_function_with_signal(_remove_combat_hud_skill_buttons, EventBus.remove_combat_hud_skill_buttons)
-	EventBus.connect_function_with_signal(_make_combat_hud_item_buttons, EventBus.make_combat_hud_item_buttons)
-	EventBus.connect_function_with_signal(_disable_item_button, EventBus.disable_item_button)
+func _connect_signals() -> void:
+	EventBus.connect_function_with_signal(self, _display_unit_info, EventBus.display_unit_info)
+	EventBus.connect_function_with_signal(self, _new_selected_unit, EventBus.new_selected_unit)
+	EventBus.connect_function_with_signal(self, _disable_combat_hud_actions, EventBus.disable_combat_hud_actions)
+	EventBus.connect_function_with_signal(self, _enable_combat_hud_actions, EventBus.enable_combat_hud_actions)
+	EventBus.connect_function_with_signal(self, _make_combat_hud_skill_buttons, EventBus.make_combat_hud_skill_buttons)
+	EventBus.connect_function_with_signal(self, _remove_combat_hud_skill_buttons, EventBus.remove_combat_hud_skill_buttons)
+	EventBus.connect_function_with_signal(self, _make_combat_hud_item_buttons, EventBus.make_combat_hud_item_buttons)
+	EventBus.connect_function_with_signal(self, _disable_item_button, EventBus.disable_item_button)
 
 
 func _disable_item_button(disabled : bool, signal_key : int):

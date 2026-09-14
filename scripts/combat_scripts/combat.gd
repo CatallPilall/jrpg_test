@@ -46,7 +46,7 @@ class_name combat_scene
 
 @onready var camera_2d: Camera2D = $Camera2D
 
-var combat_hud_packed_scene : PackedScene = preload("res://scenes/UI_scenes/combat_hud.tscn")
+# var combat_hud_packed_scene : PackedScene = preload("res://scenes/UI_scenes/combat_hud.tscn")
 
 var ally_team : Array[unit]
 
@@ -69,23 +69,23 @@ func _ready() -> void:
 
 	copy_combat_team_locally()
 
-	connect_signals()
+	_connect_signals()
 
 	load_ally_sprites()
 	load_enemy_sprites()
 
 	_apply_skill_targeting(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,2)
 
+	var new_combat_hud = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.COMBAT_HUD) as Control
 	# var new_signal_key : int = EventBus.generate_signal_key()
-	var new_combat_hud : Control = combat_hud_packed_scene.instantiate()
+	# var new_combat_hud : Control = combat_hud_packed_scene.instantiate()
 	# new_signal_key = EventBus.generate_signal_key()
 	ConsoleLog.DEBUG(self,"load_hud_scene : " + str(new_combat_hud))
-	SceneLoader.load_hud_scene(new_combat_hud)
 
 
-func connect_signals():
-	EventBus.connect_function_with_signal(_remove_dead_unit, EventBus.remove_dead_unit)
-	EventBus.connect_function_with_signal(_apply_skill_targeting, EventBus.apply_skill_targeting)
+func _connect_signals():
+	EventBus.connect_function_with_signal(self, _remove_dead_unit, EventBus.remove_dead_unit)
+	EventBus.connect_function_with_signal(self, _apply_skill_targeting, EventBus.apply_skill_targeting)
 
 
 func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting, secondary_skill_targeting : skill.enum_skill_targeting, casting_unit : unit, signal_key : int):
@@ -352,11 +352,11 @@ func _remove_dead_unit(dead_unit : unit, signal_key : int):
 func end_combat():
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.DEBUG(self,"unload_combat_scene : " + str(overworld_encounter))
-	SceneLoader.unload_combat_scene(overworld_encounter)
+	SceneLoader.unload_scene(SceneLoader.SCENE_TYPE.COMBAT, -1, 0)
 
 	# new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.DEBUG(self,"load_hud_scene : " + str(overworld_encounter))
-	SceneLoader.load_hud_scene(null)
+	ConsoleLog.DEBUG(self,"unload_hud_scene : " + str(overworld_encounter))
+	SceneLoader.unload_scene(SceneLoader.SCENE_TYPE.COMBAT_HUD)
 
 func copy_combat_team_locally():
 	ally_team = TeamRoster.combat_team

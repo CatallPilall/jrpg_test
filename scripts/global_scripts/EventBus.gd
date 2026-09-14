@@ -8,31 +8,55 @@ func generate_signal_key() -> int:
 
 @warning_ignore("unused_signal")
 signal display_unit_info(selected_unit : unit,signal_key : int)
-# @warning_ignore("unused_signal")
-# signal load_ui_scene(ui_scene : Control,signal_key : int)
-# @warning_ignore("unused_signal")
-# signal load_scene(scene : Node2D,signal_key : int)
-# @warning_ignore("unused_signal")
-# signal load_combat_scene(scene : combat_scene, signal_key : int)
-# @warning_ignore("unused_signal")
-# signal unload_combat_scene(overworld_encounter : Node2D,signal_key : int)
-# @warning_ignore("unused_signal")
-# signal load_hud_scene(hud_scene : Control,signal_key : int)
-@warning_ignore("unused_signal")
-signal hud_scene_has_loaded(signal_key : int)
 
-# Signals for day timer control -------------------------------------------------
-# @warning_ignore("unused_signal")
-# signal timer_timout(signal_key : int)
-# @warning_ignore("unused_signal")
-# signal timer_start_default(signal_key : int)
-# @warning_ignore("unused_signal")
-# signal timer_set_and_start(duration : int, signal_key : int)
-# @warning_ignore("unused_signal")
-# signal timer_pause(signal_key : int)
-# @warning_ignore("unused_signal")
-# signal timer_unpause(signal_key : int)
+# Signals for scene_loader ------------------------------------------------------
+# LOADED
+# UI
+@warning_ignore("unused_signal")
+signal main_menu_has_loaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal campaign_menu_has_loaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal pause_menu_has_loaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal inventory_menu_has_loaded(signal_key : int)
+
+# HUD
+@warning_ignore("unused_signal")
+signal level_hud_has_loaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal combat_hud_has_loaded(signal_key : int)
+
+# LEVELS
+@warning_ignore("unused_signal")
+signal level_has_loaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal combat_has_loaded(signal_key : int)
+
+# UNLOADED
+# UI
+@warning_ignore("unused_signal")
+signal main_menu_has_unloaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal campaign_menu_has_unloaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal pause_menu_has_unloaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal inventory_menu_has_unloaded(signal_key : int)
+
+# HUD
+@warning_ignore("unused_signal")
+signal level_hud_has_unloaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal combat_hud_has_unloaded(signal_key : int)
+
+# LEVELS
+@warning_ignore("unused_signal")
+signal level_has_unloaded(signal_key : int)
+@warning_ignore("unused_signal")
+signal combat_has_unloaded(signal_key : int)
 # -------------------------------------------------------------------------------
+
 
 # Signals for combat_manager ----------------------------------------------------
 @warning_ignore("unused_signal")
@@ -80,25 +104,25 @@ signal calculating_skill_speed(caster : unit, casted_skill : skill, signal_key :
 # -------------------------------------------------------------------------------
 
 
-func connect_function_with_signal(function_to_connect : Callable, signal_connect_to : Signal) -> void:
+func connect_function_with_signal(called_by : Object, function_to_connect : Callable, signal_connect_to : Signal) -> void:
 	if not function_to_connect.is_valid():
-		ConsoleLog.ERROR(self, "EventBus 82", "function is not valid")
+		ConsoleLog.ERROR(self, "EventBus 84", "function is not valid; " + "called by: " + called_by.get_name())
 		return
 
 	if not signal_connect_to.is_connected(function_to_connect):
 		signal_connect_to.connect(function_to_connect)
-		ConsoleLog.SIGNAL(self, signal_connect_to.get_name(), "connected with " + function_to_connect.get_method(), 1)
+		ConsoleLog.SIGNAL(self, signal_connect_to.get_name(), "connected with " + called_by.get_name() + "::" + function_to_connect.get_method(), 1)
 	else:
-		ConsoleLog.WARNING(self, "EventBus 86", "function is already connected to signal: " + signal_connect_to.get_name())
+		ConsoleLog.WARNING(self, "EventBus 88", called_by.get_name() + "::" + function_to_connect.get_method() + " is already connected to signal: " + signal_connect_to.get_name())
 
 
-func disconnect_function_from_signal(function_to_disconnect : Callable, signal_disconnect_from : Signal) -> void:
+func disconnect_function_from_signal(called_by : Object, function_to_disconnect : Callable, signal_disconnect_from : Signal) -> void:
 	if not function_to_disconnect.is_valid():
-		ConsoleLog.ERROR(self, "EventBus 94", "function is not valid")
+		ConsoleLog.ERROR(self, "EventBus 96", "function is not valid")
 		return
 
 	if signal_disconnect_from.is_connected(function_to_disconnect):
 		signal_disconnect_from.disconnect(function_to_disconnect)
-		ConsoleLog.SIGNAL(self, signal_disconnect_from.get_name(), "disconnected", 0)
+		ConsoleLog.SIGNAL(self, signal_disconnect_from.get_name(), "disconnected with " + called_by.get_name() + "::" + function_to_disconnect.get_method(), 0)
 	else:
-		ConsoleLog.WARNING(self, "EventBus 98", "function is not connected to signal: " + signal_disconnect_from.get_name())
+		ConsoleLog.WARNING(self, "EventBus 100",  called_by.get_name() + "::" + function_to_disconnect.get_method() + " is not connected to signal: " + signal_disconnect_from.get_name())

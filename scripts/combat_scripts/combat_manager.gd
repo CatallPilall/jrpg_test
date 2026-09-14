@@ -30,19 +30,19 @@ var item_usage_array : Array[bool]
 
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
-	connect_signals()
+	_connect_signals()
 	store_combat_team_locally()
 	combat_state = combat_state_machine.FIRST_CHARACTER
 
 
-func connect_signals():
-	EventBus.connect_function_with_signal(_skill_button_pressed, EventBus.skill_button_pressed)
-	EventBus.connect_function_with_signal(_unit_targets_selected, EventBus.unit_targets_selected)
-	EventBus.connect_function_with_signal(_end_turn_button_pressed, EventBus.end_turn_button_pressed)
-	EventBus.connect_function_with_signal(_hud_scene_has_loaded, EventBus.hud_scene_has_loaded)
-	EventBus.connect_function_with_signal(_clean_up_skill, EventBus.clean_up_skill)
-	EventBus.connect_function_with_signal(_combat_state_changed_via_combat_hud, EventBus.combat_state_changed_via_combat_hud)
-	EventBus.connect_function_with_signal(_item_button_pressed, EventBus.item_button_pressed)
+func _connect_signals():
+	EventBus.connect_function_with_signal(self, _skill_button_pressed, EventBus.skill_button_pressed)
+	EventBus.connect_function_with_signal(self, _unit_targets_selected, EventBus.unit_targets_selected)
+	EventBus.connect_function_with_signal(self, _end_turn_button_pressed, EventBus.end_turn_button_pressed)
+	EventBus.connect_function_with_signal(self, _combat_hud_has_loaded, EventBus.combat_hud_has_loaded)
+	EventBus.connect_function_with_signal(self, _clean_up_skill, EventBus.clean_up_skill)
+	EventBus.connect_function_with_signal(self, _combat_state_changed_via_combat_hud, EventBus.combat_state_changed_via_combat_hud)
+	EventBus.connect_function_with_signal(self, _item_button_pressed, EventBus.item_button_pressed)
 
 
 func _clean_up_skill(skill_to_clean : skill, signal_key : int):
@@ -50,11 +50,10 @@ func _clean_up_skill(skill_to_clean : skill, signal_key : int):
 	ConsoleLog.SIGNAL(self,"clean_up_skill","processed",signal_key)
 
 
-func _hud_scene_has_loaded(signal_key : int):
+func _combat_hud_has_loaded(signal_key : int):
 	var new_signal_key : int = EventBus.generate_signal_key()
 	ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
-
 	ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","processed",signal_key)
 
 func store_combat_team_locally():

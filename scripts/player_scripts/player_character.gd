@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 
-var inventory_hud_packed_scene : PackedScene = preload("res://scenes/UI_scenes/inventory_hud.tscn")
-
 var speed : int = 5000
 
 func _ready() -> void:
@@ -24,7 +22,6 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_inventory"):
 		ConsoleLog.INPUT("open_inventory","pressed",[])
-		var new_inventory_hud : Control = inventory_hud_packed_scene.instantiate()
+		var new_inventory_hud : Control = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.INVENTORY_MENU) as Control
 		# var new_signal_key : int = EventBus.generate_signal_key()
 		ConsoleLog.DEBUG(self,"load_hud_scene : " + str(new_inventory_hud))
-		SceneLoader.load_hud_scene(new_inventory_hud)

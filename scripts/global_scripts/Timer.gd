@@ -63,7 +63,7 @@ func _background_time_check():
 		ConsoleLog.DEBUG(self, "background_timer_check : " + _convert_enum_to_string())
 
 
-func set_timer(_timer : Timer) -> void:
+func init_timer(_timer : Timer) -> void:
 	timer = _timer
 	timer.timeout.connect(on_timer_timeout)
 

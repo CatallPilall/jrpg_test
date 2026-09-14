@@ -2,17 +2,18 @@ extends Node
 
 class_name Main
 
-@onready var main_canvas_layer: CanvasLayer = $MainCanvasLayer
-@onready var timer: Timer = $global_timer
+@onready var menu_canvas_layer: CanvasLayer = $menu_canvas_layer
+@onready var hud_canvas_layer: CanvasLayer = $hud_canvas_layer
 
 @onready var combat_scenes: Node = $combat_scenes
 @onready var level_scenes: Node = $level_scenes
 
+@onready var timer: Timer = $global_timer
 
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
 
-	TimerGlobal.set_timer(timer)
-	SceneLoader.init_vars(self, main_canvas_layer, combat_scenes, level_scenes)
+	TimerGlobal.init_timer(timer)
+	SceneLoader.init_vars(self, menu_canvas_layer, hud_canvas_layer, combat_scenes, level_scenes)
 	# SceneLoader.connect_signals()
-	SceneLoader.load_main_menu()
+	SceneLoader.load_scene(SceneLoader.SCENE_TYPE.MAIN_MENU)

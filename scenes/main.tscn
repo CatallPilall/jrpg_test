@@ -5,10 +5,12 @@
 [node name="Main" type="Node" unique_id=1831288809]
 script = ExtResource("1_o5qli")
 
-[node name="MainCanvasLayer" type="CanvasLayer" parent="." unique_id=1443004729]
+[node name="hud_canvas_layer" type="CanvasLayer" parent="." unique_id=1772954697]
 
-[node name="global_timer" type="Timer" parent="." unique_id=113409279]
+[node name="menu_canvas_layer" type="CanvasLayer" parent="." unique_id=1443004729]
 
 [node name="level_scenes" type="Node" parent="." unique_id=1357924759]
 
 [node name="combat_scenes" type="Node" parent="." unique_id=364705881]
+
+[node name="global_timer" type="Timer" parent="." unique_id=113409279]

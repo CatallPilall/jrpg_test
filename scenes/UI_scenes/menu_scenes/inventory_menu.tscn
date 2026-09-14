@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cfufng44nb4rd"]
 
-[ext_resource type="Script" uid="uid://dfx4pkv2na3hb" path="res://scripts/UI_scripts/inventory_hud.gd" id="1_irlc2"]
+[ext_resource type="Script" uid="uid://dfx4pkv2na3hb" path="res://scripts/UI_scripts/menu_scripts/inventory_menu.gd" id="1_irlc2"]
 
 [node name="inventory_hud" type="Control" unique_id=1750072543]
 layout_mode = 3
