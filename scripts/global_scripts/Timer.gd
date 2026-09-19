@@ -12,11 +12,14 @@ enum time_of_day {
 var current_time_of_day : time_of_day
 
 ## The duration of a day in seconds. Default is set to 1800 seconds (30 minutes).
-# var day_duration : int = 1800
-var day_duration : float = 100.0
+# var day_duration : int = 86400.0 # 24 hours in seconds
+var day_duration : float = 3600.0
 
 var time_left_from_day : float = day_duration
 
+var current_time : float = 0.0
+
+var timer_started : bool = false
 
 func _init() -> void:
 	# This function is called when the node is initialized.
@@ -42,9 +45,19 @@ func _convert_enum_to_string() -> String:
 			return "unknown"
 
 
+# bin zu stupid das gerade zu machen
+# TODO LATER
+func _convert_time_to_string() -> String:
+	var fraction : float = day_duration / 86400.0
+	var hours : int = int(current_time / 3600 * fraction) % 24
+	var minutes : int = int(current_time / 60 * fraction) % 60
+	var seconds : int = int(current_time * fraction) % 60
+	return str(hours) + " : " + str(minutes) + " : " + str(seconds)
+
+
 func _calc_current_time_of_day():
-	var time_passed : float = day_duration - timer.time_left
-	var day_fraction : float = time_passed / day_duration
+	current_time = day_duration - timer.time_left
+	var day_fraction : float = current_time / day_duration
 
 	if day_fraction < 0.1:
 		current_time_of_day = time_of_day.is_dawn
@@ -57,10 +70,12 @@ func _calc_current_time_of_day():
 
 
 func _background_time_check():
+	EventBus.timer_updated.emit(_convert_time_to_string(), EventBus.generate_signal_key())
 	while true:
-		await get_tree().create_timer(2.0).timeout
+		await get_tree().create_timer(10.0).timeout
 		_calc_current_time_of_day()
 		ConsoleLog.DEBUG(self, "background_timer_check : " + _convert_enum_to_string())
+		EventBus.timer_updated.emit(_convert_time_to_string(), EventBus.generate_signal_key())
 
 
 func init_timer(_timer : Timer) -> void:
@@ -69,13 +84,21 @@ func init_timer(_timer : Timer) -> void:
 
 
 func start_default_timer():
+	if timer_started:
+		ConsoleLog.WARNING(self, "Timer already started")
+		return
 	timer.start(day_duration)
+	timer_started = true
 	_background_time_check()
 	ConsoleLog.DEBUG(self, "start_default_timer")
 
 
 func set_and_start_timer(duration : float):
+	if timer_started:
+		ConsoleLog.WARNING(self, "Timer already started")
+		return
 	timer.start(duration)
+	timer_started = true
 	_background_time_check()
 	ConsoleLog.DEBUG(self, "set_and_start_timer")
 

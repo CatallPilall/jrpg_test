@@ -1,7 +1,7 @@
 extends Node2D
+class_name BaseLevel
 
 @onready var player_spawn_position: Node2D = $player_spawn_position
-
 
 var player_character_packed_scene : PackedScene = preload("res://scenes/player_scenes/player_character.tscn")
 var player_character : CharacterBody2D

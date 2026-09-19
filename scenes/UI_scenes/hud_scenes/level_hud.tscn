@@ -10,3 +10,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yk8c1")
+
+[node name="time_hud_container" type="CenterContainer" parent="." unique_id=1050459237]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 11.0
+offset_right = 168.0
+offset_bottom = 91.0
+
+[node name="time_hud" type="Label" parent="time_hud_container" unique_id=784949901]
+layout_mode = 2

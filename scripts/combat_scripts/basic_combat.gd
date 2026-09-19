@@ -76,11 +76,11 @@ func _ready() -> void:
 
 	_apply_skill_targeting(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,2)
 
-	var new_combat_hud = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.COMBAT_HUD) as Control
+	# var new_combat_hud = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.COMBAT_HUD) as Control
+	# ConsoleLog.DEBUG(self,"load_hud_scene : " + str(new_combat_hud))
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# var new_combat_hud : Control = combat_hud_packed_scene.instantiate()
 	# new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.DEBUG(self,"load_hud_scene : " + str(new_combat_hud))
 
 
 func _connect_signals():
@@ -350,13 +350,14 @@ func _remove_dead_unit(dead_unit : unit, signal_key : int):
 	ConsoleLog.SIGNAL(self,"remove_dead_unit","processed",signal_key)
 
 func end_combat():
+	pass
 	# var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.DEBUG(self,"unload_combat_scene : " + str(overworld_encounter))
-	SceneLoader.unload_scene(SceneLoader.SCENE_TYPE.COMBAT, -1, 0)
+	# ConsoleLog.DEBUG(self,"unload_combat_scene : " + str(overworld_encounter))
+	# SceneLoader.unload_scene(SceneLoader.SCENE_TYPE.COMBAT, -1, 0)
 
 	# new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.DEBUG(self,"unload_hud_scene : " + str(overworld_encounter))
-	SceneLoader.unload_scene(SceneLoader.SCENE_TYPE.COMBAT_HUD)
+	# ConsoleLog.DEBUG(self,"unload_hud_scene : " + str(overworld_encounter))
+	# SceneLoader.unload_scene(SceneLoader.SCENE_TYPE.COMBAT_HUD)
 
 func copy_combat_team_locally():
 	ally_team = TeamRoster.combat_team

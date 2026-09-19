@@ -16,4 +16,5 @@ func _ready() -> void:
 	TimerGlobal.init_timer(timer)
 	SceneLoader.init_vars(self, menu_canvas_layer, hud_canvas_layer, combat_scenes, level_scenes)
 	# SceneLoader.connect_signals()
-	SceneLoader.load_scene(SceneLoader.SCENE_TYPE.MAIN_MENU)
+	# SceneLoader.load_scene(SceneLoader.SCENE_TYPE.MAIN_MENU)
+	SceneLoader.load_scene("main_menu")

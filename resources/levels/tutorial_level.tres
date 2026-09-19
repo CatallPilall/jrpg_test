@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bjfvvv8q4yfy"]
+
+[ext_resource type="PackedScene" uid="uid://b817xgltvhmrm" path="res://scenes/level_scenes/tutorial_level.tscn" id="1_mrf05"]
+[ext_resource type="Script" uid="uid://d0wkn4yx7q1rd" path="res://scripts/resource_scripts/level.gd" id="1_w44id"]
+
+[resource]
+script = ExtResource("1_w44id")
+level_description = "First level for testing and learning"
+scene_file = ExtResource("1_mrf05")
+is_scene_subtype = 1
+metadata/_custom_type_script = "uid://d0wkn4yx7q1rd"

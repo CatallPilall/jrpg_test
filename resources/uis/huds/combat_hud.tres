@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HudData" format=3 uid="uid://ilk3wttk5gi3"]
+
+[ext_resource type="Script" uid="uid://c4ep1evq5vcer" path="res://scripts/resource_scripts/hud.gd" id="1_ohgiw"]
+[ext_resource type="PackedScene" uid="uid://b71vt155i1ak0" path="res://scenes/UI_scenes/hud_scenes/combat_hud.tscn" id="1_qo0u0"]
+
+[resource]
+script = ExtResource("1_ohgiw")
+scene_file = ExtResource("1_qo0u0")
+is_scene_subtype = 2
+metadata/_custom_type_script = "uid://c4ep1evq5vcer"

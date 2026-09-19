@@ -1,5 +1,15 @@
 extends Node
 
+var related_functions_to_signals : Dictionary[Callable, Signal] = {
+	_skill_button_pressed: EventBus.skill_button_pressed,
+	_unit_targets_selected: EventBus.unit_targets_selected,
+	_end_turn_button_pressed: EventBus.end_turn_button_pressed,
+	_combat_hud_has_loaded: EventBus.combat_hud_has_loaded,
+	_clean_up_skill: EventBus.clean_up_skill,
+	_combat_state_changed_via_combat_hud: EventBus.combat_state_changed_via_combat_hud,
+	_item_button_pressed: EventBus.item_button_pressed
+}
+
 var skill_dict : Dictionary[String,skill] = {
 	"attack":preload("res://resources/skills/attack_skill/attack_skill.tres"),
 	"fireball":preload("res://resources/skills/fireball_skill/fireball_skill.tres"),
@@ -30,19 +40,9 @@ var item_usage_array : Array[bool]
 
 func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
-	_connect_signals()
+	EventBus.connect_functions_with_signals(self, related_functions_to_signals)
 	store_combat_team_locally()
 	combat_state = combat_state_machine.FIRST_CHARACTER
-
-
-func _connect_signals():
-	EventBus.connect_function_with_signal(self, _skill_button_pressed, EventBus.skill_button_pressed)
-	EventBus.connect_function_with_signal(self, _unit_targets_selected, EventBus.unit_targets_selected)
-	EventBus.connect_function_with_signal(self, _end_turn_button_pressed, EventBus.end_turn_button_pressed)
-	EventBus.connect_function_with_signal(self, _combat_hud_has_loaded, EventBus.combat_hud_has_loaded)
-	EventBus.connect_function_with_signal(self, _clean_up_skill, EventBus.clean_up_skill)
-	EventBus.connect_function_with_signal(self, _combat_state_changed_via_combat_hud, EventBus.combat_state_changed_via_combat_hud)
-	EventBus.connect_function_with_signal(self, _item_button_pressed, EventBus.item_button_pressed)
 
 
 func _clean_up_skill(skill_to_clean : skill, signal_key : int):

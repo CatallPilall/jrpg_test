@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MenuData" format=3 uid="uid://b8ic605ah1mot"]
+
+[ext_resource type="PackedScene" uid="uid://b1pr66aqsfixt" path="res://scenes/UI_scenes/menu_scenes/pause_menu.tscn" id="1_113ew"]
+[ext_resource type="Script" uid="uid://cph78e0gi7t0h" path="res://scripts/resource_scripts/menu.gd" id="1_x8qv1"]
+
+[resource]
+script = ExtResource("1_x8qv1")
+scene_file = ExtResource("1_113ew")
+is_scene_subtype = 2
+metadata/_custom_type_script = "uid://cph78e0gi7t0h"
