@@ -56,8 +56,10 @@ func prepare_skill_for_deletion():
 func _combat_turn_ended(signal_key : int):
 	EventBus.disconnect_function_from_signal(self, _combat_turn_ended, EventBus.combat_turn_ended)
 
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"clean_up_skill","emit",new_signal_key)
-	EventBus.clean_up_skill.emit(self,new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"clean_up_skill","emit",new_signal_key)
+	# EventBus.clean_up_skill.emit(self,new_signal_key)
+
+	EventBus.emit_signal_with_log(EventBus.clean_up_skill, [self])
 
 	ConsoleLog.SIGNAL(self,"combat_turn_ended","processed",signal_key)

@@ -10,6 +10,7 @@ func _ready() -> void:
 	ConsoleLog.SCENE(self,true)
 
 	sprite_2d.texture = load(world_encounter.encounter_sprite_location)
+	EventBus.connect_function_with_signal(self, _make_combat_scene, EventBus.tutorial_fight_combat_has_loaded)
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	SceneLoader.load_scene("basic_combat")

@@ -51,9 +51,10 @@ func _clean_up_skill(skill_to_clean : skill, signal_key : int):
 
 
 func _combat_hud_has_loaded(signal_key : int):
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
-	EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
+	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.new_selected_unit)
 	ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","processed",signal_key)
 
 func store_combat_team_locally():
@@ -65,13 +66,15 @@ func store_combat_team_locally():
 
 func new_unit_selected():
 	selected_unit = combat_team_reference[selected_unit_array_position]
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
-	EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
+	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
 
-	new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
-	EventBus.disable_item_button.emit(item_usage_array[selected_unit_array_position],new_signal_key)
+	# new_signal_key = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
+	# EventBus.disable_item_button.emit(item_usage_array[selected_unit_array_position],new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.disable_item_button, [item_usage_array[selected_unit_array_position]])
 
 
 func _skill_button_pressed(skill_name : String, signal_key : int):
@@ -80,14 +83,16 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 		var new_skill_array : Array[String]
 		for i in selected_unit.unit_skills:
 			new_skill_array.append(i)
-		var new_signal_key : int = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","emit",new_signal_key)
-		EventBus.make_combat_hud_skill_buttons.emit(new_skill_array, new_signal_key)
+		# var new_signal_key : int = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","emit",new_signal_key)
+		# EventBus.make_combat_hud_skill_buttons.emit(new_skill_array, new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.make_combat_hud_skill_buttons, [new_skill_array])
 	elif skill_name == "item":
 		combat_state = combat_state_machine.SKILL_PENDING
-		var new_signal_key : int = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"make_combat_hud_item_buttons","emit",new_signal_key)
-		EventBus.make_combat_hud_item_buttons.emit(new_signal_key)
+		# var new_signal_key : int = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"make_combat_hud_item_buttons","emit",new_signal_key)
+		# EventBus.make_combat_hud_item_buttons.emit(new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.make_combat_hud_item_buttons)
 	else:
 		var new_skill : skill = skill_dict.get(skill_name).duplicate_deep(2)
 		selected_skill = new_skill
@@ -95,9 +100,10 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 		combat_state = combat_state_machine.SKILL_SELECTED
 		ConsoleLog.INFO(self,["selected_skill","selected_unit"],[selected_skill,selected_unit])
 
-		var new_signal_key : int = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-		EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,selected_unit,new_signal_key)
+		# var new_signal_key : int = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+		# EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,selected_unit,new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, selected_unit])
 
 		ConsoleLog.SIGNAL(self,"skill_button_pressed","processed",signal_key)
 
@@ -109,9 +115,10 @@ func _item_button_pressed(pressed_item : item, signal_key : int):
 	combat_state = combat_state_machine.ITEM_SELECTED
 	ConsoleLog.INFO(self,["selected_skill","selected_unit"],[item_skill,selected_unit])
 
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-	EventBus.apply_skill_targeting.emit(item_skill.skill_targeting,new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+	# EventBus.apply_skill_targeting.emit(item_skill.skill_targeting,new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [item_skill.skill_targeting])
 
 	ConsoleLog.SIGNAL(self,"item_button_pressed","processed",signal_key)
 
@@ -135,29 +142,34 @@ func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : 
 		else:
 			combat_state = combat_state_machine.CHARACTER_SELECTED
 
-		var new_signal_key : int = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
-		EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+		# var new_signal_key : int = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
+		# EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
 
-		new_signal_key = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
-		EventBus.disable_item_button.emit(true,new_signal_key)
+		# new_signal_key = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
+		# EventBus.disable_item_button.emit(true,new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.disable_item_button, [true])
 
 	ConsoleLog.SIGNAL(self,"unit_targets_selected","processed",signal_key)
 
 func cycle_ally_unit():
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
-	EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
+	# EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
 
-	new_signal_key = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-	EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
+	# new_signal_key = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+	# EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [skill.enum_skill_targeting.NONE, skill.enum_skill_targeting.NONE, null])
 
 	if selected_unit_array_position == TeamRoster.combat_team.size()-1:
-		new_signal_key = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","emit",new_signal_key)
-		EventBus.disable_combat_hud_actions.emit(new_signal_key)
+		# new_signal_key = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","emit",new_signal_key)
+		# EventBus.disable_combat_hud_actions.emit(new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.disable_combat_hud_actions)
 
 		combat_state = combat_state_machine.LAST_CHARACTER
 	else:
@@ -184,9 +196,10 @@ func _end_turn_button_pressed(signal_key : int):
 	for i in item_usage_array:
 		i = false
 
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"combat_turn_ended","emit",new_signal_key)
-	EventBus.combat_turn_ended.emit(new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"combat_turn_ended","emit",new_signal_key)
+	# EventBus.combat_turn_ended.emit(new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.combat_turn_ended)
 
 	start_new_turn()
 	ConsoleLog.SIGNAL(self,"end_turn_button_pressed","processed",signal_key)
@@ -195,15 +208,15 @@ func start_new_turn():
 	selected_unit_array_position = 0
 	combat_state = combat_state_machine.FIRST_CHARACTER
 	new_unit_selected()
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
-	EventBus.enable_combat_hud_actions.emit(new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
+	# EventBus.enable_combat_hud_actions.emit(new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.enable_combat_hud_actions)
 
-	# HÄÄÄÄÄÄ ?????????
-	# nirgends connected, why do we need it?
 	# new_signal_key = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"new_turn","emit",new_signal_key)
 	# EventBus.new_turn.emit(new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.new_turn)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click"):
@@ -220,9 +233,10 @@ func undo_last_action():
 			else:
 				combat_state = combat_state_machine.CHARACTER_SELECTED
 
-			var new_signal_key :int = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-			EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
+			# var new_signal_key :int = EventBus.generate_signal_key()
+			# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+			# EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
+			EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [skill.enum_skill_targeting.NONE, skill.enum_skill_targeting.NONE, null])
 
 		combat_state_machine.CHARACTER_SELECTED:
 			selected_unit_array_position -= 1
@@ -230,32 +244,37 @@ func undo_last_action():
 			new_unit_selected()
 			combat_state = combat_state_machine.SKILL_SELECTED
 
-			var new_signal_key :int = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-			EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,null,new_signal_key)
+			# var new_signal_key :int = EventBus.generate_signal_key()
+			# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+			# EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,null,new_signal_key)
+			EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, null])
 
 		combat_state_machine.LAST_CHARACTER:
 			selected_skill = skill_order_array.pop_back()
-			var new_signal_key : int = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
-			EventBus.enable_combat_hud_actions.emit(new_signal_key)
+			# var new_signal_key : int = EventBus.generate_signal_key()
+			# ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
+			# EventBus.enable_combat_hud_actions.emit(new_signal_key)
+			EventBus.emit_signal_with_log(EventBus.enable_combat_hud_actions)
 			combat_state = combat_state_machine.SKILL_SELECTED
 		combat_state_machine.SKILL_PENDING:
-			var new_signal_key : int = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
-			EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+			# var new_signal_key : int = EventBus.generate_signal_key()
+			# ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
+			# EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+			EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
 			if selected_unit_array_position == 0:
 				combat_state = combat_state_machine.FIRST_CHARACTER
 			else:
 				combat_state = combat_state_machine.CHARACTER_SELECTED
 		combat_state_machine.ITEM_SELECTED:
-			var new_signal_key : int = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
-			EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+			# var new_signal_key : int = EventBus.generate_signal_key()
+			# ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
+			# EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
+			EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
 
-			new_signal_key = EventBus.generate_signal_key()
-			ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-			EventBus.apply_skill_targeting.emit(selected_item.item_skill.primary_skill_targeting,selected_item.item_skill.secondary_skill_targeting,null,new_signal_key)
+			# new_signal_key = EventBus.generate_signal_key()
+			# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
+			# EventBus.apply_skill_targeting.emit(selected_item.item_skill.primary_skill_targeting,selected_item.item_skill.secondary_skill_targeting,null,new_signal_key)
+			EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_item.item_skill.primary_skill_targeting, selected_item.item_skill.secondary_skill_targeting, null])
 
 			selected_item = null
 

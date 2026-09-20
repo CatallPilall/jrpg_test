@@ -60,7 +60,7 @@ func SCENE(messenger: Node, status: bool) -> void:
 	var new_message: String = _format_messenger(messenger) + " " + string_status + " scene tree"
 	write(output_type.SCENE, new_message)
 
-func INPUT(input_type: String, input_action: String, additional_info: Array) -> void:
+func INPUT(input_type: String, input_action: String, additional_info: Array = []) -> void:
 	var array_string: String = ""
 	if not additional_info.is_empty():
 		for i in additional_info:

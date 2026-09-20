@@ -708,7 +708,27 @@ func _entered_final_boss_fight_combat_scene(resource_to_load : Resource, node_to
 
 
 
+func _emit_signal(resource_to_emit : Resource, node_to_emit : Node, is_load : bool) -> void:
+	var signal_to_emit : Signal
 
+	if is_load:
+		signal_to_emit = lookup_table_scene_types_sub_types_emit_loaded_signal[resource_to_emit.is_scene_type][resource_to_emit.is_scene_subtype]
+	else:
+		signal_to_emit = lookup_table_scene_types_sub_types_emit_unloaded_signal[resource_to_emit.is_scene_type][resource_to_emit.is_scene_subtype]
+
+	if signal_to_emit != null:
+		# signal_to_emit.emit(node_to_emit, EventBus.generate_signal_key())
+		EventBus.emit_signal_with_log(signal_to_emit, [node_to_emit])
+	else:
+		ConsoleLog.WARNING(
+			self,
+			"No "
+			+ ("loaded" if is_load else "unloaded")
+			+ " signal found to emit for scene type: "
+			+ _enum_to_string(resource_to_emit.is_scene_type)
+			+ " and scene subtype: "
+			+ str(resource_to_emit.is_scene_subtype)
+		)
 
 
 
@@ -727,7 +747,7 @@ func _activate_node(resource_to_activate : Resource, node_to_activate : Node) ->
 			"Activated scene node: " + resource_to_activate.name
 		)
 
-		lookup_table_scene_types_sub_types_emit_loaded_signal[resource_to_activate.is_scene_type][resource_to_activate.is_scene_subtype].emit(EventBus.generate_signal_key())
+		_emit_signal(resource_to_activate, node_to_activate, true)
 
 
 func _deactivate_node(resource_to_deactivate : Resource, node_to_deactivate : Node) -> void:
@@ -759,7 +779,7 @@ func _deactivate_node(resource_to_deactivate : Resource, node_to_deactivate : No
 		)
 
 	if node_deactivated:
-		lookup_table_scene_types_sub_types_emit_unloaded_signal[resource_to_deactivate.is_scene_type][resource_to_deactivate.is_scene_subtype].emit(EventBus.generate_signal_key())
+		_emit_signal(resource_to_deactivate, node_to_deactivate, false)
 
 
 func _pause_node(resource_to_pause : Resource, node_to_pause : Node) -> void:

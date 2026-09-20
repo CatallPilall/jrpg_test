@@ -139,57 +139,66 @@ func _new_selected_unit(selected_unit : unit, signal_key : int):
 
 
 func _on_attack_button_pressed() -> void:
-	ConsoleLog.INPUT("attack_button","pressed",[])
+	ConsoleLog.INPUT("attack_button", "pressed")
 	_on_skill_selected("attack")
 
 
 func _on_guard_button_pressed() -> void:
-	ConsoleLog.INPUT("guard_button","pressed",[])
+	ConsoleLog.INPUT("guard_button", "pressed")
 	_on_skill_selected("guard")
 
 
 func _on_channel_button_pressed() -> void:
-	ConsoleLog.INPUT("channel_button","pressed",[])
+	ConsoleLog.INPUT("channel_button", "pressed")
 	_on_skill_selected("channel")
 
 
 func _on_skill_selected(selected_skill : String):
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"skill_button_pressed","emit",new_signal_key)
-	EventBus.skill_button_pressed.emit(selected_skill, new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"skill_button_pressed","emit",new_signal_key)
+	# EventBus.skill_button_pressed.emit(selected_skill, new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.skill_button_pressed, [null, selected_skill])
 
 
 func _on_skill_button_pressed() -> void:
-	ConsoleLog.INPUT("skill_button","pressed",[])
+	ConsoleLog.INPUT("skill_button", "pressed")
 	if are_non_skill_buttons_disabled:
-		_remove_combat_hud_skill_buttons(2)
-		var new_signal_key : int = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","emit",new_signal_key)
-		EventBus.combat_state_changed_via_combat_hud.emit(new_signal_key)
+		# _remove_combat_hud_skill_buttons(2)
+		EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
+		# var new_signal_key : int = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","emit",new_signal_key)
+		# EventBus.combat_state_changed_via_combat_hud.emit(new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
 	else:
 		_on_skill_selected("skill")
 
 
 func _on_item_button_pressed() -> void:
-	ConsoleLog.INPUT("item_button","pressed",[])
+	ConsoleLog.INPUT("item_button", "pressed")
 	if are_non_item_buttons_disabled:
-		_remove_combat_hud_skill_buttons(2)
-		var new_signal_key : int = EventBus.generate_signal_key()
-		ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","emit",new_signal_key)
-		EventBus.combat_state_changed_via_combat_hud.emit(new_signal_key)
+		# _remove_combat_hud_skill_buttons(2)
+		EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
+		# var new_signal_key : int = EventBus.generate_signal_key()
+		# ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","emit",new_signal_key)
+		# EventBus.combat_state_changed_via_combat_hud.emit(new_signal_key)
+		EventBus.emit_signal_with_log(EventBus.combat_state_changed_via_combat_hud)
 	else:
 		_on_skill_selected("item")
 
 
 func _on_item_selected(selected_item : item):
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"item_button_pressed","emit",new_signal_key)
-	EventBus.item_button_pressed.emit(selected_item, new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"item_button_pressed","emit",new_signal_key)
+	# EventBus.item_button_pressed.emit(selected_item, new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.item_button_pressed)
 
 
 func _on_end_turn_button_pressed() -> void:
-	_remove_combat_hud_skill_buttons(2)
-	ConsoleLog.INPUT("end_turn_button","pressed",[])
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"end_turn_button_pressed","emit",new_signal_key)
-	EventBus.end_turn_button_pressed.emit(new_signal_key)
+	ConsoleLog.INPUT("end_turn_button", "pressed")
+	# _remove_combat_hud_skill_buttons(2)
+	EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
+
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"end_turn_button_pressed","emit",new_signal_key)
+	# EventBus.end_turn_button_pressed.emit(new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.end_turn_button_pressed)

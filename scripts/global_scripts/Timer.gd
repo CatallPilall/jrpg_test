@@ -70,12 +70,12 @@ func _calc_current_time_of_day():
 
 
 func _background_time_check():
-	EventBus.timer_updated.emit(_convert_time_to_string(), EventBus.generate_signal_key())
+	EventBus.emit_signal_with_log(EventBus.timer_updated, [_convert_time_to_string() + " " + _convert_enum_to_string()])
 	while true:
 		await get_tree().create_timer(10.0).timeout
 		_calc_current_time_of_day()
-		ConsoleLog.DEBUG(self, "background_timer_check : " + _convert_enum_to_string())
-		EventBus.timer_updated.emit(_convert_time_to_string(), EventBus.generate_signal_key())
+		# ConsoleLog.DEBUG(self, "background_timer_check : " + _convert_enum_to_string())
+		EventBus.emit_signal_with_log(EventBus.timer_updated, [_convert_time_to_string() + " " + _convert_enum_to_string()])
 
 
 func init_timer(_timer : Timer) -> void:
@@ -114,6 +114,7 @@ func unpause_timer():
 
 
 func on_timer_timeout() -> void:
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self, "day_timer_timeout","emit", new_signal_key)
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self, "day_timer_timeout","emit", new_signal_key)
 	# EventBus.day_timer_timout.emit(new_signal_key)
+	EventBus.emit_signal_with_log(EventBus.day_timer_timout)

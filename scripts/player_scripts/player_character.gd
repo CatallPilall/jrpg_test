@@ -24,3 +24,4 @@ func _input(event: InputEvent) -> void:
 		ConsoleLog.INPUT("open_inventory","pressed",[])
 		# var new_inventory_hud : Control = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.INVENTORY_MENU) as Control
 		# ConsoleLog.DEBUG(self,"load_hud_scene : " + str(new_inventory_hud))
+		# SceneLoader.load_scene("inventory_menu")
