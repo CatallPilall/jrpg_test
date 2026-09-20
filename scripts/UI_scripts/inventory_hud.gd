@@ -1,6 +1,7 @@
 extends Control
 
 @onready var exit_button: Button = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/exit_button
+@onready var formation_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/formation_button
 @onready var item_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/item_button
 @onready var logbook_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/logbook_button
 @onready var skill_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/skill_button
@@ -16,6 +17,9 @@ extends Control
 
 
 @onready var character_button : PackedScene = preload("res://scenes/UI_scenes/ui_element_character_button.tscn")
+@onready var team_formation : PackedScene = preload("res://scenes/UI_scenes/ui_element_team_formation.tscn")
+
+var is_set_current_button_focus_connected : bool = false
 
 enum enum_button_neighbor {UP,DOWN,LEFT,RIGHT}
 
@@ -71,8 +75,8 @@ func _input(event: InputEvent) -> void:
 		confirm_button_input()
 
 func confirm_button_input():
-	current_button_focus.toggled.emit(true)
 	current_button_focus.pressed.emit()
+	current_button_focus.toggled.emit(true)
 
 func return_one_step():
 	if return_chain.is_empty():
@@ -83,7 +87,7 @@ func return_one_step():
 		current_button_focus.set_pressed_no_signal(false)
 	
 	if undo_containers:
-		for cursor : Button in select_container.get_children():
+		for cursor : Control in select_container.get_children():
 			cursor.queue_free()
 		info_container.text = ""
 		undo_containers = false
@@ -174,6 +178,27 @@ func select_unit_roster():
 	current_button_focus = character_one_button
 	character_one_button.grab_focus.call_deferred()
 
+func make_formation():
+	var new_formation : team_formation_ui_element = team_formation.instantiate()
+	select_container.add_child.call_deferred(new_formation)
+	connect_to_set_current_button_focus()
+
+func connect_to_set_current_button_focus():
+	if not is_set_current_button_focus_connected:
+		is_set_current_button_focus_connected = true
+		EventBus.set_current_button_focus.connect(_set_current_button_focus)
+		ConsoleLog.SIGNAL(self,"set_current_button_focus","connected",1)
+
+func disconnect_from_set_current_button_focus():
+	if is_set_current_button_focus_connected:
+		is_set_current_button_focus_connected = false
+		EventBus.set_current_button_focus.disconnect(_set_current_button_focus)
+		ConsoleLog.SIGNAL(self,"set_current_button_focus","disconnected",0)
+
+func _set_current_button_focus(new_button_focus : Button, signal_key : int):
+	current_button_focus = new_button_focus
+	ConsoleLog.SIGNAL(self,"set_current_button_focus","processed",signal_key)
+
 func _fill_info_container(description : String):
 	info_container.text = description
 
@@ -196,6 +221,14 @@ func _on_exit_button_pressed() -> void:
 
 func _on_skill_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		undo_containers = true
 		return_chain.append(skill_button)
 		select_unit_roster()
 		skill_button.set_pressed_no_signal(true)
+
+func _on_formation_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		undo_containers = true
+		return_chain.append(formation_button)
+		make_formation()
+		formation_button.set_pressed_no_signal(true)

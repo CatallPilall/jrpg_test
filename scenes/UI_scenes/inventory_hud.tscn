@@ -111,30 +111,30 @@ text = "Skills"
 layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../skill_button")
-focus_neighbor_bottom = NodePath("../level_button")
-toggle_mode = true
-text = "Equip"
-
-[node name="level_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1622540549]
-layout_mode = 2
-size_flags_vertical = 3
-focus_neighbor_top = NodePath("../equip_button")
 focus_neighbor_bottom = NodePath("../formation_button")
 toggle_mode = true
-text = "Level"
+text = "Equip"
 
 [node name="formation_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=379964735]
 layout_mode = 2
 size_flags_vertical = 3
-focus_neighbor_top = NodePath("../level_button")
-focus_neighbor_bottom = NodePath("../logbook_button")
+focus_neighbor_top = NodePath("../equip_button")
+focus_neighbor_bottom = NodePath("../level_button")
 toggle_mode = true
 text = "Formation"
+
+[node name="level_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1622540549]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../formation_button")
+focus_neighbor_bottom = NodePath("../logbook_button")
+toggle_mode = true
+text = "Level"
 
 [node name="logbook_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1444716275]
 layout_mode = 2
 size_flags_vertical = 3
-focus_neighbor_top = NodePath("../formation_button")
+focus_neighbor_top = NodePath("../level_button")
 focus_neighbor_bottom = NodePath("../info_button")
 toggle_mode = true
 text = "Logbook"
@@ -261,4 +261,5 @@ focus_previous = NodePath("../../MarginContainer/character_four_button")
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/exit_button" to="." method="_on_exit_button_pressed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/item_button" to="." method="_on_item_button_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/skill_button" to="." method="_on_skill_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/formation_button" to="." method="_on_formation_button_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/logbook_button" to="." method="_on_logbook_button_toggled"]

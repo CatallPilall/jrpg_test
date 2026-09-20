@@ -76,3 +76,5 @@ signal new_turn(signal_key : int)
 @warning_ignore("unused_signal")
 signal calculating_skill_speed(caster : unit, casted_skill : skill, signal_key : int)
 # -------------------------------------------------------------------------------
+@warning_ignore("unused_signal")
+signal set_current_button_focus(new_button_focus : Button, signal_key : int)

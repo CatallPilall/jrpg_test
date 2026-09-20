@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://k5qtvbjdpm6d"]
+
+[ext_resource type="Script" uid="uid://bv5y2r6s2qsor" path="res://scripts/UI_scripts/ui_element_team_formation.gd" id="1_8fa3i"]
+
+[node name="ui_element_team_formation" type="Control" unique_id=91520151]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_8fa3i")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=839171094]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2082092963]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1470475452]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=178696284]
+layout_mode = 2
+
+[node name="team_captain_label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1674250432]
+layout_mode = 2
+text = "Captain"
+
+[node name="team_captain_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1289299625]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../../../MarginContainer3/VBoxContainer/pos_five_button")
+focus_neighbor_bottom = NodePath("../../../MarginContainer2/VBoxContainer/pos_one_button")
+focus_next = NodePath("../../../MarginContainer2/VBoxContainer/pos_one_button")
+focus_previous = NodePath("../../../MarginContainer3/VBoxContainer/pos_five_button")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=848829528]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=1206034577]
+layout_mode = 2
+
+[node name="front_line_label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1549408523]
+layout_mode = 2
+text = "Front Line"
+
+[node name="pos_one_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=2132135623]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../../../MarginContainer/VBoxContainer/team_captain_button")
+focus_neighbor_bottom = NodePath("../pos_two_button")
+focus_next = NodePath("../pos_two_button")
+focus_previous = NodePath("../../../MarginContainer/VBoxContainer/team_captain_button")
+
+[node name="pos_two_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1223328398]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../pos_one_button")
+focus_neighbor_bottom = NodePath("../pos_three_button")
+focus_next = NodePath("../pos_three_button")
+focus_previous = NodePath("../pos_one_button")
+
+[node name="pos_three_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=116797019]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../pos_two_button")
+focus_neighbor_bottom = NodePath("../../../MarginContainer3/VBoxContainer/pos_four_button")
+focus_next = NodePath("../../../MarginContainer3/VBoxContainer/pos_four_button")
+focus_previous = NodePath("../pos_two_button")
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1807618348]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3" unique_id=911189411]
+layout_mode = 2
+
+[node name="back_line_label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer" unique_id=1568677793]
+layout_mode = 2
+text = "Back Line"
+
+[node name="pos_four_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer" unique_id=767688947]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../../../MarginContainer2/VBoxContainer/pos_three_button")
+focus_neighbor_bottom = NodePath("../pos_five_button")
+focus_next = NodePath("../pos_five_button")
+focus_previous = NodePath("../../../MarginContainer2/VBoxContainer/pos_three_button")
+
+[node name="pos_five_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer" unique_id=51175577]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../pos_four_button")
+focus_neighbor_bottom = NodePath("../../../MarginContainer/VBoxContainer/team_captain_button")
+focus_next = NodePath("../../../MarginContainer/VBoxContainer/team_captain_button")
+focus_previous = NodePath("../pos_four_button")
