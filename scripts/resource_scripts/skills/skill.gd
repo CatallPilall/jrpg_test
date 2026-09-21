@@ -2,8 +2,6 @@ extends Resource
 
 class_name skill
 
-var is_combat_turn_ended_connected : bool = false
-
 var caster : unit
 var primary_targets : Array[unit]
 var secondary_targets : Array[unit]
@@ -24,6 +22,7 @@ enum enum_skill_type{ATTACK,SPELL,ITEM}
 var turn_one : bool = true
 var total_speed : int
 
+
 func set_caster_and_targets(new_caster : unit, new_primary_targets : Array[unit], new_secondary_targets : Array[unit]):
 	ConsoleLog.DEBUG(self,"secondary targets delivered to skill: "+ str(new_secondary_targets))
 	caster = new_caster
@@ -32,10 +31,11 @@ func set_caster_and_targets(new_caster : unit, new_primary_targets : Array[unit]
 	ConsoleLog.DEBUG(self,"stored targets in skill: " + str(primary_targets) + " " + str(secondary_targets))
 	total_speed = skill_speed + caster.active_stats.get("speed")
 
+
 func execute_skill():
 	ConsoleLog.DEBUG(self," execute skill with targets: " + str(primary_targets) + " " + str(secondary_targets))
 	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
-	
+
 	turn_one = false
 	if skill_duration == 0:
 		prepare_skill_for_deletion()
@@ -43,31 +43,23 @@ func execute_skill():
 		skill_duration = skill_duration -1
 	ConsoleLog.DEBUG(self, "skill_duration: "+ str(skill_duration))
 
+
 func prepare_skill_for_deletion():
 	first_skill_fragment.clean_up_skill_fragment()
 	first_skill_fragment = null
 	primary_targets.clear()
 	secondary_targets.clear()
 	caster = null
-	connect_to_combat_turn_ended()
+	EventBus.connect_function_with_signal(self, _combat_turn_ended, EventBus.combat_turn_ended)
 
-func connect_to_combat_turn_ended():
-	if not is_combat_turn_ended_connected:
-		is_combat_turn_ended_connected = true
-		EventBus.combat_turn_ended.connect(_combat_turn_ended)
-		ConsoleLog.SIGNAL(self,"combat_turn_ended","connected",1)
-
-func disconnect_from_combat_turn_ended():
-	if is_combat_turn_ended_connected:
-		is_combat_turn_ended_connected = false
-		EventBus.combat_turn_ended.disconnect(_combat_turn_ended)
-		ConsoleLog.SIGNAL(self,"combat_turn_ended","disconnected",0)
 
 func _combat_turn_ended(signal_key : int):
-	disconnect_from_combat_turn_ended()
-	
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"clean_up_skill","emit",new_signal_key)
-	EventBus.clean_up_skill.emit(self,new_signal_key)
-	
+	EventBus.disconnect_function_from_signal(self, _combat_turn_ended, EventBus.combat_turn_ended)
+
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"clean_up_skill","emit",new_signal_key)
+	# EventBus.clean_up_skill.emit(self,new_signal_key)
+
+	EventBus.emit_signal_with_log(EventBus.clean_up_skill, [self])
+
 	ConsoleLog.SIGNAL(self,"combat_turn_ended","processed",signal_key)

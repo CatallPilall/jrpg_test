@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MenuData" format=3 uid="uid://wi35jjho6wph"]
+
+[ext_resource type="Script" uid="uid://cph78e0gi7t0h" path="res://scripts/resource_scripts/menu.gd" id="1_1xqh2"]
+[ext_resource type="PackedScene" uid="uid://th2pdu8w25su" path="res://scenes/UI_scenes/menu_scenes/campaign_menu.tscn" id="1_tmoof"]
+
+[resource]
+script = ExtResource("1_1xqh2")
+scene_file = ExtResource("1_tmoof")
+is_scene_subtype = 7
+metadata/_custom_type_script = "uid://cph78e0gi7t0h"

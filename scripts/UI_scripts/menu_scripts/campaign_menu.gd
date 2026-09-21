@@ -1,7 +1,7 @@
 extends Control
 
-var test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/test_level.tscn")
-var new_test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/new_test_level.tscn")
+# var test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/test_level.tscn")
+# var new_test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/new_test_level.tscn")
 var brunhilde_unit : unit = preload("res://resources/units/brunhilde_unit.tres")
 var casandra_unit : unit = preload("res://resources/units/casandra_unit.tres")
 var derek_uit : unit = preload("res://resources/units/derek_unit.tres")
@@ -19,8 +19,12 @@ func _on_brunhilde_button_pressed() -> void:
 	TeamRoster.put_unit_into_combat_team(derek_uit)
 	TeamRoster.put_unit_into_combat_team(karion_unit)
 	TeamRoster.put_unit_into_combat_team(ungor_unit)
-	
-	var test_level : Node2D = test_level_packed_scene.instantiate()
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"load_scene","emit",new_signal_key)
-	EventBus.load_scene.emit(test_level,new_signal_key)
+
+	SceneLoader.load_scene(self, "tutorial_level")
+
+	# var test_level : Node2D = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.LEVEL, 0, -1) as Node2D
+	# ConsoleLog.DEBUG(self, "load_scene : " + str(test_level))
+	# var test_level : Node2D = test_level_packed_scene.instantiate()
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# EventBus.load_scene.emit(test_level,new_signal_key)
+	# SceneLoader.load_scene(test_level)

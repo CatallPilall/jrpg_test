@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CombatData" format=3 uid="uid://okbh586h5u8f"]
+
+[ext_resource type="PackedScene" uid="uid://cc84jggyuyv5o" path="res://scenes/combat_scenes/basic_combat.tscn" id="1_gwo17"]
+[ext_resource type="Script" uid="uid://ddqtpywj3v15" path="res://scripts/resource_scripts/combat.gd" id="1_jrwse"]
+
+[resource]
+script = ExtResource("1_jrwse")
+scene_file = ExtResource("1_gwo17")
+is_scene_subtype = 1
+metadata/_custom_type_script = "uid://ddqtpywj3v15"

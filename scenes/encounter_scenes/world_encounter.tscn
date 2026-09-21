@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://bp533jpxebcw2"]
 
 [ext_resource type="Script" uid="uid://dyqwy38yyi3ti" path="res://scripts/encounter_scripts/world_encounter.gd" id="1_wfk6b"]
+[ext_resource type="Resource" uid="uid://bpaap3ue2r2un" path="res://resources/encounter/goblin_encounter.tres" id="2_vt23t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 
 [node name="world_encounter" type="Node2D" unique_id=1170504980]
 script = ExtResource("1_wfk6b")
+world_encounter = ExtResource("2_vt23t")
 metadata/_custom_type_script = "uid://dyqwy38yyi3ti"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=188563750]

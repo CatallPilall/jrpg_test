@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cc84jggyuyv5o"]
 
-[ext_resource type="Script" uid="uid://da4ljo7hpjseb" path="res://scripts/combat_scripts/combat_scene.gd" id="1_oj6q5"]
-[ext_resource type="Script" uid="uid://ca6g6u3rj1rh3" path="res://scripts/combat_scripts/combat_manager.gd" id="2_gk5ye"]
+[ext_resource type="Script" uid="uid://da4ljo7hpjseb" path="res://scripts/combat_scripts/basic_combat.gd" id="1_bk0gj"]
+[ext_resource type="Script" uid="uid://ca6g6u3rj1rh3" path="res://scripts/combat_scripts/combat_manager.gd" id="2_8ahsi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 
@@ -23,8 +23,8 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fcnqv"]
 
-[node name="combat_scene" type="Node2D" unique_id=178259104]
-script = ExtResource("1_oj6q5")
+[node name="combat_00" type="Node2D" unique_id=178259104]
+script = ExtResource("1_bk0gj")
 
 [node name="ally_position_one" type="Node2D" parent="." unique_id=381864953]
 position = Vector2(175, 205)
@@ -111,7 +111,7 @@ position = Vector2(285, 191)
 zoom = Vector2(3, 3)
 
 [node name="combat_manager" type="Node" parent="." unique_id=368374353]
-script = ExtResource("2_gk5ye")
+script = ExtResource("2_8ahsi")
 
 [node name="enemy_team_Area2D" type="Area2D" parent="." unique_id=170020467]
 

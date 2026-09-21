@@ -16,9 +16,11 @@ func _ready() -> void:
 	pos_three_button.text = TeamRoster.combat_team[2].unit_name
 	pos_four_button.text = TeamRoster.combat_team[3].unit_name
 	pos_five_button.text = TeamRoster.combat_team[4].unit_name
-	
-	var new_signal_key : int = EventBus.generate_signal_key()
-	ConsoleLog.SIGNAL(self,"set_current_button_focus","emit",new_signal_key)
-	EventBus.set_current_button_focus.emit(team_captain_button,new_signal_key)
-	
+
+	# var new_signal_key : int = EventBus.generate_signal_key()
+	# ConsoleLog.SIGNAL(self,"set_current_button_focus","emit",new_signal_key)
+	# EventBus.set_current_button_focus.emit(team_captain_button,new_signal_key)
+
+	EventBus.emit_signal_with_log(EventBus.set_current_button_focus, [team_captain_button])
+
 	team_captain_button.grab_focus.call_deferred()

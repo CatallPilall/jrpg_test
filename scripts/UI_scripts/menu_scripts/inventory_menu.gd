@@ -19,7 +19,7 @@ extends Control
 @onready var character_button : PackedScene = preload("res://scenes/UI_scenes/ui_element_character_button.tscn")
 @onready var team_formation : PackedScene = preload("res://scenes/UI_scenes/ui_element_team_formation.tscn")
 
-var is_set_current_button_focus_connected : bool = false
+# var is_set_current_button_focus_connected : bool = false
 
 enum enum_button_neighbor {UP,DOWN,LEFT,RIGHT}
 
@@ -53,6 +53,7 @@ func _ready() -> void:
 	item_button.grab_focus.call_deferred()
 	return_chain.append(exit_button)
 	fill_character_container()
+	EventBus.emit_signal_with_log(EventBus.inventory_menu_has_loaded, [self, null])
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("control_return"):
@@ -85,7 +86,7 @@ func return_one_step():
 		current_button_focus = return_chain.pop_back()
 		current_button_focus.grab_focus.call_deferred()
 		current_button_focus.set_pressed_no_signal(false)
-	
+
 	if undo_containers:
 		for cursor : Control in select_container.get_children():
 			cursor.queue_free()
@@ -95,7 +96,7 @@ func return_one_step():
 func cycle_buttons_through_neighbors(button_neighbor : enum_button_neighbor):
 	var local_button : Button = null
 	var local_path : NodePath
-	
+
 	match button_neighbor:
 		enum_button_neighbor.UP:
 			if current_button_focus.focus_neighbor_top:
@@ -109,7 +110,7 @@ func cycle_buttons_through_neighbors(button_neighbor : enum_button_neighbor):
 		enum_button_neighbor.RIGHT:
 			if current_button_focus.focus_neighbor_right:
 				local_path = current_button_focus.focus_neighbor_right
-	
+
 	if local_path:
 		local_button = current_button_focus.get_node(local_path)
 		local_button.grab_focus.call_deferred()
@@ -120,21 +121,21 @@ func fill_select_container(selected_array : Array):
 	var is_first_button : bool = true
 	var first_button : Button = null
 	var is_last_button : bool = false
-	
+
 	for cursor in selected_array:
-	
+
 		if cursor == selected_array.back():
 			is_last_button = true
-		
+
 		var new_button : Button = Button.new()
 		if cursor is quest:
 			new_button.text = cursor.quest_name
 			new_button.focus_entered.connect(_fill_info_container.bind(cursor.quest_description))
-		
+
 		if cursor is item:
 			new_button.text = cursor.item_name
 			new_button.focus_entered.connect(_fill_info_container.bind(cursor.item_description))
-		
+
 		select_container.add_child(new_button)
 		ConsoleLog.INFO(self,["new_button","text","path"],[new_button,cursor,new_button.get_path()])
 		if is_first_button:
@@ -144,11 +145,11 @@ func fill_select_container(selected_array : Array):
 			current_button_focus.grab_focus.call_deferred()
 		else:
 			new_button.set_focus_neighbor(SIDE_TOP,prev_button.get_path())
-			
+
 			if is_last_button:
 				new_button.set_focus_neighbor(SIDE_BOTTOM, first_button.get_path())
 				first_button.set_focus_neighbor(SIDE_TOP, new_button.get_path())
-			
+
 			prev_button.set_focus_neighbor(SIDE_BOTTOM, new_button.get_path())
 		prev_button = new_button
 
@@ -181,19 +182,25 @@ func select_unit_roster():
 func make_formation():
 	var new_formation : team_formation_ui_element = team_formation.instantiate()
 	select_container.add_child.call_deferred(new_formation)
-	connect_to_set_current_button_focus()
+	# connect_to_set_current_button_focus()
+	EventBus.connect_function_with_signal(self, _set_current_button_focus, EventBus.set_current_button_focus)
 
-func connect_to_set_current_button_focus():
-	if not is_set_current_button_focus_connected:
-		is_set_current_button_focus_connected = true
-		EventBus.set_current_button_focus.connect(_set_current_button_focus)
-		ConsoleLog.SIGNAL(self,"set_current_button_focus","connected",1)
+# Habe eine Funktion im EventBus eingebaut, die functions mit signalen verbindet
+# und diese auch logt (auch error usw.)
+# Somit braucht man nicht in jedem script für jedes connect und disconnect eine func zu schreiben
+#
 
-func disconnect_from_set_current_button_focus():
-	if is_set_current_button_focus_connected:
-		is_set_current_button_focus_connected = false
-		EventBus.set_current_button_focus.disconnect(_set_current_button_focus)
-		ConsoleLog.SIGNAL(self,"set_current_button_focus","disconnected",0)
+# func connect_to_set_current_button_focus():
+# 	if not is_set_current_button_focus_connected:
+# 		is_set_current_button_focus_connected = true
+# 		EventBus.set_current_button_focus.connect(_set_current_button_focus)
+# 		ConsoleLog.SIGNAL(self,"set_current_button_focus","connected",1)
+
+# func disconnect_from_set_current_button_focus():
+# 	if is_set_current_button_focus_connected:
+# 		is_set_current_button_focus_connected = false
+# 		EventBus.set_current_button_focus.disconnect(_set_current_button_focus)
+# 		ConsoleLog.SIGNAL(self,"set_current_button_focus","disconnected",0)
 
 func _set_current_button_focus(new_button_focus : Button, signal_key : int):
 	current_button_focus = new_button_focus

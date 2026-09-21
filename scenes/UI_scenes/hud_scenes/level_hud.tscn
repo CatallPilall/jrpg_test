@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b7mvyioiqjlso"]
+
+[ext_resource type="Script" uid="uid://cft8nmkmsy4l5" path="res://scripts/UI_scripts/hud_scripts/level_hud.gd" id="1_yk8c1"]
+
+[node name="level_hud" type="Control" unique_id=1252555306]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yk8c1")
+
+[node name="time_hud_container" type="CenterContainer" parent="." unique_id=1050459237]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 11.0
+offset_right = 168.0
+offset_bottom = 91.0
+
+[node name="time_hud" type="Label" parent="time_hud_container" unique_id=784949901]
+layout_mode = 2

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://c67651nyhtgm3"]
+
+[ext_resource type="PackedScene" uid="uid://8s50ytio5km" path="res://scenes/level_scenes/next_level.tscn" id="1_fephl"]
+[ext_resource type="Script" uid="uid://d0wkn4yx7q1rd" path="res://scripts/resource_scripts/level.gd" id="1_mk0mo"]
+
+[resource]
+script = ExtResource("1_mk0mo")
+level_description = "Next Level to go to"
+scene_file = ExtResource("1_fephl")
+is_scene_subtype = 1
+metadata/_custom_type_script = "uid://d0wkn4yx7q1rd"
