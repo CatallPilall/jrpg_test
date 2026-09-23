@@ -38,7 +38,7 @@ var item_usage_array : Array[bool]
 
 
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 	EventBus.connect_functions_with_signals(self, related_functions_to_signals)
 	store_combat_team_locally()
 	combat_state = combat_state_machine.FIRST_CHARACTER
@@ -46,15 +46,16 @@ func _ready() -> void:
 
 func _clean_up_skill(skill_to_clean : skill, signal_key : int):
 	skill_order_array.erase(skill_to_clean)
-	ConsoleLog.SIGNAL(self,"clean_up_skill","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.clean_up_skill, "processed", signal_key)
 
 
-func _combat_hud_has_loaded(signal_key : int):
+func _combat_hud_has_loaded(called_by : Node, loaded_node : Node, signal_key : int):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
 	EventBus.emit_signal_with_log(EventBus.new_selected_unit)
-	ConsoleLog.SIGNAL(self,"hud_scene_has_loaded","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.hud_scene_has_loaded, "processed", signal_key)
+
 
 func store_combat_team_locally():
 	combat_team_reference = TeamRoster.combat_team
@@ -76,7 +77,7 @@ func new_unit_selected():
 	EventBus.emit_signal_with_log(EventBus.disable_item_button, [item_usage_array[selected_unit_array_position]])
 
 
-func _skill_button_pressed(skill_name : String, signal_key : int):
+func _skill_button_pressed(item_skill : skill, skill_name : String, signal_key : int):
 	if skill_name == "skill":
 		combat_state = combat_state_machine.SKILL_PENDING
 		var new_skill_array : Array[String]
@@ -97,14 +98,14 @@ func _skill_button_pressed(skill_name : String, signal_key : int):
 		selected_skill = new_skill
 
 		combat_state = combat_state_machine.SKILL_SELECTED
-		ConsoleLog.INFO(self,["selected_skill","selected_unit"],[selected_skill,selected_unit])
+		ConsoleLog.INFO(["selected_skill","selected_unit"], [selected_skill,selected_unit])
 
 		# var new_signal_key : int = EventBus.generate_signal_key()
 		# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 		# EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,selected_unit,new_signal_key)
 		EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, selected_unit])
 
-		ConsoleLog.SIGNAL(self,"skill_button_pressed","processed",signal_key)
+		ConsoleLog.SIGNAL(EventBus.skill_button_pressed, "processed", signal_key)
 
 
 func _item_button_pressed(_pressed_item : item, signal_key : int):
@@ -113,11 +114,11 @@ func _item_button_pressed(_pressed_item : item, signal_key : int):
 	# combat_state = combat_state_machine.ITEM_SELECTED
 	# ConsoleLog.INFO(self,["selected_skill","selected_unit"],[item_skill,selected_unit])
 	# EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [item_skill.skill_targeting])
-	ConsoleLog.SIGNAL(self, "item_button_pressed","processed", signal_key)
+	ConsoleLog.SIGNAL(EventBus.item_button_pressed, "processed", signal_key)
 
 
 func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : Array[unit], signal_key : int):
-	ConsoleLog.DEBUG(self,"_unit_targets_selected caught secondary_targets: " + str(secondary_targets))
+	ConsoleLog.DEBUG("_unit_targets_selected caught secondary_targets: " + str(secondary_targets))
 	if selected_skill:
 		selected_skill.set_caster_and_targets(selected_unit,selected_targets, secondary_targets)
 		queue_skill(selected_skill)
@@ -139,7 +140,7 @@ func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : 
 		# EventBus.disable_item_button.emit(true,new_signal_key)
 		EventBus.emit_signal_with_log(EventBus.disable_item_button, [true])
 
-	ConsoleLog.SIGNAL(self,"unit_targets_selected","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.unit_targets_selected, "processed", signal_key)
 
 func cycle_ally_unit():
 	# var new_signal_key : int = EventBus.generate_signal_key()
@@ -167,7 +168,7 @@ func cycle_ally_unit():
 func queue_skill(skill_to_queue : skill):
 	skill_order_array.append(skill_to_queue)
 	skill_order_array.sort_custom(sort_skill_order_array)
-	ConsoleLog.INFO(self,["skill_order_array"],[skill_order_array])
+	ConsoleLog.INFO(["skill_order_array"],[skill_order_array])
 
 func sort_skill_order_array(a : skill, b : skill):
 	if a.total_speed > b.total_speed:
@@ -189,7 +190,7 @@ func _end_turn_button_pressed(signal_key : int):
 	EventBus.emit_signal_with_log(EventBus.combat_turn_ended)
 
 	start_new_turn()
-	ConsoleLog.SIGNAL(self,"end_turn_button_pressed","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.end_turn_button_pressed, "processed", signal_key)
 
 func start_new_turn():
 	selected_unit_array_position = 0
@@ -253,7 +254,7 @@ func undo_last_action():
 			else:
 				combat_state = combat_state_machine.CHARACTER_SELECTED
 
-	ConsoleLog.INFO(self,["selected_character","selected_skill","state_machine","skill_array"],[selected_unit,selected_skill,combat_state,skill_order_array])
+	ConsoleLog.INFO(["selected_character","selected_skill","state_machine","skill_array"],[selected_unit,selected_skill,combat_state,skill_order_array])
 
 
 func _combat_state_changed_via_combat_hud(signal_key : int):
@@ -261,4 +262,4 @@ func _combat_state_changed_via_combat_hud(signal_key : int):
 		combat_state = combat_state_machine.FIRST_CHARACTER
 	else:
 		combat_state = combat_state_machine.CHARACTER_SELECTED
-	ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.combat_state_changed_via_combat_hud, "processed", signal_key)

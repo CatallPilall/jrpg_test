@@ -24,16 +24,16 @@ var total_speed : int
 
 
 func set_caster_and_targets(new_caster : unit, new_primary_targets : Array[unit], new_secondary_targets : Array[unit]):
-	ConsoleLog.DEBUG(self,"secondary targets delivered to skill: "+ str(new_secondary_targets))
+	ConsoleLog.DEBUG("secondary targets delivered to skill: "+ str(new_secondary_targets))
 	caster = new_caster
 	primary_targets = new_primary_targets
 	secondary_targets.assign(new_secondary_targets)
-	ConsoleLog.DEBUG(self,"stored targets in skill: " + str(primary_targets) + " " + str(secondary_targets))
+	ConsoleLog.DEBUG("stored targets in skill: " + str(primary_targets) + " " + str(secondary_targets))
 	total_speed = skill_speed + caster.active_stats.get("speed")
 
 
 func execute_skill():
-	ConsoleLog.DEBUG(self," execute skill with targets: " + str(primary_targets) + " " + str(secondary_targets))
+	ConsoleLog.DEBUG("execute skill with targets: " + str(primary_targets) + " " + str(secondary_targets))
 	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
 
 	turn_one = false
@@ -41,7 +41,7 @@ func execute_skill():
 		prepare_skill_for_deletion()
 	else:
 		skill_duration = skill_duration -1
-	ConsoleLog.DEBUG(self, "skill_duration: "+ str(skill_duration))
+	ConsoleLog.DEBUG("skill_duration: "+ str(skill_duration))
 
 
 func prepare_skill_for_deletion():
@@ -62,4 +62,4 @@ func _combat_turn_ended(signal_key : int):
 
 	EventBus.emit_signal_with_log(EventBus.clean_up_skill, [self])
 
-	ConsoleLog.SIGNAL(self,"combat_turn_ended","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.combat_turn_ended, "processed", signal_key)

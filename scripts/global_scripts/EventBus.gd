@@ -9,108 +9,211 @@ func generate_signal_key() -> int:
 @warning_ignore("unused_signal")
 signal display_unit_info(selected_unit : unit, signal_key : int)
 
-# Signals for scene_loader ------------------------------------------------------
+# Signals for scenes ------------------------------------------------------
 # LOADED
 # MENU
 @warning_ignore("unused_signal")
-signal main_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal main_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal pause_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal pause_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal settings_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal settings_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal load_game_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal load_game_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal save_game_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal save_game_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal new_game_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal new_game_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal campaign_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal campaign_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal game_over_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal game_over_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal victory_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal victory_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal inventory_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal inventory_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal character_stats_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal character_stats_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal skill_leveling_menu_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal skill_leveling_menu_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 
 # HUD
 @warning_ignore("unused_signal")
-signal level_hud_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal level_hud_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal combat_hud_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal combat_hud_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal npc_interaction_hud_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal npc_interaction_hud_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 
 # LEVELS
 @warning_ignore("unused_signal")
-signal level_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal level_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 
 # COMBAT
 @warning_ignore("unused_signal")
-signal tutorial_fight_combat_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal tutorial_fight_combat_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal random_encounter_combat_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal random_encounter_combat_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal mission_encounter_combat_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal mission_encounter_combat_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal boss_fight_combat_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal boss_fight_combat_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal final_boss_fight_combat_has_loaded(called_by : Node, node : Node, signal_key : int)
+signal final_boss_fight_combat_has_loaded(called_by : Node, loaded_node : Node, signal_key : int)
 
 # UNLOADED
 # MENU
 @warning_ignore("unused_signal")
-signal main_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal main_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal pause_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal pause_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal settings_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal settings_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal load_game_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal load_game_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal save_game_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal save_game_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal new_game_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal new_game_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal campaign_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal campaign_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal game_over_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal game_over_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal victory_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal victory_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal inventory_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal inventory_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal character_stats_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal character_stats_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal skill_leveling_menu_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal skill_leveling_menu_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 
 # HUD
 @warning_ignore("unused_signal")
-signal level_hud_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal level_hud_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal combat_hud_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal combat_hud_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal npc_interaction_hud_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal npc_interaction_hud_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 
 # LEVELS
 @warning_ignore("unused_signal")
-signal level_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal level_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 
 # COMBAT
 @warning_ignore("unused_signal")
-signal tutorial_fight_combat_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal tutorial_fight_combat_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal random_encounter_combat_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal random_encounter_combat_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal mission_encounter_combat_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal mission_encounter_combat_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal boss_fight_combat_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal boss_fight_combat_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
 @warning_ignore("unused_signal")
-signal final_boss_fight_combat_has_unloaded(called_by : Node, node : Node, signal_key : int)
+signal final_boss_fight_combat_has_unloaded(called_by : Node, unloaded_node : Node, signal_key : int)
+
+
+# ACTIVATED
+# MENU
+@warning_ignore("unused_signal")
+signal main_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal pause_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal settings_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal load_game_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal save_game_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal new_game_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal campaign_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal game_over_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal victory_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal inventory_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal character_stats_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal skill_leveling_menu_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+
+# HUD
+@warning_ignore("unused_signal")
+signal level_hud_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal combat_hud_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal npc_interaction_hud_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+
+# LEVELS
+@warning_ignore("unused_signal")
+signal level_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+
+# COMBAT
+@warning_ignore("unused_signal")
+signal tutorial_fight_combat_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal random_encounter_combat_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal mission_encounter_combat_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal boss_fight_combat_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal final_boss_fight_combat_has_activated(called_by : Node, activated_node : Node, signal_key : int)
+
+# DEACTIVATED
+# MENU
+@warning_ignore("unused_signal")
+signal main_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal pause_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal settings_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal load_game_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal save_game_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal new_game_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal campaign_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal game_over_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal victory_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal inventory_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal character_stats_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal skill_leveling_menu_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+
+# HUD
+@warning_ignore("unused_signal")
+signal level_hud_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal combat_hud_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal npc_interaction_hud_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+
+# LEVELS
+@warning_ignore("unused_signal")
+signal level_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+
+# COMBAT
+@warning_ignore("unused_signal")
+signal tutorial_fight_combat_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal random_encounter_combat_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal mission_encounter_combat_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal boss_fight_combat_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
+@warning_ignore("unused_signal")
+signal final_boss_fight_combat_has_deactivated(called_by : Node, deactivated_node : Node, signal_key : int)
 # -------------------------------------------------------------------------------
 
 
@@ -171,26 +274,26 @@ signal timer_updated(time_as_string : String, signal_key : int)
 
 func connect_function_with_signal(called_by : Object, function_to_connect : Callable, signal_connect_to : Signal) -> void:
 	if not function_to_connect.is_valid():
-		ConsoleLog.ERROR(self, "function is not valid; " + "called by: " + called_by.get_name())
+		ConsoleLog.ERROR("function is not valid")
 		return
 
 	if not signal_connect_to.is_connected(function_to_connect):
 		signal_connect_to.connect(function_to_connect)
-		ConsoleLog.SIGNAL(self, signal_connect_to.get_name(), "connected with " + called_by.get_name() + "::" + function_to_connect.get_method(), 1)
+		ConsoleLog.SIGNAL(signal_connect_to, "connected with " + called_by.get_name() + "::" + function_to_connect.get_method(), 1)
 	else:
-		ConsoleLog.WARNING(self, called_by.get_name() + "::" + function_to_connect.get_method() + " is already connected to signal: " + signal_connect_to.get_name())
+		ConsoleLog.WARNING(function_to_connect.get_method() + " is already connected to signal: " + signal_connect_to.get_name())
 
 
 func disconnect_function_from_signal(called_by : Object, function_to_disconnect : Callable, signal_disconnect_from : Signal) -> void:
 	if not function_to_disconnect.is_valid():
-		ConsoleLog.ERROR(self, "function is not valid")
+		ConsoleLog.ERROR("function is not valid")
 		return
 
 	if signal_disconnect_from.is_connected(function_to_disconnect):
 		signal_disconnect_from.disconnect(function_to_disconnect)
-		ConsoleLog.SIGNAL(self, signal_disconnect_from.get_name(), "disconnected with " + called_by.get_name() + "::" + function_to_disconnect.get_method(), 0)
+		ConsoleLog.SIGNAL(signal_disconnect_from, "disconnected with " + called_by.get_name() + "::" + function_to_disconnect.get_method(), 0)
 	else:
-		ConsoleLog.WARNING(self, called_by.get_name() + "::" + function_to_disconnect.get_method() + " is not connected to signal: " + signal_disconnect_from.get_name())
+		ConsoleLog.WARNING(function_to_disconnect.get_method() + " is not connected to signal: " + signal_disconnect_from.get_name())
 
 
 func connect_functions_with_signals(called_by : Object, functions_to_connect_to_signals : Dictionary[Callable, Signal]) -> void:
@@ -205,9 +308,9 @@ func disconnect_functions_from_signals(called_by : Object, functions_to_disconne
 		disconnect_function_from_signal(called_by, function_to_disconnect, signal_disconnect_from)
 
 
-func emit_signal_with_log(signal_to_emit : Signal, args : Array = [], signal_key : int = -1) -> void:
+func emit_signal_with_log(signal_to_emit : Signal, args_for_signal : Array = [], signal_key : int = -1) -> void:
 	if not signal_to_emit.has_connections():
-		ConsoleLog.WARNING(self, "signal " + signal_to_emit.get_name() + " does not have any connections")
+		ConsoleLog.WARNING("signal " + signal_to_emit.get_name() + " does not have any connections")
 		return
 
 	# var args_with_key : Array = args.duplicate()
@@ -216,7 +319,7 @@ func emit_signal_with_log(signal_to_emit : Signal, args : Array = [], signal_key
 	if signal_key == -1:
 		signal_key = generate_signal_key()
 
-	args.append(signal_key)
-	ConsoleLog.SIGNAL(self, signal_to_emit.get_name(), "emit", signal_key)
+	args_for_signal.append(signal_key)
+	ConsoleLog.SIGNAL(signal_to_emit, "emit", signal_key)
 	# signal_to_emit.emit.callv(args_with_key)
-	signal_to_emit.emit.callv(args)
+	signal_to_emit.emit.callv(args_for_signal)

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://w58ustj5uopt" path="res://scripts/level_scripts/tutorial_level.gd" id="1_dxlpm"]
 [ext_resource type="Texture2D" uid="uid://22sc1i0btkdy" path="res://assets/tilesets/IttyBittyRPG Tileset.png" id="2_sjj8o"]
 [ext_resource type="PackedScene" uid="uid://bp533jpxebcw2" path="res://scenes/encounter_scenes/world_encounter.tscn" id="3_o4wvv"]
+[ext_resource type="Texture2D" uid="uid://dfbchf70wjc6s" path="res://assets/portraits/place_holder_portrait.png" id="5_dxlpm"]
 [ext_resource type="Resource" uid="uid://ce1icev426vjh" path="res://resources/encounter/goblin_gang_encounter.tres" id="5_hrdtw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xnydk"]
@@ -2609,6 +2610,14 @@ texture = ExtResource("2_sjj8o")
 [sub_resource type="TileSet" id="TileSet_57qmd"]
 sources/0 = SubResource("TileSetAtlasSource_hirvx")
 
+[sub_resource type="Curve2D" id="Curve2D_y6oc3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -49, 0, 0, 0, 0, 0, 57, 0)
+}
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oq8uu"]
+
 [node name="tutorial_level" type="Node2D" unique_id=1160916508]
 script = ExtResource("1_dxlpm")
 
@@ -2633,3 +2642,35 @@ position = Vector2(585, 358)
 [node name="world_encounter2" parent="." unique_id=1453158230 instance=ExtResource("3_o4wvv")]
 position = Vector2(712, 410)
 world_encounter = ExtResource("5_hrdtw")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=2103794993]
+position = Vector2(554, 404)
+curve = SubResource("Curve2D_y6oc3")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1944495409]
+position = Vector2(-49, 0)
+loop = false
+
+[node name="world_encounter3" parent="Path2D/PathFollow2D" unique_id=1170504980 instance=ExtResource("3_o4wvv")]
+
+[node name="enter_other_level" type="Node2D" parent="." unique_id=223705208]
+position = Vector2(498, 492)
+
+[node name="Sprite2D" type="Sprite2D" parent="enter_other_level" unique_id=1250351557]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_dxlpm")
+
+[node name="Label" type="Label" parent="enter_other_level" unique_id=1054463581]
+offset_left = -26.999998
+offset_top = -18.999998
+offset_right = 109.0
+offset_bottom = 4.000002
+scale = Vector2(0.4, 0.4)
+text = "Enter Other Level"
+
+[node name="Area2D" type="Area2D" parent="enter_other_level" unique_id=621373076]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enter_other_level/Area2D" unique_id=739638261]
+shape = SubResource("CircleShape2D_oq8uu")
+
+[connection signal="area_entered" from="enter_other_level/Area2D" to="." method="_on_area_2d_area_entered"]

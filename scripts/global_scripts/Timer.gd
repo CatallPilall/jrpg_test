@@ -48,11 +48,12 @@ func _convert_enum_to_string() -> String:
 # bin zu stupid das gerade zu machen
 # TODO LATER
 func _convert_time_to_string() -> String:
-	var fraction : float = day_duration / 86400.0
-	var hours : int = int(current_time / 3600 * fraction) % 24
-	var minutes : int = int(current_time / 60 * fraction) % 60
-	var seconds : int = int(current_time * fraction) % 60
-	return str(hours) + " : " + str(minutes) + " : " + str(seconds)
+	# var fraction : float = day_duration / 86400.0
+	# var hours : int = int(current_time / 3600 * fraction) % 24
+	# var minutes : int = int(current_time / 60 * fraction) % 60
+	# var seconds : int = int(current_time * fraction) % 60
+	# return str(hours) + " : " + str(minutes) + " : " + str(seconds)
+	return str(current_time)
 
 
 func _calc_current_time_of_day():
@@ -85,32 +86,38 @@ func init_timer(_timer : Timer) -> void:
 
 func start_default_timer():
 	if timer_started:
-		ConsoleLog.WARNING(self, "Timer already started")
+		ConsoleLog.WARNING("Timer already started")
 		return
 	timer.start(day_duration)
 	timer_started = true
 	_background_time_check()
-	ConsoleLog.DEBUG(self, "start_default_timer")
+	ConsoleLog.DEBUG("start_default_timer")
 
 
 func set_and_start_timer(duration : float):
 	if timer_started:
-		ConsoleLog.WARNING(self, "Timer already started")
+		ConsoleLog.WARNING("Timer already started")
 		return
 	timer.start(duration)
 	timer_started = true
 	_background_time_check()
-	ConsoleLog.DEBUG(self, "set_and_start_timer")
+	ConsoleLog.DEBUG("set_and_start_timer")
 
 
 func pause_timer():
 	timer.set_paused(true)
-	ConsoleLog.DEBUG(self, "pause_timer")
+	ConsoleLog.DEBUG("pause_timer")
 
 
 func unpause_timer():
 	timer.set_paused(false)
-	ConsoleLog.DEBUG(self, "unpause_timer")
+	ConsoleLog.DEBUG("unpause_timer")
+
+
+func stop_timer():
+	timer.stop()
+	timer_started = false
+	ConsoleLog.DEBUG("stop_timer")
 
 
 func on_timer_timeout() -> void:

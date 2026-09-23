@@ -7,13 +7,14 @@ extends Node2D
 # var combat_scene_packed_scene : PackedScene = preload("res://scenes/combat_scenes/combat_scene.tscn")
 
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 
 	sprite_2d.texture = load(world_encounter.encounter_sprite_location)
 	EventBus.connect_function_with_signal(self, _make_combat_scene, EventBus.tutorial_fight_combat_has_loaded)
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	SceneLoader.load_scene(self, "basic_combat")
+	SceneLoader.activate_scene(self, "basic_combat")
 	#var new_combat_scene : combat_scene = combat_scene_packed_scene.instantiate()
 	# var loaded_combat_scene = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.COMBAT, -1, 0) as combat_scene
 
@@ -38,4 +39,4 @@ func _make_combat_scene(called_by : Node, new_combat_scene : combat_scene, signa
 		new_combat_scene.enemy_five = world_encounter.enemy_five.duplicate()
 	new_combat_scene.combat_duration = world_encounter.end_condition
 	new_combat_scene.overworld_encounter = self
-	ConsoleLog.DEBUG(self, "COMBAT SCENE WIRD INITIALISIERT")
+	ConsoleLog.DEBUG("COMBAT SCENE WIRD INITIALISIERT")

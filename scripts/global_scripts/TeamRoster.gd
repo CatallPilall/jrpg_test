@@ -23,11 +23,11 @@ func put_unit_into_combat_team(new_unit : unit):
 		if not team_captain:
 			team_captain = new_unit
 		combat_team.append(new_unit)
-	ConsoleLog.INFO(self,["team_captain","combat_team"],[team_captain,combat_team])
+	ConsoleLog.INFO(["team_captain","combat_team"],[team_captain,combat_team])
 
 func put_item_into_inventory(new_item : item):
 	var duped_item : item = new_item.duplicate()
-	
+
 	if new_item is consumable:
 		consumables.append(duped_item)
 

@@ -63,7 +63,7 @@ var combat_duration : int
 var overworld_encounter : Node2D
 
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 
 	camera_2d.make_current()
 
@@ -190,7 +190,7 @@ func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting
 
 	set_secondary_targets(secondary_skill_targeting, casting_unit)
 
-	ConsoleLog.SIGNAL(self,"apply_skill_targeting","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.apply_skill_targeting, "processed", signal_key)
 
 func hide_individual_area_2d():
 	ally_one_area_2d.hide()
@@ -347,7 +347,7 @@ func _remove_dead_unit(dead_unit : unit, signal_key : int):
 	if combat_duration <= 0:
 		end_combat()
 
-	ConsoleLog.SIGNAL(self,"remove_dead_unit","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.remove_dead_unit, "processed", signal_key)
 
 func end_combat():
 	pass
@@ -375,13 +375,13 @@ func _unit_clicked(event: InputEvent, selected_unit : unit):
 		_unit_left_clicked(selected_unit)
 
 func _unit_right_clicked(selected_unit : unit):
-	ConsoleLog.INPUT("right_click","action_pressed",[selected_unit])
+	ConsoleLog.INPUT("right_click", "action_pressed", [selected_unit])
 
 func _unit_left_clicked(selected_unit : unit):
-	ConsoleLog.INPUT("left_click","action_pressed",[selected_unit])
+	ConsoleLog.INPUT("left_click", "action_pressed", [selected_unit])
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"unit_targets_selected","emit",new_signal_key)
-	ConsoleLog.DEBUG(self,"_unit_left_clicked throws secondary_targets: " + str(secondary_targets))
+	ConsoleLog.DEBUG("_unit_left_clicked throws secondary_targets: " + str(secondary_targets))
 	var new_targets : Array[unit]
 	new_targets.append(selected_unit)
 	# EventBus.unit_targets_selected.emit(new_targets,secondary_targets,new_signal_key)
@@ -394,7 +394,7 @@ func _on_enemy_one_area_2d_mouse_entered() -> void:
 	_unit_hovered(enemy_one)
 
 func _unit_hovered(hovered_unit : unit):
-	ConsoleLog.INPUT("mouse_entered","mouse_movement",[hovered_unit])
+	ConsoleLog.INPUT("mouse_entered", "mouse_movement", [hovered_unit])
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"display_unit_info","emit",new_signal_key)
 	# EventBus.display_unit_info.emit(hovered_unit,new_signal_key)

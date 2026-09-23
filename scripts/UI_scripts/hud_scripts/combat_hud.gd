@@ -1,5 +1,16 @@
 extends Control
 
+var related_functions_to_signals : Dictionary[Callable, Signal] = {
+	_display_unit_info: EventBus.display_unit_info,
+	_new_selected_unit: EventBus.new_selected_unit,
+	_disable_combat_hud_actions: EventBus.disable_combat_hud_actions,
+	_enable_combat_hud_actions: EventBus.enable_combat_hud_actions,
+	_make_combat_hud_skill_buttons: EventBus.make_combat_hud_skill_buttons,
+	_remove_combat_hud_skill_buttons: EventBus.remove_combat_hud_skill_buttons,
+	_make_combat_hud_item_buttons: EventBus.make_combat_hud_item_buttons,
+	_disable_item_button: EventBus.disable_item_button
+}
+
 var are_non_skill_buttons_disabled : bool = false
 var are_non_item_buttons_disabled : bool = false
 
@@ -19,30 +30,19 @@ var item_button_disabled : bool = false
 @onready var skill_buttons_vbox: VBoxContainer = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3/ScrollContainer/skill_buttons_vbox
 
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_connect_signals()
+	EventBus.connect_functions_with_signals(self, related_functions_to_signals)
 
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"combat_hud_has_loaded","emit",new_signal_key)
 	# EventBus.combat_hud_has_loaded.emit(new_signal_key)
 
 
-func _connect_signals() -> void:
-	EventBus.connect_function_with_signal(self, _display_unit_info, EventBus.display_unit_info)
-	EventBus.connect_function_with_signal(self, _new_selected_unit, EventBus.new_selected_unit)
-	EventBus.connect_function_with_signal(self, _disable_combat_hud_actions, EventBus.disable_combat_hud_actions)
-	EventBus.connect_function_with_signal(self, _enable_combat_hud_actions, EventBus.enable_combat_hud_actions)
-	EventBus.connect_function_with_signal(self, _make_combat_hud_skill_buttons, EventBus.make_combat_hud_skill_buttons)
-	EventBus.connect_function_with_signal(self, _remove_combat_hud_skill_buttons, EventBus.remove_combat_hud_skill_buttons)
-	EventBus.connect_function_with_signal(self, _make_combat_hud_item_buttons, EventBus.make_combat_hud_item_buttons)
-	EventBus.connect_function_with_signal(self, _disable_item_button, EventBus.disable_item_button)
-
-
 func _disable_item_button(disabled : bool, signal_key : int):
 	item_button_disabled = disabled
 	item_button.disabled = item_button_disabled
-	ConsoleLog.SIGNAL(self,"disable_item_button","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.disable_item_button, "processed", signal_key)
 
 
 func _remove_combat_hud_skill_buttons(signal_key : int):
@@ -51,7 +51,7 @@ func _remove_combat_hud_skill_buttons(signal_key : int):
 	if are_non_item_buttons_disabled:
 		disable_non_item_buttons(false)
 	clear_skill_buttons_vbox()
-	ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.remove_combat_hud_skill_buttons, "processed", signal_key)
 
 
 func clear_skill_buttons_vbox():
@@ -60,7 +60,7 @@ func clear_skill_buttons_vbox():
 		i.queue_free()
 
 
-func _make_combat_hud_skill_buttons(skill_array : Array[String],signal_key : int):
+func _make_combat_hud_skill_buttons(skill_array : Array[String], signal_key : int):
 
 	for i in skill_array:
 		var new_button = Button.new()
@@ -69,7 +69,7 @@ func _make_combat_hud_skill_buttons(skill_array : Array[String],signal_key : int
 		skill_buttons_vbox.add_child.call_deferred(new_button)
 
 	disable_non_skill_buttons(true)
-	ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.make_combat_hud_skill_buttons, "processed", signal_key)
 
 
 func _make_combat_hud_item_buttons(signal_key : int):
@@ -80,7 +80,7 @@ func _make_combat_hud_item_buttons(signal_key : int):
 		skill_buttons_vbox.add_child.call_deferred(new_button)
 
 	disable_non_item_buttons(true)
-	ConsoleLog.SIGNAL(self,"make_combat_hud_item_buttons","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.make_combat_hud_item_buttons, "processed", signal_key)
 
 
 func disable_non_item_buttons(disable : bool):
@@ -100,23 +100,23 @@ func disable_non_skill_buttons(disable : bool):
 		item_button.disabled = disable
 
 
-func _disable_combat_hud_actions(signal_key):
+func _disable_combat_hud_actions(signal_key : int):
 	attack_button.disabled = true
 	guard_button.disabled = true
 	channel_button.disabled = true
 	skill_button.disabled = true
 	item_button.disabled = true
-	ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.disable_combat_hud_actions, "processed", signal_key)
 
 
-func _enable_combat_hud_actions(signal_key):
+func _enable_combat_hud_actions(signal_key : int):
 	are_non_skill_buttons_disabled = false
 	attack_button.disabled = false
 	guard_button.disabled = false
 	channel_button.disabled = false
 	skill_button.disabled = false
 	item_button.disabled = false
-	ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.enable_combat_hud_actions, "processed", signal_key)
 
 
 func _display_unit_info(selected_unit : unit, signal_key : int):
@@ -130,12 +130,12 @@ func _display_unit_info(selected_unit : unit, signal_key : int):
 
 	rich_text_label.text = new_text
 	stat_portrait.texture = load(selected_unit.unit_sprite_path)
-	ConsoleLog.SIGNAL(self,"display_unit_info","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.display_unit_info, "processed", signal_key)
 
 
 func _new_selected_unit(selected_unit : unit, signal_key : int):
 	selected_unit_portrait.texture = load(selected_unit.unit_sprite_path)
-	ConsoleLog.SIGNAL(self,"new_selected_unit","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.new_selected_unit, "processed", signal_key)
 
 
 func _on_attack_button_pressed() -> void:
@@ -190,7 +190,7 @@ func _on_item_selected(selected_item : item):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"item_button_pressed","emit",new_signal_key)
 	# EventBus.item_button_pressed.emit(selected_item, new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.item_button_pressed)
+	EventBus.emit_signal_with_log(EventBus.item_button_pressed, [selected_item])
 
 
 func _on_end_turn_button_pressed() -> void:

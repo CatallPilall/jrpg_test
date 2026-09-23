@@ -11,10 +11,11 @@ class_name Main
 @onready var timer: Timer = $global_timer
 
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 
 	TimerGlobal.init_timer(timer)
 	SceneLoader.init_vars(self, menu_canvas_layer, hud_canvas_layer, combat_scenes, level_scenes)
 	# SceneLoader.connect_signals()
 	# SceneLoader.load_scene(SceneLoader.SCENE_TYPE.MAIN_MENU)
 	SceneLoader.load_scene(self, "main_menu")
+	SceneLoader.activate_scene(self, "main_menu")

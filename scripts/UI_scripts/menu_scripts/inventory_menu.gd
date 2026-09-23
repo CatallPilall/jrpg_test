@@ -39,7 +39,7 @@ var small_healing_potion : item = preload("res://resources/items/small_healing_p
 var med_kit : item = preload("res://resources/items/med_kit.tres")
 #---------------------------------------------------------------------------------
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 	#--------------------------------------------------------
 	TeamRoster.put_unit_into_combat_team(brunhilde_unit)
 	TeamRoster.put_unit_into_combat_team(casandra_unit)
@@ -57,22 +57,22 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("control_return"):
-		ConsoleLog.INPUT("control_return","is_action_pressed",[])
+		ConsoleLog.INPUT("control_return", "is_action_pressed", [])
 		return_one_step()
 	if event.is_action_pressed("control_up"):
-		ConsoleLog.INPUT("control_up","is_action_pressed",[])
+		ConsoleLog.INPUT("control_up", "is_action_pressed", [])
 		cycle_buttons_through_neighbors(enum_button_neighbor.UP)
 	if event.is_action_pressed("control_down"):
-		ConsoleLog.INPUT("control_down","is_action_pressed",[])
+		ConsoleLog.INPUT("control_down", "is_action_pressed", [])
 		cycle_buttons_through_neighbors(enum_button_neighbor.DOWN)
 	if event.is_action_pressed("control_right"):
-		ConsoleLog.INPUT("control_down","is_action_pressed",[])
+		ConsoleLog.INPUT("control_down", "is_action_pressed", [])
 		cycle_buttons_through_neighbors(enum_button_neighbor.RIGHT)
 	if event.is_action_pressed("control_left"):
-		ConsoleLog.INPUT("control_down","is_action_pressed",[])
+		ConsoleLog.INPUT("control_down", "is_action_pressed", [])
 		cycle_buttons_through_neighbors(enum_button_neighbor.LEFT)
 	if event.is_action_pressed("control_confirm"):
-		ConsoleLog.INPUT("control_confirm","is_action_pressed",[])
+		ConsoleLog.INPUT("control_confirm", "is_action_pressed", [])
 		confirm_button_input()
 
 func confirm_button_input():
@@ -81,7 +81,8 @@ func confirm_button_input():
 
 func return_one_step():
 	if return_chain.is_empty():
-		queue_free()
+		# queue_free()
+		SceneLoader.deactivate_scene(self, "inventory_menu")
 	else:
 		current_button_focus = return_chain.pop_back()
 		current_button_focus.grab_focus.call_deferred()
@@ -137,7 +138,7 @@ func fill_select_container(selected_array : Array):
 			new_button.focus_entered.connect(_fill_info_container.bind(cursor.item_description))
 
 		select_container.add_child(new_button)
-		ConsoleLog.INFO(self,["new_button","text","path"],[new_button,cursor,new_button.get_path()])
+		ConsoleLog.INFO(["new_button","text","path"], [new_button,cursor,new_button.get_path()])
 		if is_first_button:
 			is_first_button = false
 			first_button = new_button
@@ -188,7 +189,6 @@ func make_formation():
 # Habe eine Funktion im EventBus eingebaut, die functions mit signalen verbindet
 # und diese auch logt (auch error usw.)
 # Somit braucht man nicht in jedem script für jedes connect und disconnect eine func zu schreiben
-#
 
 # func connect_to_set_current_button_focus():
 # 	if not is_set_current_button_focus_connected:
@@ -202,9 +202,17 @@ func make_formation():
 # 		EventBus.set_current_button_focus.disconnect(_set_current_button_focus)
 # 		ConsoleLog.SIGNAL(self,"set_current_button_focus","disconnected",0)
 
+# Auch habe ich etwas die Signale angepasst, also das aufrufen von denen:
+# diese werden immer automatisch geloggt, wenn man die Funktion EventBus.emit_signal_with_log() benutzt.
+# Somit muss man nicht mehr in jedem script die Signale loggen.
+
+# Auch habe ich das ConsoleLog angepasst. Man muss jetzt nicht mehr script und zeile angeben, da diese automatisch im logger erkannt
+# und entsprechend angezeigt werden. Mehr Infos sieht man im COnsoleLog und wie und was übergeben werden muss an die Funktionen.
+# An sich nur die wichtigsten sachen
+
 func _set_current_button_focus(new_button_focus : Button, signal_key : int):
 	current_button_focus = new_button_focus
-	ConsoleLog.SIGNAL(self,"set_current_button_focus","processed",signal_key)
+	ConsoleLog.SIGNAL(EventBus.set_current_button_focus, "processed", signal_key)
 
 func _fill_info_container(description : String):
 	info_container.text = description
@@ -224,7 +232,8 @@ func _on_logbook_button_toggled(toggled_on: bool) -> void:
 		logbook_button.set_pressed_no_signal(true)
 
 func _on_exit_button_pressed() -> void:
-	queue_free()
+	# queue_free()
+	SceneLoader.deactivate_scene(self, "inventory_menu")
 
 func _on_skill_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:

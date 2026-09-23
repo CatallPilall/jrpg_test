@@ -7,7 +7,7 @@ var player_character_packed_scene : PackedScene = preload("res://scenes/player_s
 var player_character : CharacterBody2D
 
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 	player_character = player_character_packed_scene.instantiate()
 	player_spawn_position.add_child(player_character)
 	TimerGlobal.start_default_timer()

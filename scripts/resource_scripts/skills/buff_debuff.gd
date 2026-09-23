@@ -106,12 +106,12 @@ func hit_debuff(target : unit, buff_stat : String, is_curse : bool, reversing : 
 			apply_buff_debuff(target, buff_stat, reversing)
 			add_unit_to_defined_targets(target)
 		else:
-			ConsoleLog.DEBUG(self," debuff missed")
+			ConsoleLog.DEBUG("debuff missed")
 	else:
 		apply_buff_debuff(target, buff_stat, reversing)
 
 func apply_buff_debuff(target : unit, buff_stat : String, reversing : int):
-	
+
 	if reversing == 1:
 		match buff_type:
 			enum_buff_type.CURSE:
@@ -126,12 +126,12 @@ func apply_buff_debuff(target : unit, buff_stat : String, reversing : int):
 				target.stance.append(self)
 			enum_buff_type.BLESSING:
 				target.blessing.append(self)
-	
+
 	var resulting_buff = (base_value + target.base_stats.get(get_scaling_stat()) * stat_scaling) * reversing
 	var updated_target_stat = target.active_stats.get(buff_stat) + resulting_buff
 	target.active_stats.set(buff_stat, updated_target_stat)
-	ConsoleLog.INFO(self,["resulting_buff","updated_target_stats"],[resulting_buff,updated_target_stat])
+	ConsoleLog.INFO(["resulting_buff","updated_target_stats"],[resulting_buff,updated_target_stat])
 
 func reverse_buff(target : unit):
 	filter_buff_stats(target,false,-1)
-	ConsoleLog.DEBUG(self, " reverse_buff called")
+	ConsoleLog.DEBUG("reverse_buff called")

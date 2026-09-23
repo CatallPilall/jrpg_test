@@ -39,15 +39,15 @@ var secondary_defined_targets : Array[unit]
 
 func iterate_through_skill_fragments(caster : unit, primary_targets : Array[unit], secondary_targets : Array[unit], turn_one : bool, skill_duration : int):
 	var relevant_targets : Array[unit]
-	
+
 	if targeting == enum_targeting.PRIMARY:
 		relevant_targets = primary_targets
 	else:
 		relevant_targets = secondary_targets
-	
+
 	for target in relevant_targets:
 		execute_skill_fragment(caster, target, turn_one, skill_duration)
-	
+
 	if child_skill_fragment:
 		if not primary_target_defining_fragment:
 			primary_defined_targets = primary_targets
@@ -65,7 +65,7 @@ func iterate_through_skill_fragments(caster : unit, primary_targets : Array[unit
 func clean_up_skill_fragment():
 	if child_skill_fragment:
 		child_skill_fragment.clean_up_skill_fragment()
-	
+
 	primary_defined_targets.clear()
 	secondary_defined_targets.clear()
 
@@ -77,7 +77,7 @@ func roll_d_hundred() -> int:
 	return randi_range(1,100)
 
 func cleanse_buff(target : unit, buff_array : Array[skill_fragment]):
-	ConsoleLog.DEBUG(self," array to cleanse: " + str(buff_array))
+	ConsoleLog.DEBUG("array to cleanse: " + str(buff_array))
 	for buff_skill_fragment in buff_array:
 		buff_skill_fragment.reverse_buff(target)
 	buff_array.clear()

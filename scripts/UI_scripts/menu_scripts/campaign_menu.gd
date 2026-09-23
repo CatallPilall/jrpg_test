@@ -9,11 +9,11 @@ var karion_unit : unit = preload("res://resources/units/karion_unit.tres")
 var ungor_unit : unit = preload("res://resources/units/ungor_unit.tres")
 
 func _ready() -> void:
-	ConsoleLog.SCENE(self,true)
+	ConsoleLog.SCENE(true)
 
 
 func _on_brunhilde_button_pressed() -> void:
-	ConsoleLog.INPUT("Bruhilde_Button","pressed",[self])
+	ConsoleLog.INPUT("Bruhilde_Button", "pressed", [])
 	TeamRoster.put_unit_into_combat_team(brunhilde_unit)
 	TeamRoster.put_unit_into_combat_team(casandra_unit)
 	TeamRoster.put_unit_into_combat_team(derek_uit)
@@ -21,6 +21,7 @@ func _on_brunhilde_button_pressed() -> void:
 	TeamRoster.put_unit_into_combat_team(ungor_unit)
 
 	SceneLoader.load_scene(self, "tutorial_level")
+	SceneLoader.activate_scene(self, "tutorial_level")
 
 	# var test_level : Node2D = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.LEVEL, 0, -1) as Node2D
 	# ConsoleLog.DEBUG(self, "load_scene : " + str(test_level))

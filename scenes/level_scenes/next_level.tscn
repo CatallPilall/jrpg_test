@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oaubx42f330i" path="res://assets/tilesets/tileset_objects.png" id="5_vrikd"]
 [ext_resource type="Texture2D" uid="uid://yc64uftok07h" path="res://assets/tilesets/tileset_structures.png" id="6_6vxkm"]
 [ext_resource type="PackedScene" uid="uid://bp533jpxebcw2" path="res://scenes/encounter_scenes/world_encounter.tscn" id="7_l8h3u"]
-[ext_resource type="Resource" uid="uid://bpaap3ue2r2un" path="res://resources/encounter/goblin_encounter.tres" id="8_yvqlw"]
+[ext_resource type="Texture2D" uid="uid://dfbchf70wjc6s" path="res://assets/portraits/place_holder_portrait.png" id="8_gemo7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4kkp7"]
 texture = ExtResource("2_r3j2t")
@@ -3362,6 +3362,8 @@ texture = ExtResource("6_6vxkm")
 [sub_resource type="TileSet" id="TileSet_n8i4t"]
 sources/0 = SubResource("TileSetAtlasSource_1ma7x")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_r3j2t"]
+
 [node name="next_level" type="Node2D" unique_id=1884219046]
 script = ExtResource("1_gemo7")
 
@@ -3388,5 +3390,26 @@ tile_set = SubResource("TileSet_n8i4t")
 position = Vector2(361, 112)
 
 [node name="world_encounter" parent="." unique_id=1170504980 instance=ExtResource("7_l8h3u")]
-position = Vector2(520, 225)
-world_encounter = ExtResource("8_yvqlw")
+position = Vector2(342, 170)
+
+[node name="enter_other_level" type="Node2D" parent="." unique_id=1042440320]
+position = Vector2(418, 144)
+
+[node name="Sprite2D" type="Sprite2D" parent="enter_other_level" unique_id=775437984]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_gemo7")
+
+[node name="Label" type="Label" parent="enter_other_level" unique_id=38033590]
+offset_left = -26.999998
+offset_top = -18.999998
+offset_right = 109.0
+offset_bottom = 4.000002
+scale = Vector2(0.4, 0.4)
+text = "Enter Other Level"
+
+[node name="Area2D" type="Area2D" parent="enter_other_level" unique_id=1410045925]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enter_other_level/Area2D" unique_id=1678425538]
+shape = SubResource("CircleShape2D_r3j2t")
+
+[connection signal="area_entered" from="enter_other_level/Area2D" to="." method="_on_area_2d_area_entered"]
