@@ -9,7 +9,7 @@ var speed : int = 75
 func _ready() -> void:
 	ConsoleLog.SCENE(true)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var input_dir = Input.get_vector("move_left","move_right","move_up","move_down")
 	# delta wird schon in move_and_slide verrechnet
 	velocity = input_dir * speed

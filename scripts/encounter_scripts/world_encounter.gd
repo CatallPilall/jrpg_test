@@ -23,7 +23,7 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"load_combat_scene","emit",new_signal_key)
 
-func _make_combat_scene(called_by : Node, new_combat_scene : combat_scene, signal_key : int) -> void:
+func _make_combat_scene(called_by : Node, new_combat_scene : combat_scene, _signal_key : int) -> void:
 	if called_by != self:
 		return
 

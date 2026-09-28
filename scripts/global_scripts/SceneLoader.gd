@@ -520,14 +520,14 @@ func _process_campaign_menu_scene(called_by : Node, effected_resource : Resource
 		pass
 
 
-func _process_game_over_menu_scene(called_by : Node, effected_resource : Resource, is_activation : bool) -> void:
+func _process_game_over_menu_scene(_called_by : Node, _effected_resource : Resource, is_activation : bool) -> void:
 	if is_activation:
 		pass
 	else:
 		pass
 
 
-func _process_victory_menu_scene(called_by : Node, effected_resource : Resource, is_activation : bool) -> void:
+func _process_victory_menu_scene(_called_by : Node, _effected_resource : Resource, is_activation : bool) -> void:
 	if is_activation:
 		pass
 	else:
@@ -563,21 +563,21 @@ func _process_skill_leveling_menu_scene(called_by : Node, effected_resource : Re
 		pass
 
 
-func _process_level_hud_scene(called_by : Node, effected_resource : Resource, is_activation : bool) -> void:
+func _process_level_hud_scene(_called_by : Node, _effected_resource : Resource, is_activation : bool) -> void:
 	if is_activation:
 		pass
 	else:
 		pass
 
 
-func _process_combat_hud_scene(called_by : Node, effected_resource : Resource, is_activation : bool) -> void:
+func _process_combat_hud_scene(_called_by : Node, _effected_resource : Resource, is_activation : bool) -> void:
 	if is_activation:
 		pass
 	else:
 		pass
 
 
-func _process_npc_interaction_hud_scene(called_by : Node, effected_resource : Resource, is_activation : bool) -> void:
+func _process_npc_interaction_hud_scene(_called_by : Node, _effected_resource : Resource, is_activation : bool) -> void:
 	if is_activation:
 		pass
 	else:
@@ -812,7 +812,7 @@ func _activate_node(called_by : Node, resource_to_activate : Resource) -> Node:
 	elif resource_to_activate.is_scene_type == SCENE_TYPE.COMBAT:
 		activate_scene(called_by, "combat_hud")
 
-	scene_types_main_nodes[resource_to_activate.is_scene_type].add_child(scene_node_to_activate)
+	scene_types_main_nodes[resource_to_activate.is_scene_type].add_child.call_deferred(scene_node_to_activate)
 
 	_emit_signal(called_by, resource_to_activate, scene_node_to_activate, SCENE_PROCESS_TYPE.ACTIVATE)
 
@@ -839,7 +839,7 @@ func _deactivate_node(called_by : Node, resource_to_deactivate : Resource) -> vo
 		deactivate_scene(called_by, "combat_hud")
 
 	if main_node_scene_type.has_node(scene_node_to_deactivate.get_path()):
-		main_node_scene_type.remove_child(scene_node_to_deactivate)
+		main_node_scene_type.remove_child.call_deferred(scene_node_to_deactivate)
 		ConsoleLog.DEBUG(
 			"Removed scene node from main node: "
 			+ resource_to_deactivate.name

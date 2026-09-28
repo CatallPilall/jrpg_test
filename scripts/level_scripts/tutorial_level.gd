@@ -27,6 +27,6 @@ func _process(delta: float) -> void:
 		path_following_direction = 1
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
+func _on_area_2d_area_entered(_area: Area2D) -> void:
 	SceneLoader.load_scene(self, "next_level")
 	SceneLoader.activate_scene(self, "next_level")

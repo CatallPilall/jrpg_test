@@ -49,7 +49,7 @@ func _clean_up_skill(skill_to_clean : skill, signal_key : int):
 	ConsoleLog.SIGNAL(EventBus.clean_up_skill, "processed", signal_key)
 
 
-func _combat_hud_has_loaded(called_by : Node, loaded_node : Node, signal_key : int):
+func _combat_hud_has_loaded(_called_by : Node, _loaded_node : Node, signal_key : int):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
@@ -77,7 +77,7 @@ func new_unit_selected():
 	EventBus.emit_signal_with_log(EventBus.disable_item_button, [item_usage_array[selected_unit_array_position]])
 
 
-func _skill_button_pressed(item_skill : skill, skill_name : String, signal_key : int):
+func _skill_button_pressed(_item_skill : skill, skill_name : String, signal_key : int):
 	if skill_name == "skill":
 		combat_state = combat_state_machine.SKILL_PENDING
 		var new_skill_array : Array[String]

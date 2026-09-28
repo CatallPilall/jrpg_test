@@ -9,5 +9,5 @@ var player_character : CharacterBody2D
 func _ready() -> void:
 	ConsoleLog.SCENE(true)
 	player_character = player_character_packed_scene.instantiate()
-	player_spawn_position.add_child(player_character)
+	player_spawn_position.add_child.call_deferred(player_character)
 	TimerGlobal.start_default_timer()

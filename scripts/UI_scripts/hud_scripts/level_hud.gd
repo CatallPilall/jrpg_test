@@ -9,9 +9,9 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
-func _on_timer_updated(time_as_string : String, signal_key : int) -> void:
+func _on_timer_updated(time_as_string : String, _signal_key : int) -> void:
 	timer_hud.text = time_as_string
