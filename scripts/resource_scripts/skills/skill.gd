@@ -35,7 +35,7 @@ func set_caster_and_targets(new_caster : unit, new_primary_targets : Array[unit]
 func execute_skill():
 	ConsoleLog.DEBUG("execute skill with targets: " + str(primary_targets) + " " + str(secondary_targets))
 	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
-
+	
 	turn_one = false
 	if skill_duration == 0:
 		prepare_skill_for_deletion()
