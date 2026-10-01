@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://dkg3ic5gkygx7"]
+
+[ext_resource type="Resource" uid="uid://dl2yvsolomb0n" path="res://resources/skills/defense_skills/light_defense_skill/magic_def_buff_debuff_fragment.tres" id="1_wcgvq"]
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="2_w0hpf"]
+
+[resource]
+script = ExtResource("2_w0hpf")
+buff_type = 5
+stat_buff = 9
+base_value = 10.0
+stat_scaling = 1.15
+scaling_stat = 9
+child_skill_fragment = ExtResource("1_wcgvq")

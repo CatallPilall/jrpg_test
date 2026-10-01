@@ -8,10 +8,14 @@ var secondary_targets : Array[unit]
 
 enum enum_skill_targeting{NONE,SELF,SINGLE_ENEMY,TEAM_ENEMY,FRONT_ENEMY,BACK_ENEMY,LEFT_ENEMY,RIGHT_ENEMY,AREA_ENEMY,
 SINGLE_ALLY,TEAM_ALLY,FRONT_ALLY,BACK_ALLY,LEFT_ALLY,RIGHT_ALLY,AREA_ALLY}
+
+@export var skill_name : String
+@export var skill_icon_path : String
+
 @export var primary_skill_targeting : enum_skill_targeting
 @export var secondary_skill_targeting : enum_skill_targeting
 
-enum enum_skill_type{ATTACK,SPELL,ITEM}
+enum enum_skill_type{ATTACK,SPELL,MANOUVRE,ITEM,SPECIAL}
 @export var skill_type : enum_skill_type
 
 @export var skill_speed : int

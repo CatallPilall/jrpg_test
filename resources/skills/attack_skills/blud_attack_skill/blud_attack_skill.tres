@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://byphgaqsjkc2j"]
+
+[ext_resource type="Resource" uid="uid://bcvmikvhv8f6" path="res://resources/skills/attack_skills/blud_attack_skill/instant_damage_fragment.tres" id="1_17n86"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_oqdxs"]
+
+[resource]
+script = ExtResource("2_oqdxs")
+skill_name = "Attack"
+primary_skill_targeting = 2
+skill_speed = 5
+first_skill_fragment = ExtResource("1_17n86")

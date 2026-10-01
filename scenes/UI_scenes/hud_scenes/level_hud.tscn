@@ -20,3 +20,10 @@ offset_bottom = 91.0
 
 [node name="time_hud" type="Label" parent="time_hud_container" unique_id=784949901]
 layout_mode = 2
+
+[node name="fps_hud" type="Label" parent="." unique_id=1700908153]
+layout_mode = 0
+offset_left = 1110.0
+offset_top = 1.0
+offset_right = 1150.0
+offset_bottom = 24.0

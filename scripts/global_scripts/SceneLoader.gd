@@ -396,6 +396,8 @@ func init_vars(called_by : Object, _menu_canvas_layer : CanvasLayer, _hud_canvas
 
 
 
+
+
 func _check_scene_node_active(scene_resource_to_check : Resource) -> bool:
 	var _check_resource : Resource = current_active_scene_resources_scene_type_dictionary[scene_resource_to_check.is_scene_type]
 	if _check_resource == null or _check_resource != scene_resource_to_check:
@@ -799,12 +801,15 @@ func _unload_node(called_by : Node, resource_to_unload : Resource) -> void:
 	)
 
 
-func _activate_node(called_by : Node, resource_to_activate : Resource) -> Node:
+func _activate_node(called_by : Node, resource_to_activate : Resource, scene_arguments : Array = []) -> Node:
 	if _check_scene_node_active(resource_to_activate):
 		return current_loaded_scene_nodes_dictionary[resource_to_activate]
 
 	var scene_node_to_activate : Node = current_loaded_scene_nodes_dictionary[resource_to_activate]
-
+	
+	if scene_arguments:
+		scene_node_to_activate.pass_variables(scene_arguments)
+	
 	_process_node_depending_on_type_and_subtype(called_by, resource_to_activate, true)
 
 	if resource_to_activate.is_scene_type == SCENE_TYPE.LEVEL:
@@ -959,14 +964,14 @@ func unload_scene(called_by : Object, resource_name_to_unload : String) -> void:
 
 
 # aktiviert scene, die bereits geladen ist, in den tree
-func activate_scene(called_by : Object, resource_name_to_activate : String) -> Node:
+func activate_scene(called_by : Object, resource_name_to_activate : String, scene_arguments : Array = []) -> Node:
 	if not _check_initialization():
 		return null
 
 	if not _check_resource_exists(resource_name_to_activate):
 		return null
 
-	return _activate_node(called_by, resources_all_dictionary[resource_name_to_activate])
+	return _activate_node(called_by, resources_all_dictionary[resource_name_to_activate], scene_arguments)
 
 
 # deaktiviert scene, die bereits geladen ist, aus dem tree

@@ -5,6 +5,7 @@ extends Control
 @onready var item_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/item_button
 @onready var logbook_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/logbook_button
 @onready var skill_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/skill_button
+@onready var level_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/level_button
 
 @onready var select_container: VBoxContainer = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2/select_container
 @onready var info_container: RichTextLabel = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3/info_container
@@ -18,6 +19,7 @@ extends Control
 
 @onready var character_button : PackedScene = preload("res://scenes/UI_scenes/ui_element_character_button.tscn")
 @onready var team_formation : PackedScene = preload("res://scenes/UI_scenes/ui_element_team_formation.tscn")
+@onready var character_level : PackedScene = preload("res://scenes/UI_scenes/menu_scenes/level_up_unit_menu.tscn")
 
 # var is_set_current_button_focus_connected : bool = false
 
@@ -29,26 +31,10 @@ var return_chain : Array[Button]
 var undo_containers : bool = false
 
 var current_button_focus : Button
-#---------------------------------------------------------------------------------
-var brunhilde_unit : unit = preload("res://resources/units/brunhilde_unit.tres")
-var casandra_unit : unit = preload("res://resources/units/casandra_unit.tres")
-var derek_uit : unit = preload("res://resources/units/derek_unit.tres")
-var karion_unit : unit = preload("res://resources/units/karion_unit.tres")
-var ungor_unit : unit = preload("res://resources/units/ungor_unit.tres")
-var small_healing_potion : item = preload("res://resources/items/small_healing_potion.tres")
-var med_kit : item = preload("res://resources/items/med_kit.tres")
-#---------------------------------------------------------------------------------
+
 func _ready() -> void:
 	ConsoleLog.SCENE(true)
-	#--------------------------------------------------------
-	TeamRoster.put_unit_into_combat_team(brunhilde_unit)
-	TeamRoster.put_unit_into_combat_team(casandra_unit)
-	TeamRoster.put_unit_into_combat_team(derek_uit)
-	TeamRoster.put_unit_into_combat_team(karion_unit)
-	TeamRoster.put_unit_into_combat_team(ungor_unit)
-	TeamRoster.put_item_into_inventory(small_healing_potion)
-	TeamRoster.put_item_into_inventory(med_kit)
-	#---------------------------------------------------------
+
 	current_button_focus = item_button
 	item_button.grab_focus.call_deferred()
 	return_chain.append(exit_button)
@@ -248,3 +234,39 @@ func _on_formation_button_toggled(toggled_on: bool) -> void:
 		return_chain.append(formation_button)
 		make_formation()
 		formation_button.set_pressed_no_signal(true)
+
+func _on_level_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		undo_containers = true
+		return_chain.append(level_button)
+		select_unit_roster()
+		level_button.set_pressed_no_signal(true)
+
+func make_leveling_ui(selected_unit : unit):
+	pass
+
+
+func _on_character_one_button_pressed() -> void:
+	ConsoleLog.DEBUG("character_one_button got pressed")
+	if level_button.button_pressed:
+		make_leveling_ui(TeamRoster.combat_team[0])
+
+
+func _on_character_two_button_pressed() -> void:
+	if level_button.button_pressed:
+		make_leveling_ui(TeamRoster.combat_team[1])
+
+
+func _on_character_three_button_pressed() -> void:
+	if level_button.button_pressed:
+		make_leveling_ui(TeamRoster.combat_team[2])
+
+
+func _on_character_four_button_pressed() -> void:
+	if level_button.button_pressed:
+		make_leveling_ui(TeamRoster.combat_team[3])
+
+
+func _on_character_five_button_pressed() -> void:
+	if level_button.button_pressed:
+		make_leveling_ui(TeamRoster.combat_team[4])

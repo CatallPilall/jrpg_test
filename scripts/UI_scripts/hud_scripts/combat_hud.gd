@@ -5,7 +5,6 @@ var related_functions_to_signals : Dictionary[Callable, Signal] = {
 	_new_selected_unit: EventBus.new_selected_unit,
 	_disable_combat_hud_actions: EventBus.disable_combat_hud_actions,
 	_enable_combat_hud_actions: EventBus.enable_combat_hud_actions,
-	_make_combat_hud_skill_buttons: EventBus.make_combat_hud_skill_buttons,
 	_remove_combat_hud_skill_buttons: EventBus.remove_combat_hud_skill_buttons,
 	_make_combat_hud_item_buttons: EventBus.make_combat_hud_item_buttons,
 	_disable_item_button: EventBus.disable_item_button
@@ -15,6 +14,8 @@ var are_non_skill_buttons_disabled : bool = false
 var are_non_item_buttons_disabled : bool = false
 
 var item_button_disabled : bool = false
+
+var current_selected_unit : unit
 
 @onready var rich_text_label: RichTextLabel = $MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer2/RichTextLabel
 
@@ -60,16 +61,15 @@ func clear_skill_buttons_vbox():
 		i.queue_free()
 
 
-func _make_combat_hud_skill_buttons(skill_array : Array[String], signal_key : int):
+func make_combat_hud_skill_buttons():
 
-	for i in skill_array:
+	for unit_skill : skill in current_selected_unit.unit_skills:
 		var new_button = Button.new()
-		new_button.text = i.capitalize()
-		new_button.pressed.connect(_on_skill_selected.bind(i))
+		new_button.text = unit_skill.skill_name
+		new_button.pressed.connect(_on_skill_selected.bind(unit_skill))
 		skill_buttons_vbox.add_child.call_deferred(new_button)
 
 	disable_non_skill_buttons(true)
-	ConsoleLog.SIGNAL(EventBus.make_combat_hud_skill_buttons, "processed", signal_key)
 
 
 func _make_combat_hud_item_buttons(signal_key : int):
@@ -135,29 +135,30 @@ func _display_unit_info(selected_unit : unit, signal_key : int):
 
 func _new_selected_unit(selected_unit : unit, signal_key : int):
 	selected_unit_portrait.texture = load(selected_unit.unit_sprite_path)
+	current_selected_unit = selected_unit
 	ConsoleLog.SIGNAL(EventBus.new_selected_unit, "processed", signal_key)
 
 
 func _on_attack_button_pressed() -> void:
 	ConsoleLog.INPUT("attack_button", "pressed")
-	_on_skill_selected("attack")
+	_on_skill_selected(current_selected_unit.unit_attack_skill)
 
 
 func _on_guard_button_pressed() -> void:
 	ConsoleLog.INPUT("guard_button", "pressed")
-	_on_skill_selected("guard")
+	_on_skill_selected(current_selected_unit.unit_defense_skill)
 
 
 func _on_channel_button_pressed() -> void:
 	ConsoleLog.INPUT("channel_button", "pressed")
-	_on_skill_selected("channel")
+	#_on_skill_selected()
 
 
-func _on_skill_selected(selected_skill : String):
+func _on_skill_selected(selected_skill : skill):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"skill_button_pressed","emit",new_signal_key)
 	# EventBus.skill_button_pressed.emit(selected_skill, new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.skill_button_pressed, [null, selected_skill])
+	EventBus.emit_signal_with_log(EventBus.skill_button_pressed, [selected_skill])
 
 
 func _on_skill_button_pressed() -> void:
@@ -168,9 +169,9 @@ func _on_skill_button_pressed() -> void:
 		# var new_signal_key : int = EventBus.generate_signal_key()
 		# ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","emit",new_signal_key)
 		# EventBus.combat_state_changed_via_combat_hud.emit(new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
+		EventBus.emit_signal_with_log(EventBus.combat_state_changed_via_combat_hud)
 	else:
-		_on_skill_selected("skill")
+		make_combat_hud_skill_buttons()
 
 
 func _on_item_button_pressed() -> void:
@@ -182,8 +183,8 @@ func _on_item_button_pressed() -> void:
 		# ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","emit",new_signal_key)
 		# EventBus.combat_state_changed_via_combat_hud.emit(new_signal_key)
 		EventBus.emit_signal_with_log(EventBus.combat_state_changed_via_combat_hud)
-	else:
-		_on_skill_selected("item")
+	#else:
+		#_on_skill_selected("item")
 
 
 func _on_item_selected(selected_item : item):
