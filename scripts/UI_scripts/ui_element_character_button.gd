@@ -13,14 +13,15 @@ var character_skillpoints_buffer : String
 var character_status_buffer : String
 
 func _ready() -> void:
-	#character_portrait.texture = character_portrait_buffer
+	character_portrait.texture = character_portrait_buffer
 	character_name.text = character_name_buffer
 	character_skillpoints.text = character_skillpoints_buffer
 	character_status.text = character_status_buffer
 
 func make_character_ui_element(character : unit):
-	#var portrait_path : String = character.unit_sprite_path
-	#character_portrait_buffer = load(portrait_path)
+	# currently takes the 16x16 sprite
+	var portrait_path : String = character.unit_sprite_path
+	character_portrait_buffer = load(portrait_path)
 	character_name_buffer = character.unit_name
 	character_status_buffer = str(character.base_stats.get("health_points")) + " / " + str(character.base_stats.get("health_points"))
 	character_skillpoints_buffer = str(character.unit_skillpoints)

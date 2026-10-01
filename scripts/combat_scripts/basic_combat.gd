@@ -75,13 +75,30 @@ func _ready() -> void:
 	load_enemy_sprites()
 
 	_apply_skill_targeting(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,2)
-
+	
+	activate_unit_active_stats()
+	
 	# var new_combat_hud = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.COMBAT_HUD) as Control
 	# ConsoleLog.DEBUG(self,"load_hud_scene : " + str(new_combat_hud))
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# var new_combat_hud : Control = combat_hud_packed_scene.instantiate()
 	# new_signal_key = EventBus.generate_signal_key()
 
+
+func activate_unit_active_stats():
+	for team_member : unit in ally_team:
+		team_member.duplicate_base_stats_into_active_stats()
+	
+	if enemy_one:
+		enemy_one.duplicate_base_stats_into_active_stats()
+	if enemy_two:
+		enemy_two.duplicate_base_stats_into_active_stats()
+	if enemy_three:
+		enemy_three.duplicate_base_stats_into_active_stats()
+	if enemy_four:
+		enemy_four.duplicate_base_stats_into_active_stats()
+	if enemy_five:
+		enemy_five.duplicate_base_stats_into_active_stats()
 
 func _connect_signals():
 	EventBus.connect_function_with_signal(self, _remove_dead_unit, EventBus.remove_dead_unit)

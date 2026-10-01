@@ -221,7 +221,7 @@ signal final_boss_fight_combat_has_deactivated(called_by : Node, deactivated_nod
 @warning_ignore("unused_signal")
 signal combat_started(signal_key : int)
 @warning_ignore("unused_signal")
-signal skill_button_pressed(item_skill : skill, skill_pressed : String, signal_key : int)
+signal skill_button_pressed(skill_pressed : skill, signal_key : int)
 @warning_ignore("unused_signal")
 signal unit_targets_selected(primary_targets : Array[unit], secondary_targets : Array[unit], signal_key : int)
 @warning_ignore("unused_signal")
@@ -238,8 +238,6 @@ signal disable_combat_hud_actions(signal_key : int)
 signal enable_combat_hud_actions(signal_key : int)
 @warning_ignore("unused_signal")
 signal combat_turn_ended(signal_key : int)
-@warning_ignore("unused_signal")
-signal make_combat_hud_skill_buttons(unit_skills : Array[String], signal_key : int)
 @warning_ignore("unused_signal")
 signal remove_combat_hud_skill_buttons(signal_key : int)
 @warning_ignore("unused_signal")
@@ -270,7 +268,6 @@ signal set_current_button_focus(new_button_focus : Button, signal_key : int)
 @warning_ignore("unused_signal")
 signal timer_updated(time_as_string : String, signal_key : int)
 # -------------------------------------------------------------------------------
-
 
 func connect_function_with_signal(called_by : Object, function_to_connect : Callable, signal_connect_to : Signal) -> void:
 	if not function_to_connect.is_valid():

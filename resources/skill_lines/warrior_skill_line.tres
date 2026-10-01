@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="skill_line" format=3 uid="uid://caychs3ruyyl6"]
+
+[ext_resource type="Script" uid="uid://d5smeokuaxuj" path="res://scripts/resource_scripts/skill_line.gd" id="1_ee5vq"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_gol3t"]
+[ext_resource type="Resource" uid="uid://d2jowiiyl3lvb" path="res://resources/skills/warrior_skills/warrior_crush_skill/warrior_crush_skill.tres" id="3_na6p1"]
+[ext_resource type="Resource" uid="uid://cauo3piuq3lte" path="res://resources/skills/warrior_skills/warrior_tank_up_skill/warrior_tank_up_skill.tres" id="4_c71gb"]
+[ext_resource type="Resource" uid="uid://bcsjxfokdydcu" path="res://resources/skills/warrior_skills/warrior_cleave_skill/warrior_cleave_skill.tres" id="5_x5olp"]
+
+[resource]
+script = ExtResource("1_ee5vq")
+skill_line_name = "Warrior"
+skill_line_statboost = Dictionary[String, float]({
+"crit_chance": 0.2,
+"phys_atk": 4.0,
+"phys_def": 3.5
+})
+skill_line_bound_skill = Dictionary[ExtResource("2_gol3t"), int]({
+ExtResource("3_na6p1"): 3,
+ExtResource("4_c71gb"): 7,
+ExtResource("5_x5olp"): 10
+})

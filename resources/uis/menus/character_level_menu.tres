@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MenuData" format=3 uid="uid://dtxglmj33o54u"]
+
+[ext_resource type="PackedScene" uid="uid://g5cml151itqb" path="res://scenes/UI_scenes/menu_scenes/level_up_unit_menu.tscn" id="1_bs5mr"]
+[ext_resource type="Script" uid="uid://cph78e0gi7t0h" path="res://scripts/resource_scripts/menu.gd" id="2_jll38"]
+
+[resource]
+script = ExtResource("2_jll38")
+scene_file = ExtResource("1_bs5mr")
+is_scene_subtype = 12

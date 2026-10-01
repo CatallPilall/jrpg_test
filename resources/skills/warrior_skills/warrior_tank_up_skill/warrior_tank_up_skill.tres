@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://cauo3piuq3lte"]
+
+[ext_resource type="Resource" uid="uid://di7dv4bhp72t7" path="res://resources/skills/warrior_skills/warrior_tank_up_skill/buff_debuff_fragment.tres" id="1_ou4xv"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_7dymu"]
+
+[resource]
+script = ExtResource("2_7dymu")
+skill_name = "Tank up"
+skill_icon_path = "res://assets/icons/warrior_tank_up_skill_icon.png"
+primary_skill_targeting = 1
+skill_type = 2
+skill_speed = 5
+skill_duration = 4
+first_skill_fragment = ExtResource("1_ou4xv")

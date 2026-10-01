@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://dbb751pmk7hhi"]
+
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="1_hbsxf"]
+
+[resource]
+script = ExtResource("1_hbsxf")
+buff_type = 5
+stat_buff = 2
+base_value = 10.0
+stat_scaling = 1.2
+scaling_stat = 2

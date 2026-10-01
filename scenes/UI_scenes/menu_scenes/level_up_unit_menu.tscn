@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://g5cml151itqb"]
+
+[ext_resource type="Script" uid="uid://b8udb806ds2va" path="res://scripts/UI_scripts/menu_scripts/level_up_unit_menu.gd" id="1_oc3qb"]
+
+[node name="level_up_unit_menu" type="Control" unique_id=2077173446]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oc3qb")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=304469961]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1524893185]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=2025780892]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1958260960]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1057831520]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 120
+
+[node name="exit_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=843268045]
+layout_mode = 2
+text = "exit"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=658635547]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 120
+
+[node name="prev_unit_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2" unique_id=1938968484]
+layout_mode = 2
+text = "prev"
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=530594010]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 120
+
+[node name="next_unit_button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer3" unique_id=9084584]
+layout_mode = 2
+text = "next"
+
+[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=258807736]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="unit_portrait" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer4" unique_id=1578652746]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1525783889]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=985280511]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1653764774]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="skill_lines_container" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer" unique_id=1752331609]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1925603306]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="info_container" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2" unique_id=385842828]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/exit_button" to="." method="_on_exit_button_pressed"]

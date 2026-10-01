@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://dcf5ews76cap3"]
+
+[ext_resource type="Resource" uid="uid://cxu5shwnqyo7m" path="res://resources/skills/attack_skills/pierce_attack_skill/instant_damage_fragment.tres" id="1_ec1ht"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_1m4pc"]
+
+[resource]
+script = ExtResource("2_1m4pc")
+skill_name = "Attack"
+primary_skill_targeting = 2
+skill_speed = 5
+first_skill_fragment = ExtResource("1_ec1ht")

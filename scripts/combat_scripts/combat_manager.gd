@@ -10,18 +10,6 @@ var related_functions_to_signals : Dictionary[Callable, Signal] = {
 	_item_button_pressed: EventBus.item_button_pressed
 }
 
-var skill_dict : Dictionary[String,skill] = {
-	"attack":preload("res://resources/skills/attack_skill/attack_skill.tres"),
-	"fireball":preload("res://resources/skills/fireball_skill/fireball_skill.tres"),
-	"exsanguinate":preload("res://resources/skills/exsanguinate_skill/exsanguinate_skill.tres"),
-	"poison cloud":preload("res://resources/skills/poison_cloud_skill/poison_cloud_skill.tres"),
-	"shock":preload("res://resources/skills/shock_skill/shock_skill.tres"),
-	"bash":preload("res://resources/skills/bash_skill/bash_skill.tres"),
-	"cleanse":preload("res://resources/skills/cleanse_skill/cleanse_skill.tres"),
-	"power surge":preload("res://resources/skills/power_surge_skill/power_surge_skill.tres"),
-	"strength leech":preload("res://resources/skills/life_leech_skill/strength_leech_skill.tres")
-}
-
 enum combat_state_machine {FIRST_CHARACTER,CHARACTER_SELECTED,SKILL_PENDING,SKILL_SELECTED,LAST_CHARACTER,ITEM_SELECTED}
 var combat_state : combat_state_machine
 
@@ -77,35 +65,14 @@ func new_unit_selected():
 	EventBus.emit_signal_with_log(EventBus.disable_item_button, [item_usage_array[selected_unit_array_position]])
 
 
-func _skill_button_pressed(_item_skill : skill, skill_name : String, signal_key : int):
-	if skill_name == "skill":
-		combat_state = combat_state_machine.SKILL_PENDING
-		var new_skill_array : Array[String]
-		for i in selected_unit.unit_skills:
-			new_skill_array.append(i)
-		# var new_signal_key : int = EventBus.generate_signal_key()
-		# ConsoleLog.SIGNAL(self,"make_combat_hud_skill_buttons","emit",new_signal_key)
-		# EventBus.make_combat_hud_skill_buttons.emit(new_skill_array, new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.make_combat_hud_skill_buttons, [new_skill_array])
-	elif skill_name == "item":
-		combat_state = combat_state_machine.SKILL_PENDING
-		# var new_signal_key : int = EventBus.generate_signal_key()
-		# ConsoleLog.SIGNAL(self,"make_combat_hud_item_buttons","emit",new_signal_key)
-		# EventBus.make_combat_hud_item_buttons.emit(new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.make_combat_hud_item_buttons)
-	else:
-		var new_skill : skill = skill_dict.get(skill_name).duplicate_deep(2)
-		selected_skill = new_skill
-
-		combat_state = combat_state_machine.SKILL_SELECTED
-		ConsoleLog.INFO(["selected_skill","selected_unit"], [selected_skill,selected_unit])
-
-		# var new_signal_key : int = EventBus.generate_signal_key()
-		# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
-		# EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,selected_unit,new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, selected_unit])
-
-		ConsoleLog.SIGNAL(EventBus.skill_button_pressed, "processed", signal_key)
+func _skill_button_pressed(new_skill : skill, signal_key : int):
+	
+	selected_skill = new_skill
+	
+	combat_state = combat_state_machine.SKILL_SELECTED
+	ConsoleLog.INFO(["selected_skill","selected_unit"], [selected_skill,selected_unit])
+	EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, selected_unit])
+	ConsoleLog.SIGNAL(EventBus.skill_button_pressed, "processed", signal_key)
 
 
 func _item_button_pressed(_pressed_item : item, signal_key : int):

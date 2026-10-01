@@ -8,10 +8,14 @@ var secondary_targets : Array[unit]
 
 enum enum_skill_targeting{NONE,SELF,SINGLE_ENEMY,TEAM_ENEMY,FRONT_ENEMY,BACK_ENEMY,LEFT_ENEMY,RIGHT_ENEMY,AREA_ENEMY,
 SINGLE_ALLY,TEAM_ALLY,FRONT_ALLY,BACK_ALLY,LEFT_ALLY,RIGHT_ALLY,AREA_ALLY}
+
+@export var skill_name : String
+@export var skill_icon_path : String
+
 @export var primary_skill_targeting : enum_skill_targeting
 @export var secondary_skill_targeting : enum_skill_targeting
 
-enum enum_skill_type{ATTACK,SPELL,ITEM}
+enum enum_skill_type{ATTACK,SPELL,MANOUVRE,ITEM,SPECIAL}
 @export var skill_type : enum_skill_type
 
 @export var skill_speed : int
@@ -35,7 +39,7 @@ func set_caster_and_targets(new_caster : unit, new_primary_targets : Array[unit]
 func execute_skill():
 	ConsoleLog.DEBUG("execute skill with targets: " + str(primary_targets) + " " + str(secondary_targets))
 	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
-
+	
 	turn_one = false
 	if skill_duration == 0:
 		prepare_skill_for_deletion()

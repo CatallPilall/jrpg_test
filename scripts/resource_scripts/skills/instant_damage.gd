@@ -32,7 +32,8 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var resulting_damage : float = ((base_value + caster.active_stats.get(get_scaling_stat()) * stat_scaling)*damage_fork)
 		var crit_chance : float = base_crit_chance + caster.active_stats.get("crit_chance")
 		if roll_d_hundred() <= crit_chance:
-			resulting_damage = resulting_damage + resulting_damage * caster.active_stats.get("crit_efficiency")/100
+			resulting_damage = resulting_damage * (1 + caster.active_stats.get("crit_efficiency")/100)
+			ConsoleLog.DEBUG("critical hit")
 
 		var negated_damage : float = resulting_damage * (100 - target.active_stats.get("phys_def") + target.active_stats.get(defensive_stat))/100
 		var remaining_target_health : int = roundi(target.active_stats.get("health_points") - negated_damage)

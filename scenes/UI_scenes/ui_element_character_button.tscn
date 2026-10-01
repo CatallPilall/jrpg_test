@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://tbr6v86bqhx2"]
 
 [ext_resource type="Script" uid="uid://8bqheritalcn" path="res://scripts/UI_scripts/ui_element_character_button.gd" id="1_7fdts"]
-[ext_resource type="Texture2D" uid="uid://dfbchf70wjc6s" path="res://assets/portraits/place_holder_portrait.png" id="2_sutfl"]
 
 [node name="ui_element_character_button" type="Control" unique_id=128484359]
 layout_mode = 3
@@ -33,7 +32,6 @@ size_flags_horizontal = 3
 
 [node name="character_portrait" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer" unique_id=1701771078]
 layout_mode = 2
-texture = ExtResource("2_sutfl")
 stretch_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1775988384]

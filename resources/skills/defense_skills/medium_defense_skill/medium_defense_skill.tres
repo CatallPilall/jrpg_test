@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://ba5pi1nh6d5j"]
+
+[ext_resource type="Resource" uid="uid://dqj680pkybtrb" path="res://resources/skills/defense_skills/medium_defense_skill/evasion_buff_debuff_fragment.tres" id="1_xdxxj"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_jxh8u"]
+
+[resource]
+script = ExtResource("2_jxh8u")
+skill_name = "Defense"
+primary_skill_targeting = 1
+skill_type = 2
+skill_speed = 5
+skill_duration = 1
+first_skill_fragment = ExtResource("1_xdxxj")

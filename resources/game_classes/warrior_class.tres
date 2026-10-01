@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="game_class" format=3 uid="uid://cmavnynpbfbps"]
+
+[ext_resource type="Resource" uid="uid://kslisqjgrtku" path="res://resources/skills/attack_skills/slash_attack_skill/slash_attack_skill.tres" id="1_0j188"]
+[ext_resource type="Resource" uid="uid://caychs3ruyyl6" path="res://resources/skill_lines/warrior_skill_line.tres" id="1_1u52p"]
+[ext_resource type="Script" uid="uid://bcwybskysf7cd" path="res://scripts/resource_scripts/game_class.gd" id="2_0j188"]
+[ext_resource type="Resource" uid="uid://i4r7l0ilsog6" path="res://resources/skills/defense_skills/heavy_defense_skill/heavy_defense_skill.tres" id="3_eoced"]
+
+[resource]
+script = ExtResource("2_0j188")
+game_class_name = "Warrior"
+attribute_scaling = Dictionary[String, int]({
+"agility": 2,
+"endurance": 3,
+"intelligence": 1,
+"luck": 1,
+"strength": 4,
+"vitality": 3
+})
+class_stat_boost = Dictionary[String, float]({
+"blud_def": 5.0,
+"crit_def": 7.0,
+"elec_def": -5.0,
+"phys_atk": 10.0,
+"pierce_def": 15.0,
+"slash_def": 20.0
+})
+attack_skill_variant = ExtResource("1_0j188")
+defense_skill_variant = ExtResource("3_eoced")
+bound_skill_line = ExtResource("1_1u52p")

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://bcsjxfokdydcu"]
+
+[ext_resource type="Resource" uid="uid://bel43rt0ss76q" path="res://resources/skills/warrior_skills/warrior_cleave_skill/instant_damage_fragment.tres" id="1_ohapl"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_gpu2w"]
+
+[resource]
+script = ExtResource("2_gpu2w")
+skill_name = "Cleave"
+skill_icon_path = "res://assets/icons/warrior_cleave_skill_icon.png"
+primary_skill_targeting = 4
+skill_speed = 7
+first_skill_fragment = ExtResource("1_ohapl")
