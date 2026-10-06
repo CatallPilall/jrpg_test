@@ -6,7 +6,6 @@ var related_functions_to_signals : Dictionary[Callable, Signal] = {
 	_disable_combat_hud_actions: EventBus.disable_combat_hud_actions,
 	_enable_combat_hud_actions: EventBus.enable_combat_hud_actions,
 	_remove_combat_hud_skill_buttons: EventBus.remove_combat_hud_skill_buttons,
-	_make_combat_hud_item_buttons: EventBus.make_combat_hud_item_buttons,
 	_disable_item_button: EventBus.disable_item_button
 }
 
@@ -23,10 +22,11 @@ var current_selected_unit : unit
 @onready var selected_unit_portrait : TextureRect = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer2/TextureRect
 
 @onready var attack_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/attack_button
-@onready var guard_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/guard_button
-@onready var channel_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/channel_button
-@onready var item_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer4/item_button
-@onready var skill_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/skill_button
+@onready var skill_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/skill_button
+@onready var defend_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/defend_button
+@onready var item_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/item_button
+@onready var info_button: Button = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer4/info_button
+
 
 @onready var skill_buttons_vbox: VBoxContainer = $MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer3/ScrollContainer/skill_buttons_vbox
 
@@ -72,38 +72,27 @@ func make_combat_hud_skill_buttons():
 	disable_non_skill_buttons(true)
 
 
-func _make_combat_hud_item_buttons(signal_key : int):
-	for i in TeamRoster.consumables:
-		var new_button = Button.new()
-		new_button.text = i.item_name
-		new_button.pressed.connect(_on_item_selected.bind(i))
-		skill_buttons_vbox.add_child.call_deferred(new_button)
-
-	disable_non_item_buttons(true)
-	ConsoleLog.SIGNAL(EventBus.make_combat_hud_item_buttons, "processed", signal_key)
-
-
 func disable_non_item_buttons(disable : bool):
 	are_non_item_buttons_disabled = disable
 	attack_button.disabled = disable
-	guard_button.disabled = disable
-	channel_button.disabled = disable
+	defend_button.disabled = disable
+	info_button.disabled = disable
 	skill_button.disabled = disable
 
 
 func disable_non_skill_buttons(disable : bool):
 	are_non_skill_buttons_disabled = disable
 	attack_button.disabled = disable
-	guard_button.disabled = disable
-	channel_button.disabled = disable
+	defend_button.disabled = disable
+	info_button.disabled = disable
 	if not item_button_disabled:
 		item_button.disabled = disable
 
 
 func _disable_combat_hud_actions(signal_key : int):
 	attack_button.disabled = true
-	guard_button.disabled = true
-	channel_button.disabled = true
+	defend_button.disabled = true
+	info_button.disabled = true
 	skill_button.disabled = true
 	item_button.disabled = true
 	ConsoleLog.SIGNAL(EventBus.disable_combat_hud_actions, "processed", signal_key)
@@ -112,8 +101,8 @@ func _disable_combat_hud_actions(signal_key : int):
 func _enable_combat_hud_actions(signal_key : int):
 	are_non_skill_buttons_disabled = false
 	attack_button.disabled = false
-	guard_button.disabled = false
-	channel_button.disabled = false
+	defend_button.disabled = false
+	info_button.disabled = false
 	skill_button.disabled = false
 	item_button.disabled = false
 	ConsoleLog.SIGNAL(EventBus.enable_combat_hud_actions, "processed", signal_key)
@@ -144,7 +133,7 @@ func _on_attack_button_pressed() -> void:
 	_on_skill_selected(current_selected_unit.unit_attack_skill)
 
 
-func _on_guard_button_pressed() -> void:
+func _on_defend_button_pressed() -> void:
 	ConsoleLog.INPUT("guard_button", "pressed")
 	_on_skill_selected(current_selected_unit.unit_defense_skill)
 
@@ -172,26 +161,6 @@ func _on_skill_button_pressed() -> void:
 		EventBus.emit_signal_with_log(EventBus.combat_state_changed_via_combat_hud)
 	else:
 		make_combat_hud_skill_buttons()
-
-
-func _on_item_button_pressed() -> void:
-	ConsoleLog.INPUT("item_button", "pressed")
-	if are_non_item_buttons_disabled:
-		# _remove_combat_hud_skill_buttons(2)
-		EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
-		# var new_signal_key : int = EventBus.generate_signal_key()
-		# ConsoleLog.SIGNAL(self,"combat_state_changed_via_combat_hud","emit",new_signal_key)
-		# EventBus.combat_state_changed_via_combat_hud.emit(new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.combat_state_changed_via_combat_hud)
-	#else:
-		#_on_skill_selected("item")
-
-
-func _on_item_selected(selected_item : item):
-	# var new_signal_key : int = EventBus.generate_signal_key()
-	# ConsoleLog.SIGNAL(self,"item_button_pressed","emit",new_signal_key)
-	# EventBus.item_button_pressed.emit(selected_item, new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.item_button_pressed, [selected_item])
 
 
 func _on_end_turn_button_pressed() -> void:

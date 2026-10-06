@@ -1,20 +1,20 @@
 extends skill_fragment
 
-func execute_skill_fragment(_caster : unit, target : unit, turn_one : bool, _skill_duration : int):
+func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, _skill_duration : int):
 	if turn_one:
 		match buff_type:
 			enum_buff_type.WEAPON:
-				cleanse_buff(target,target.weapon_buff)
+				cleanse_buff(caster, target,target.weapon_buff)
 			enum_buff_type.BODY:
-				cleanse_buff(target,target.body_buff)
+				cleanse_buff(caster, target,target.body_buff)
 			enum_buff_type.AURA:
-				cleanse_buff(target,target.aura_buff)
+				cleanse_buff(caster, target,target.aura_buff)
 			enum_buff_type.BLESSING:
-				cleanse_buff(target,target.blessing)
+				cleanse_buff(caster, target,target.blessing)
 			enum_buff_type.STANCE:
-				cleanse_buff(target,target.stance)
+				cleanse_buff(caster, target,target.stance)
 			enum_buff_type.CURSE:
-				cleanse_buff(target,target.curses)
+				cleanse_buff(caster, target,target.curses)
 		
 		match crowd_control_type:
 			enum_crowd_control_type.DISARM:
@@ -36,5 +36,9 @@ func execute_skill_fragment(_caster : unit, target : unit, turn_one : bool, _ski
 			enum_damage_type.POI:
 				target.poison_dots.clear()
 
-func reverse_buff(_target : unit):
-	pass
+func cleanse_buff(caster: unit, target : unit, buff_array : Array[skill_fragment]):
+	ConsoleLog.DEBUG("array to cleanse: " + str(buff_array))
+	for buff_skill_fragment in buff_array:
+		buff_skill_fragment.reverse_buff(caster,target)
+	
+	buff_array.clear()

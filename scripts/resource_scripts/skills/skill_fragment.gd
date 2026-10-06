@@ -19,8 +19,13 @@ enum enum_stat_buff {
 	ACCURACY,EVASION,CRIT_CHANCE,CRIT_EFFICIENCY,STATUS_DAMAGE,
 	MAGIC_ATK,MAGIC_DEF,FIRE_DEF,ELEC_DEF,ICE_DEF,FIRE_EFFICIENCY,ELEC_EFFICIENCY,
 	ICE_EFFICIENCY,BACKFIRE_CHANCE,POOF_CHANCE,OVERCAST_CHANCE,
-	POI_DEF,POI_EFFICIENCY,LUCKY_CHANCE}
+	POI_DEF,POI_EFFICIENCY,LUCKY_CHANCE,FIRE_ATK,ELEC_ATK,ICE_ATK,CURSE_EFFICIENCY,
+	BUFF_EFFICIENCY,HEALING_EFFICIENCY,RESILIENCE}
 @export var stat_buff : enum_stat_buff
+
+enum enum_stance_type {NONE,BLOCK,PARRY,RETALIATE,COUNTERSPELL,CHASE,GUARD}
+@export var stance_type : enum_stance_type
+
 @export var first_buff : bool
 
 @export var base_value : float
@@ -76,14 +81,6 @@ func add_unit_to_defined_targets(target : unit):
 func roll_d_hundred() -> int:
 	return randi_range(1,100)
 
-func cleanse_buff(target : unit, buff_array : Array[skill_fragment]):
-	ConsoleLog.DEBUG("array to cleanse: " + str(buff_array))
-	for buff_skill_fragment in buff_array:
-		buff_skill_fragment.reverse_buff(target)
-	buff_array.clear()
-
-@abstract func reverse_buff(target : unit)
-
 func get_scaling_stat() -> String:
 	match scaling_stat:
 		enum_stat_buff.SPEED:
@@ -138,4 +135,18 @@ func get_scaling_stat() -> String:
 			return "poi_efficiency"
 		enum_stat_buff.LUCKY_CHANCE:
 			return "lucky_chance"
+		enum_stat_buff.FIRE_ATK:
+			return "fire_atk"
+		enum_stat_buff.ELEC_ATK:
+			return "elec_atk"
+		enum_stat_buff.ICE_ATK:
+			return "ice_atk"
+		enum_stat_buff.CURSE_EFFICIENCY:
+			return "curse_efficiency"
+		enum_stat_buff.BUFF_EFFICIENCY:
+			return "buff_efficiency"
+		enum_stat_buff.HEALING_EFFICIENCY:
+			return "healing_efficiency"
+		enum_stat_buff.RESILIENCE:
+			return "resilience"
 	return ""

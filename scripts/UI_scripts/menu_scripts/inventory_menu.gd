@@ -242,7 +242,7 @@ func _on_level_button_toggled(toggled_on: bool) -> void:
 		select_unit_roster()
 		level_button.set_pressed_no_signal(true)
 
-func make_leveling_ui(selected_unit : unit):
+func make_leveling_ui(_selected_unit : unit):
 	pass
 
 

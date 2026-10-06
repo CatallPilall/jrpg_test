@@ -104,33 +104,33 @@ text = "Attack"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="guard_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2" unique_id=684108144]
+[node name="skill_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2" unique_id=684108144]
 layout_mode = 2
-text = "Guard"
+text = "Skill"
 
 [node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1888884923]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="channel_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6" unique_id=1128267567]
+[node name="defend_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6" unique_id=1128267567]
 layout_mode = 2
-text = "Channel"
+text = "Defend"
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=630902578]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="skill_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3" unique_id=518726088]
+[node name="item_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3" unique_id=518726088]
 layout_mode = 2
-text = "Skill"
+text = "Item"
 
 [node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer" unique_id=248489160]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="item_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer4" unique_id=1115572455]
+[node name="info_button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer4" unique_id=1115572455]
 layout_mode = 2
-text = "Item"
+text = "Info"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=77617921]
 layout_mode = 2
@@ -141,7 +141,5 @@ layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/end_turn_button" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/attack_button" to="." method="_on_attack_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/guard_button" to="." method="_on_guard_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/channel_button" to="." method="_on_channel_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/skill_button" to="." method="_on_skill_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer4/item_button" to="." method="_on_item_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/skill_button" to="." method="_on_skill_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/defend_button" to="." method="_on_defend_button_pressed"]

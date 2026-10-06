@@ -35,6 +35,9 @@ var base_stats : Dictionary[String,float] = {
 	"speed":0,
 	"status_def":0,
 	"phys_atk":0,
+	"fire_atk":0,
+	"elec_atk":0,
+	"ice_atk":0,
 	"phys_def":0,
 	"pierce_def":0,
 	"slash_def":0,
@@ -58,6 +61,10 @@ var base_stats : Dictionary[String,float] = {
 	"overcast_chance":0,
 	"poi_def":0,
 	"poi_efficiency":0,
+	"curse_efficiency":0,
+	"buff_efficiency":0,
+	"healing_efficiency":0,
+	"resilience":0,
 	"lucky_chance":0
 }
 

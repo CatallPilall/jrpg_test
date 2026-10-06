@@ -67,7 +67,7 @@ func new_unit_selected():
 
 func _skill_button_pressed(new_skill : skill, signal_key : int):
 	
-	selected_skill = new_skill
+	selected_skill = new_skill.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 	
 	combat_state = combat_state_machine.SKILL_SELECTED
 	ConsoleLog.INFO(["selected_skill","selected_unit"], [selected_skill,selected_unit])

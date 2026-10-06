@@ -21,6 +21,8 @@ enum enum_skill_type{ATTACK,SPELL,MANOUVRE,ITEM,SPECIAL}
 @export var skill_speed : int
 @export var skill_duration : int
 
+@export var is_channel : bool
+
 @export var first_skill_fragment : skill_fragment
 
 var turn_one : bool = true
@@ -38,6 +40,15 @@ func set_caster_and_targets(new_caster : unit, new_primary_targets : Array[unit]
 
 func execute_skill():
 	ConsoleLog.DEBUG("execute skill with targets: " + str(primary_targets) + " " + str(secondary_targets))
+	
+	if turn_one or is_channel:
+		if check_caster_cc():
+			pass
+		else:
+			ConsoleLog.DEBUG("caster is cc'd, skill is interrupted")
+			prepare_skill_for_deletion()
+			return
+	
 	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
 	
 	turn_one = false
@@ -47,6 +58,32 @@ func execute_skill():
 		skill_duration = skill_duration -1
 	ConsoleLog.DEBUG("skill_duration: "+ str(skill_duration))
 
+
+func check_caster_cc() -> bool:
+	var cc_check : bool = true
+	
+	var is_disarmed : bool = caster.disarm.size()
+	var is_silenced : bool = caster.silence.size()
+	var is_rooted : bool = caster.root.size()
+	var is_sleeping : bool = caster.sleep.size()
+	var is_stunned : bool = caster.stun.size()
+	var is_paralyzed : bool = caster.paralyze.size()
+	
+	match skill_type:
+		enum_skill_type.ATTACK:
+			if is_disarmed or is_sleeping or is_stunned or is_paralyzed:
+				cc_check = false
+		enum_skill_type.SPELL:
+			if is_silenced or is_sleeping or is_stunned or is_paralyzed:
+				cc_check = false
+		enum_skill_type.MANOUVRE:
+			if is_rooted or is_sleeping or is_stunned or is_paralyzed:
+				cc_check = false
+		enum_skill_type.SPECIAL:
+			if is_paralyzed:
+				cc_check = false
+	
+	return cc_check
 
 func prepare_skill_for_deletion():
 	first_skill_fragment.clean_up_skill_fragment()
