@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 class_name character_button_ui
 
@@ -17,6 +17,12 @@ func _ready() -> void:
 	character_name.text = character_name_buffer
 	character_skillpoints.text = character_skillpoints_buffer
 	character_status.text = character_status_buffer
+
+
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+	if called_node == self:
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN UI_ELEMENT_CHARACHTER_BUTTON PREPARE_SCENE")
+
 
 func make_character_ui_element(character : unit):
 	# currently takes the 16x16 sprite

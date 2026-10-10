@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 var related_functions_to_signals : Dictionary[Callable, Signal] = {
 	_display_unit_info: EventBus.display_unit_info,
@@ -34,10 +34,16 @@ func _ready() -> void:
 	ConsoleLog.SCENE(true)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	EventBus.connect_functions_with_signals(self, related_functions_to_signals)
+	EventBus.emit_signal_with_log(EventBus.combat_hud_has_loaded, [self])
 
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"combat_hud_has_loaded","emit",new_signal_key)
 	# EventBus.combat_hud_has_loaded.emit(new_signal_key)
+
+
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+	if called_node == self:
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN COMBAT_HUD PREPARE_SCENE")
 
 
 func _disable_item_button(disabled : bool, signal_key : int):

@@ -37,12 +37,12 @@ func _clean_up_skill(skill_to_clean : skill, signal_key : int):
 	ConsoleLog.SIGNAL(EventBus.clean_up_skill, "processed", signal_key)
 
 
-func _combat_hud_has_loaded(_called_by : Node, _loaded_node : Node, signal_key : int):
+func _combat_hud_has_loaded(_called_by : Node, signal_key : int):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.new_selected_unit)
-	ConsoleLog.SIGNAL(EventBus.hud_scene_has_loaded, "processed", signal_key)
+	EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
+	ConsoleLog.SIGNAL(EventBus.combat_hud_has_loaded, "processed", signal_key)
 
 
 func store_combat_team_locally():
@@ -66,9 +66,9 @@ func new_unit_selected():
 
 
 func _skill_button_pressed(new_skill : skill, signal_key : int):
-	
+
 	selected_skill = new_skill
-	
+
 	combat_state = combat_state_machine.SKILL_SELECTED
 	ConsoleLog.INFO(["selected_skill","selected_unit"], [selected_skill,selected_unit])
 	EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, selected_unit])

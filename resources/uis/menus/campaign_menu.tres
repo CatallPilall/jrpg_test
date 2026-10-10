@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_1xqh2")
 scene_file = ExtResource("1_tmoof")
-is_scene_subtype = 7
+is_scene_type = 1
 metadata/_custom_type_script = "uid://cph78e0gi7t0h"

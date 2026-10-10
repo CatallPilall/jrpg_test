@@ -1,12 +1,20 @@
-extends Control
+extends BaseUI
 
 
 @onready var timer_hud : Label = $time_hud_container/time_hud
 @onready var fps_hud: Label = $fps_hud
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	EventBus.connect_function_with_signal(self, self._on_timer_updated, EventBus.timer_updated)
+	ConsoleLog.SCENE(true)
+	TimerGlobal.start_timer(17, 33, 0.1)
+
+
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+	if called_node == self:
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN LEVEL_HUD PREPARE_SCENE")
+		EventBus.connect_function_with_signal(self, self._on_timer_updated, EventBus.timer_updated)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

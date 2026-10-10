@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 class_name team_formation_ui_element
 
@@ -24,3 +24,8 @@ func _ready() -> void:
 	EventBus.emit_signal_with_log(EventBus.set_current_button_focus, [team_captain_button])
 
 	team_captain_button.grab_focus.call_deferred()
+
+
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+	if called_node == self:
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN UI_ELEMENT_TEAM_FORMATION PREPARE_SCENE")
