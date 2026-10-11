@@ -13,8 +13,8 @@ signal display_unit_info(selected_unit : unit, signal_key : int)
 # LOADED
 # MENU
 # HUD
-@warning_ignore("unused_signal")
-signal combat_hud_has_loaded(called_by : Node, signal_key : int)
+# @warning_ignore("unused_signal")
+# signal combat_hud_has_loaded(called_by : Node, signal_key : int)
 # LEVELS
 # COMBAT
 

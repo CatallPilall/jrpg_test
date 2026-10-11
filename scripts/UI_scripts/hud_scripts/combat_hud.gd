@@ -33,7 +33,7 @@ var current_selected_unit : unit
 func _ready() -> void:
 	ConsoleLog.SCENE(true)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	EventBus.emit_signal_with_log(EventBus.combat_hud_has_loaded, [self])
+	# EventBus.emit_signal_with_log(EventBus.combat_hud_has_loaded, [self])
 
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"combat_hud_has_loaded","emit",new_signal_key)
