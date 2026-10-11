@@ -6,7 +6,5 @@
 script = ExtResource("1_23aol")
 damage_type = 2
 base_value = 10.0
-stat_scaling = 1.0
-scaling_stat = 3
 base_crit_chance = 5.0
 base_accuracy = 95.0

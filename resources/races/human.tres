@@ -7,22 +7,27 @@
 script = ExtResource("2_qo0wv")
 race_name = "Human"
 innate_attributes = Dictionary[String, int]({
-"agility": 6,
-"endurance": 7,
+"agility": 7,
+"endurance": 8,
 "intelligence": 8,
 "luck": 4,
 "strength": 6,
 "vitality": 7
 })
+attribute_scaling = Dictionary[String, int]({
+"agility": 2,
+"endurance": 2,
+"intelligence": 3,
+"luck": 1,
+"strength": 2,
+"vitality": 3
+})
 innate_stat_boost = Dictionary[String, float]({
 "accuracy": 12.0,
 "crit_chance": 2.0,
-"crit_efficiency": 10.0,
 "evasion": 3.0,
 "health_points": 5.0,
 "lucky_chance": 3.0,
 "phys_def": 7.0,
-"poi_def": 13.0,
-"speed": 6.0,
-"status_def": 10.0
+"speed": 6.0
 })

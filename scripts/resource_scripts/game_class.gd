@@ -7,14 +7,8 @@ class_name game_class
 enum enum_class_armour_type {HEAVY,MEDIUM,LIGHT}
 @export var class_armour_type : enum_class_armour_type
 
-@export var attribute_scaling : Dictionary[String,int] = {
-	"strength":0,
-	"agility":0,
-	"intelligence":0,
-	"vitality":0,
-	"endurance":0,
-	"luck":0
-}
+enum enum_class_weapon_type {SLASH,PIERCE,BLUD}
+@export var class_weapon_type : enum_class_weapon_type
 
 @export var class_stat_boost : Dictionary[String,float]
 

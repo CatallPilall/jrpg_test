@@ -6,7 +6,5 @@
 script = ExtResource("1_s3fta")
 damage_type = 3
 base_value = 20.0
-stat_scaling = 1.5
-scaling_stat = 3
 base_crit_chance = 10.0
 base_accuracy = 90.0

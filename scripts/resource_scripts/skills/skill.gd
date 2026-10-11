@@ -48,6 +48,21 @@ func execute_skill():
 			ConsoleLog.DEBUG("caster is cc'd, skill is interrupted")
 			prepare_skill_for_deletion()
 			return
+		
+		#activate guard stance
+		EventBus.emit_signal_with_log(EventBus.guard_stance_triggered,[primary_targets])
+	
+	# activate counterspell stance
+	if skill_type == enum_skill_type.SPELL:
+		EventBus.emit_signal_with_log(EventBus.counterspell_stance_triggered,[caster,self])
+	
+	for selected_target : unit in primary_targets:
+		# activate parry stance
+		if skill_type == enum_skill_type.ATTACK:
+			EventBus.emit_signal_with_log(EventBus.parry_stance_triggered,[selected_target,self])
+			if primary_targets.is_empty():
+				return
+	
 	
 	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
 	
@@ -56,6 +71,11 @@ func execute_skill():
 		prepare_skill_for_deletion()
 	else:
 		skill_duration = skill_duration -1
+		
+		if primary_targets.is_empty() and secondary_targets.is_empty():
+			prepare_skill_for_deletion()
+	
+	
 	ConsoleLog.DEBUG("skill_duration: "+ str(skill_duration))
 
 

@@ -145,6 +145,9 @@ func sort_skill_order_array(a : skill, b : skill):
 
 func _end_turn_button_pressed(signal_key : int):
 	skill_order_array = skill_order_array.filter(func(n): return n != null)
+	
+	#for i : skill in item_order_array:
+	
 	for i : skill in skill_order_array:
 		i.execute_skill()
 
@@ -167,11 +170,6 @@ func start_new_turn():
 	# ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
 	# EventBus.enable_combat_hud_actions.emit(new_signal_key)
 	EventBus.emit_signal_with_log(EventBus.enable_combat_hud_actions)
-
-	# new_signal_key = EventBus.generate_signal_key()
-	# ConsoleLog.SIGNAL(self,"new_turn","emit",new_signal_key)
-	# EventBus.new_turn.emit(new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.new_turn)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click"):
