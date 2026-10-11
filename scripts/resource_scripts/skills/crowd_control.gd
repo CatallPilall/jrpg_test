@@ -26,29 +26,39 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, skill
 			enum_crowd_control_type.DISARM:
 				if target.disarm.has(self):
 					target.disarm.erase(self)
+					reverse_buff(target)
 			enum_crowd_control_type.SILENCE:
 				if target.silence.has(self):
 					target.silence.erase(self)
+					reverse_buff(target)
 			enum_crowd_control_type.ROOT:
 				if target.root.has(self):
 					target.root.erase(self)
+					reverse_buff(target)
 			enum_crowd_control_type.SLEEP:
 				if target.sleep.has(self):
 					target.sleep.erase(self)
+					reverse_buff(target)
 			enum_crowd_control_type.STUN:
 				if target.stun.has(self):
 					target.stun.erase(self)
+					reverse_buff(target)
 			enum_crowd_control_type.PARALYZE:
 				if target.paralyze.has(self):
 					target.paralyze.erase(self)
+					reverse_buff(target)
 
 func apply_crowd_control(caster : unit, target : unit) -> bool:
-	var cast : float = roll_d_hundred() + target.active_stats.get("status_def")
-	if cast < base_accuracy + caster.active_stats.get(get_scaling_stat()) * stat_scaling:
+	var caster_cc_chance : float = caster.active_stats.get("cc_chance")
+	var target_cc_res : float = target.active_stats.get("cc_res")
+	
+	if base_accuracy + caster_cc_chance > target_cc_res + roll_d_hundred():
+		target.active_stats.set("cc_res", target_cc_res + base_value)
 		return true
 	else:
 		return false
 
 
-func reverse_buff(_target : unit):
-	pass
+func reverse_buff(target : unit):
+	var target_cc_res : float = target.active_stats.get("cc_res")
+	target.active_stats.set("cc_res", target_cc_res - base_value)

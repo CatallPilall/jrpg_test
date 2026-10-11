@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_mknww")
 buff_type = 5
-stat_buff = 4
+stat_buff = 2
 first_buff = true
 base_value = 25.0
 stat_scaling = 0.5
-scaling_stat = 4
+scaling_stat = 2

@@ -6,7 +6,5 @@
 script = ExtResource("1_n3kfw")
 damage_type = 2
 base_value = 20.0
-stat_scaling = 1.2
-scaling_stat = 3
 base_crit_chance = 7.0
 base_accuracy = 70.0

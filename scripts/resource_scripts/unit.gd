@@ -6,6 +6,9 @@ class_name unit
 @export var unit_name : String
 @export var unit_level : int
 
+enum enum_unit_team {ALLY,ENEMY}
+@export var unit_team : enum_unit_team
+
 @export var unit_race : race:
 	set(value):
 		unit_race = value
@@ -32,33 +35,43 @@ var attributes : Dictionary[String,int] = {
 
 var base_stats : Dictionary[String,float] = {
 	"health_points":0,
-	"speed":0,
-	"status_def":0,
 	"phys_atk":0,
 	"phys_def":0,
-	"pierce_def":0,
-	"slash_def":0,
-	"blud_def":0,
+	"magic_atk":0,
+	"magic_def":0,
+	"speed":0,
 	"accuracy":0,
 	"evasion":0,
 	"crit_chance":0,
-	"crit_efficiency":0,
-	"crit_def":0,
-	"status_damage":0,
-	"magic_atk":0,
-	"magic_def":0,
-	"fire_def":0,
-	"elec_def":0,
-	"ice_def":0,
-	"fire_efficiency":0,
-	"elec_efficiency":0,
-	"ice_efficiency":0,
-	"backfire_chance":0,
-	"poof_chance":0,
-	"overcast_chance":0,
-	"poi_def":0,
-	"poi_efficiency":0,
-	"lucky_chance":0
+	
+	"pierce_res":0,
+	"slash_res":0,
+	"blud_res":0,
+	"fire_res":0,
+	"elec_res":0,
+	"ice_res":0,
+	"damage_res":0,
+	
+	"cc_chance":0,
+	"cc_res":0,
+	"curse_chance":0,
+	"curse_res":0,
+	"bleed_chance":0,
+	"bleed_res":0,
+	"poi_chance":0,
+	"poi_res":0,
+	
+	"buff_strength":0,
+	"healing_strength":0,
+	"lucky_chance":0,
+	
+	"fire_atk":0,
+	"elec_atk":0,
+	"ice_atk":0,
+	"fire_affinity":0,
+	"elec_affinity":0,
+	"ice_affinity":0,
+	"poi_affinity":0
 }
 
 var active_stats : Dictionary[String,float] = {}
@@ -97,7 +110,7 @@ func set_unit_attributes():
 		for selected_attribute : String in attributes:
 			ConsoleLog.INFO(["innate_attributes"],[unit_race.innate_attributes])
 			ConsoleLog.DEBUG("Looking for key: " + selected_attribute + " | Exists: " + str(unit_race.innate_attributes.has(selected_attribute)))
-			var new_value : int = unit_race.innate_attributes.get(selected_attribute) + unit_level * unit_class.attribute_scaling.get(selected_attribute)
+			var new_value : int = unit_race.innate_attributes.get(selected_attribute) + unit_level * unit_race.attribute_scaling.get(selected_attribute)
 			attributes.set(selected_attribute,new_value)
 		
 		scale_base_stats()
@@ -112,15 +125,22 @@ func scale_base_stats():
 	var luck_scaling : int = attributes.get("luck")
 	
 	set_base_stat("phys_atk",strength_scaling * 1.7)
-	set_base_stat("status_damage",strength_scaling * 0.5)
+	
 	set_base_stat("accuracy",agility_scaling * 0.3)
 	set_base_stat("speed",agility_scaling * 0.2)
+	set_base_stat("evasion",agility_scaling * 0.25)
+	
 	set_base_stat("magic_atk",intelligence_scaling * 1.4)
 	set_base_stat("magic_def",intelligence_scaling * 0.8)
+	
 	set_base_stat("health_points",vitality_scaling * 2.2)
 	set_base_stat("phys_def",vitality_scaling * 1.1)
-	set_base_stat("status_def",endurance_scaling * 1.2)
-	set_base_stat("crit_def", endurance_scaling * 0.2)
+	set_base_stat("poi_res",vitality_scaling * 0.4)
+	set_base_stat("bleed_res",vitality_scaling * 0.6)
+	
+	set_base_stat("cc_res",endurance_scaling * 1.2)
+	set_base_stat("curse_res", endurance_scaling * 0.2)
+	
 	set_base_stat("crit_chance",luck_scaling * 0.6)
 	set_base_stat("lucky_chance", luck_scaling * 0.1)
 

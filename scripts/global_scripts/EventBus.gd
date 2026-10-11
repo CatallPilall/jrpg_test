@@ -86,9 +86,17 @@ signal prepare_scene(called_by : Node, arguments : Array, signal_key : int)
 
 # Signals for skills and relics -------------------------------------------------
 @warning_ignore("unused_signal")
-signal new_turn(signal_key : int)
+signal block_stance_triggered(target : unit, postmitigated_damage_array : Array[float], signal_key : int)
 @warning_ignore("unused_signal")
-signal calculating_skill_speed(caster : unit, casted_skill : skill, signal_key : int)
+signal parry_stance_triggered(target : unit, activating_skill : skill, signal_key : int)
+@warning_ignore("unused_signal")
+signal retaliate_stance_triggered(caster : unit, target : unit, signal_key : int)
+@warning_ignore("unused_signal")
+signal counterspell_stance_triggered(caster : unit, activating_skill_fragment : skill_fragment, signal_key : int)
+@warning_ignore("unused_signal")
+signal chase_stance_triggered(caster : unit, target : unit, signal_key : int)
+@warning_ignore("unused_signal")
+signal guard_stance_triggered(primary_targets : Array[unit], signal_key : int)
 # -------------------------------------------------------------------------------
 
 @warning_ignore("unused_signal")

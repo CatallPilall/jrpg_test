@@ -6,7 +6,5 @@
 script = ExtResource("1_t1eco")
 damage_type = 1
 base_value = 10.0
-stat_scaling = 1.0
-scaling_stat = 3
 base_crit_chance = 5.0
 base_accuracy = 95.0

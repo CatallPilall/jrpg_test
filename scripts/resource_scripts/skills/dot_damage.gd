@@ -5,9 +5,9 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, skill
 		if skill_duration > 0:
 			match damage_type:
 				enum_damage_type.BLEED:
-					execute_bleeding(caster, target)
+					execute_bleeding(target)
 				enum_damage_type.POI:
-					execute_poisoned(caster, target)
+					execute_poisoned(target)
 			if skill_duration == 1:
 				if target.bleed_dots.has(self):
 					target.bleed_dots.erase(self)
@@ -22,40 +22,45 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, skill
 				apply_poison(caster, target)
 
 func apply_bleed(caster : unit, target : unit):
-	var cast : float = roll_d_hundred() + base_value + caster.active_stats.get("status_damage")
-	var target_resistance : float = target.active_stats.get("status_def")
-
-	if cast > target_resistance:
+	var caster_bleed_chance : float = caster.active_stats.get("bleed_chance")
+	var target_bleed_res : float = target.active_stats.get("bleed_res")
+	
+	if base_accuracy + caster_bleed_chance > target_bleed_res + roll_d_hundred():
 		target.bleed_dots.append(self)
 		ConsoleLog.DEBUG("bleed applied")
 	else:
 		ConsoleLog.DEBUG("bleed resisted")
 
 func apply_poison(caster : unit, target : unit):
-	var cast : float = roll_d_hundred() + base_value * caster.active_stats.get("poi_efficiency")/100
-	var target_resistance : float = target.active_stats.get("status_def")
-
-	if cast > target_resistance:
+	var caster_poi_chance : float = caster.active_stats.get("poi_chance")
+	var target_poi_res : float = target.active_stats.get("poi_res")
+	
+	if base_accuracy + caster_poi_chance > target_poi_res + roll_d_hundred():
 		target.poison_dots.append(self)
 		ConsoleLog.DEBUG("poison applied")
 	else:
 		ConsoleLog.DEBUG("poison resisted")
 
-func execute_bleeding(caster : unit, target : unit):
+func execute_bleeding(target : unit):
 	if target.bleed_dots.has(self):
-		var resulting_damage : float = base_value + base_value * caster.active_stats.get("status_damage")/100
-		var negated_damage : float = resulting_damage * (100 - target.active_stats.get("phys_def"))/100
-		var remaining_target_health : int = roundi(target.active_stats.get("health_points") - negated_damage)
-		target.active_stats.set("health_points",remaining_target_health)
-		ConsoleLog.INFO(["resulting_damage","negated_damage"],[resulting_damage,negated_damage])
+		var target_bleed_res : float = target.active_stats.get("bleed_res")
+		var target_damage_res : float = target.active_stats.get("damage_res")
+		var target_max_health : float = target.base_stats.get("health_points")
+		
+		var premitigated_damage : float = target_max_health / base_value
+		var postmitigated_damage : float = premitigated_damage * (100 - target_bleed_res - target_damage_res)/100
+		
+		target.active_stats.set("health_points",postmitigated_damage)
+		ConsoleLog.INFO(["premitigated_damage","postmitigated_damage"],[premitigated_damage,postmitigated_damage])
 
-func execute_poisoned(caster : unit, target : unit):
+func execute_poisoned(target : unit):
 	if target.poison_dots.has(self):
-		var resulting_damage : float = base_value + base_value * caster.active_stats.get("poi_efficiency")/100
-		var negated_damage : float = resulting_damage * (100 - target.active_stats.get("poi_def"))/100
-		var remaining_target_health : int = roundi(target.active_stats.get("health_points") - negated_damage)
-		target.active_stats.set("health_points",remaining_target_health)
-		ConsoleLog.INFO(["resulting_damage","negated_damage"],[resulting_damage,negated_damage])
-
-func reverse_buff(_target : unit):
-	pass
+		var target_poi_res : float = target.active_stats.get("poi_res")
+		var target_damage_res : float = target.active_stats.get("damage_res")
+		var target_max_health : float = target.base_stats.get("health_points")
+		
+		var premitigated_damage : float = target_max_health / base_value
+		var postmitigated_damage : float = premitigated_damage * (100 - target_poi_res - target_damage_res)/100
+		
+		target.active_stats.set("health_points",postmitigated_damage)
+		ConsoleLog.INFO(["premitigated_damage","postmitigated_damage"],[premitigated_damage,postmitigated_damage])
