@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 class_name level_up_ui
 
@@ -16,15 +16,16 @@ func _ready() -> void:
 			skill_lines_container.add_child.call_deferred(new_character_skill_line)
 
 
-func pass_variables(called_node : Node, arguments : Array):
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 	if called_node == self:
-		ConsoleLog.DEBUG("!!!!!!!!!!!!!!!!!! pass_variables fired")
-		if arguments[0] is unit:
-			selected_unit_reference = arguments[0]
-		else:
-			ConsoleLog.ERROR("wrong type, is: " + str(arguments[0] + " needs to be unit"))
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN LEVEL_UP_UI PREPARE_SCENE")
+		if arguments:
+			if arguments[0] is unit:
+				selected_unit_reference = arguments[0]
+			else:
+				ConsoleLog.ERROR("wrong type, is: " + str(arguments[0] + " needs to be unit"))
 
 
 func _on_exit_button_pressed() -> void:
-	SceneLoader.deactivate_scene(self,"character_level_menu")
-	SceneLoader.unload_scene(self,"character_level_menu")
+	SceneLoader.process_scene("character_level_menu", [], SceneLoader.SCENE_PROCESS_TYPE.DEACTIVATE)
+	SceneLoader.process_scene("character_level_menu", [], SceneLoader.SCENE_PROCESS_TYPE.UNLOAD)

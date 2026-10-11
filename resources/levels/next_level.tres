@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("1_mk0mo")
-level_description = "Next Level to go to"
 scene_file = ExtResource("1_fephl")
-is_scene_subtype = 1
+is_scene_type = 4
 metadata/_custom_type_script = "uid://d0wkn4yx7q1rd"

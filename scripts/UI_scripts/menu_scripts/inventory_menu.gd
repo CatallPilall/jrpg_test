@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 @onready var exit_button: Button = $MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/exit_button
 @onready var formation_button: Button = $MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/formation_button
@@ -41,6 +41,12 @@ func _ready() -> void:
 	fill_character_container()
 	EventBus.emit_signal_with_log(EventBus.inventory_menu_has_loaded, [self, null])
 
+
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+	if called_node == self:
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN INVENTORY_MENU PREPARE_SCENE")
+
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("control_return"):
 		ConsoleLog.INPUT("control_return", "is_action_pressed", [])
@@ -68,7 +74,8 @@ func confirm_button_input():
 func return_one_step():
 	if return_chain.is_empty():
 		# queue_free()
-		SceneLoader.deactivate_scene(self, "inventory_menu")
+		# SceneLoader.deactivate_scene(self, "inventory_menu")
+		SceneLoader.process_scene("inventory_menu", [], SceneLoader.SCENE_PROCESS_TYPE.DEACTIVATE)
 	else:
 		current_button_focus = return_chain.pop_back()
 		current_button_focus.grab_focus.call_deferred()
@@ -219,7 +226,8 @@ func _on_logbook_button_toggled(toggled_on: bool) -> void:
 
 func _on_exit_button_pressed() -> void:
 	# queue_free()
-	SceneLoader.deactivate_scene(self, "inventory_menu")
+	# SceneLoader.deactivate_scene(self, "inventory_menu")
+	SceneLoader.process_scene("inventory_menu", [], SceneLoader.SCENE_PROCESS_TYPE.DEACTIVATE)
 
 func _on_skill_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
@@ -242,7 +250,7 @@ func _on_level_button_toggled(toggled_on: bool) -> void:
 		select_unit_roster()
 		level_button.set_pressed_no_signal(true)
 
-func make_leveling_ui(selected_unit : unit):
+func make_leveling_ui(_selected_unit : unit):
 	pass
 
 

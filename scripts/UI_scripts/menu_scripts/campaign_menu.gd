@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 # var test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/test_level.tscn")
 # var new_test_level_packed_scene : PackedScene = preload("res://scenes/level_scenes/new_test_level.tscn")
@@ -12,6 +12,14 @@ func _ready() -> void:
 	ConsoleLog.SCENE(true)
 
 
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+	if called_node == self:
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN CAMPAIGN_MENU PREPARE_SCENE")
+		if arguments:
+			ConsoleLog.INFO(["1", "2", "3"], arguments)
+			# ConsoleLog.DEBUG(self.name)
+
+
 func _on_brunhilde_button_pressed() -> void:
 	ConsoleLog.INPUT("Bruhilde_Button", "pressed", [])
 	TeamRoster.put_unit_into_combat_team(brunhilde_unit)
@@ -20,8 +28,11 @@ func _on_brunhilde_button_pressed() -> void:
 	TeamRoster.put_unit_into_combat_team(karion_unit)
 	TeamRoster.put_unit_into_combat_team(ungor_unit)
 
-	SceneLoader.load_scene(self, "tutorial_level")
-	SceneLoader.activate_scene(self, "tutorial_level")
+
+	SceneLoader.process_active_scene(SceneDB.SCENE_TYPE.MENU, [], SceneLoader.SCENE_PROCESS_TYPE.DEACTIVATE)
+	SceneLoader.process_scene("tutorial_level", [], SceneLoader.SCENE_PROCESS_TYPE.ACTIVATE)
+	# SceneLoader.load_scene(self, "tutorial_level")
+	# SceneLoader.activate_scene(self, "tutorial_level")
 
 	# var test_level : Node2D = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.LEVEL, 0, -1) as Node2D
 	# ConsoleLog.DEBUG(self, "load_scene : " + str(test_level))

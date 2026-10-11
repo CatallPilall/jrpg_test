@@ -1,4 +1,4 @@
-extends Control
+extends BaseUI
 
 class_name character_skill_line_ui
 
@@ -28,11 +28,17 @@ func _ready() -> void:
 	skill_two.icon = skill_two_icon_buffer
 	skill_three.icon = skill_three_icon_buffer
 
+
+func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+	if called_node == self:
+		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN UI_ELEMENT_CHARACTER_SKILL_LINE PREPARE_SCENE")
+
+
 func make_skill_line_ui_element(unit_skill_line : skill_line):
 	var is_skill_one_open : bool = true
 	var is_skill_two_open : bool = true
 	var is_skill_three_open : bool = true
-	
+
 	for skill_in_skill_line : skill in unit_skill_line:
 		if unit_skill_line.skill_line_level >= unit_skill_line.skill_line_bound_skill[skill_in_skill_line]:
 			if is_skill_one_open:
@@ -44,9 +50,9 @@ func make_skill_line_ui_element(unit_skill_line : skill_line):
 			if is_skill_three_open:
 				is_skill_three_open = false
 				skill_three_icon_buffer = load(skill_in_skill_line.skill_icon_path)
-	
+
 	set_level_buttons(unit_skill_line.skill_line_level)
-	
+
 	skill_line_name.text = unit_skill_line.skill_line_name
 
 func set_level_buttons(skill_line_level : int):

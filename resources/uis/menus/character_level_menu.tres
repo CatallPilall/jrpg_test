@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("2_jll38")
 scene_file = ExtResource("1_bs5mr")
-is_scene_subtype = 12
+is_scene_type = 1

@@ -8,21 +8,12 @@
 [resource]
 script = ExtResource("2_0j188")
 game_class_name = "Warrior"
-attribute_scaling = Dictionary[String, int]({
-"agility": 2,
-"endurance": 3,
-"intelligence": 1,
-"luck": 1,
-"strength": 4,
-"vitality": 3
-})
 class_stat_boost = Dictionary[String, float]({
-"blud_def": 5.0,
-"crit_def": 7.0,
-"elec_def": -5.0,
+"blud_res": 1.0,
 "phys_atk": 10.0,
-"pierce_def": 15.0,
-"slash_def": 20.0
+"phys_def": 5.0,
+"pierce_res": 3.0,
+"slash_res": 4.0
 })
 attack_skill_variant = ExtResource("1_0j188")
 defense_skill_variant = ExtResource("3_eoced")
