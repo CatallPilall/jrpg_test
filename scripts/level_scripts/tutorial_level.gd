@@ -28,12 +28,10 @@ func _process(delta: float) -> void:
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
-	# SceneLoader.load_scene(self, "next_level")
-	# SceneLoader.activate_scene(self, "next_level")
-	# SceneLoader.process_scene(self, "next_level", [], SceneLoader.SCENE_PROCESS_TYPE.LOAD)
 	SceneLoader.process_scene("next_level", [], SceneLoader.SCENE_PROCESS_TYPE.ACTIVATE)
 
 
 func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 	if called_node == self:
 		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN TUTORIAL_LEVEL PREPARE_SCENE")
+		super(called_node, arguments, signal_key)

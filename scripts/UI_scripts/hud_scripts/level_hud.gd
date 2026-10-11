@@ -17,6 +17,14 @@ func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 		EventBus.connect_function_with_signal(self, self._on_timer_updated, EventBus.timer_updated)
 
 
+func _exit_tree() -> void:
+	TimerGlobal.pause_timer()
+
+
+func _enter_tree() -> void:
+	TimerGlobal.resume_timer()
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
 	fps_hud.text = str(Engine.get_frames_per_second())

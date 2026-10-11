@@ -4,7 +4,7 @@ var related_functions_to_signals : Dictionary[Callable, Signal] = {
 	_skill_button_pressed: EventBus.skill_button_pressed,
 	_unit_targets_selected: EventBus.unit_targets_selected,
 	_end_turn_button_pressed: EventBus.end_turn_button_pressed,
-	_combat_hud_has_loaded: EventBus.combat_hud_has_loaded,
+	# _combat_hud_has_loaded: EventBus.combat_hud_has_loaded,
 	_clean_up_skill: EventBus.clean_up_skill,
 	_combat_state_changed_via_combat_hud: EventBus.combat_state_changed_via_combat_hud,
 	_item_button_pressed: EventBus.item_button_pressed
@@ -31,18 +31,25 @@ func _ready() -> void:
 	store_combat_team_locally()
 	combat_state = combat_state_machine.FIRST_CHARACTER
 
+	# Siehe Kommentar in _combat_hud_has_loaded() -> das signal wird emitted bevor überhaupt das combat gestartet hat
+	EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
+
 
 func _clean_up_skill(skill_to_clean : skill, signal_key : int):
 	skill_order_array.erase(skill_to_clean)
 	ConsoleLog.SIGNAL(EventBus.clean_up_skill, "processed", signal_key)
 
 
+# da hud bound an combat ist, wird es IMMER vor dem combat geladen;
+# indem fall wird das signal emitted, bevor überhaupt das combat gestartet hat
 func _combat_hud_has_loaded(_called_by : Node, signal_key : int):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
-	ConsoleLog.SIGNAL(EventBus.combat_hud_has_loaded, "processed", signal_key)
+	#
+	# EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
+	# ConsoleLog.SIGNAL(EventBus.combat_hud_has_loaded, "processed", signal_key)
+	pass
 
 
 func store_combat_team_locally():

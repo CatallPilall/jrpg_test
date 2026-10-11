@@ -15,18 +15,19 @@ func _ready() -> void:
 	ConsoleLog.SCENE(true)
 	player_character = player_character_packed_scene.instantiate()
 	player_spawn_position.add_child.call_deferred(player_character)
-	SceneLoader.process_scene("level_hud", [], SceneLoader.SCENE_PROCESS_TYPE.ACTIVATE)
 
 
 func _enter_tree() -> void:
 	ConsoleLog.DEBUG("TEST ENTER TREE BASE_LEVEL")
-	EventBus.connect_function_with_signal(self, _prepare_scene, EventBus.prepare_scene)
+	# EventBus.connect_function_with_signal(self, _prepare_scene, EventBus.prepare_scene)
 
 func _exit_tree() -> void:
 	ConsoleLog.DEBUG("TEST EXIT TREE BASE_LEVEL")
-	EventBus.disconnect_function_from_signal(self, _prepare_scene, EventBus.prepare_scene)
+	# EventBus.disconnect_function_from_signal(self, _prepare_scene, EventBus.prepare_scene)
 
 
 func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
-	ConsoleLog.ERROR("FUNCTION _prepare_scene() not aviable in child class (Level)")
-	assert(false, "FUNCTION _prepare_scene() has to be overriden by child class")
+	# ConsoleLog.ERROR("FUNCTION _prepare_scene() not aviable in child class (Level)")
+	# assert(false, "FUNCTION _prepare_scene() has to be overriden by child class")
+	SceneLoader.process_active_scene(SceneDB.SCENE_TYPE.COMBAT, [], SceneLoader.SCENE_PROCESS_TYPE.DEACTIVATE)
+	SceneLoader.process_scene("level_hud", [], SceneLoader.SCENE_PROCESS_TYPE.ACTIVATE)

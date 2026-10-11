@@ -89,6 +89,8 @@ func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 	if called_node == self:
 		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN basic_combat PREPARE_SCENE")
 
+		super(called_node, arguments, signal_key)
+
 		if arguments:
 			if arguments[0] is encounter:
 				var world_encounter : encounter = arguments[0]

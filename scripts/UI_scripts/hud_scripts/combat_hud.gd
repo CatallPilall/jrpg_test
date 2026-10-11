@@ -33,7 +33,6 @@ var current_selected_unit : unit
 func _ready() -> void:
 	ConsoleLog.SCENE(true)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	EventBus.connect_functions_with_signals(self, related_functions_to_signals)
 	EventBus.emit_signal_with_log(EventBus.combat_hud_has_loaded, [self])
 
 	# var new_signal_key : int = EventBus.generate_signal_key()
@@ -44,6 +43,7 @@ func _ready() -> void:
 func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 	if called_node == self:
 		ConsoleLog.DEBUG("HEHEO AUFGERUFEN IN COMBAT_HUD PREPARE_SCENE")
+		EventBus.connect_functions_with_signals(self, related_functions_to_signals)
 
 
 func _disable_item_button(disabled : bool, signal_key : int):
