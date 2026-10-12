@@ -19,7 +19,6 @@ extends BaseUI
 
 @onready var character_button : PackedScene = preload("res://scenes/UI_scenes/ui_element_character_button.tscn")
 @onready var team_formation : PackedScene = preload("res://scenes/UI_scenes/ui_element_team_formation.tscn")
-@onready var character_level : PackedScene = preload("res://scenes/UI_scenes/menu_scenes/level_up_unit_menu.tscn")
 
 # var is_set_current_button_focus_connected : bool = false
 
@@ -39,7 +38,7 @@ func _ready() -> void:
 	item_button.grab_focus.call_deferred()
 	return_chain.append(exit_button)
 	fill_character_container()
-	EventBus.emit_signal_with_log(EventBus.inventory_menu_has_loaded, [self, null])
+	#EventBus.emit_signal_with_log(EventBus.inventory_menu_has_loaded, [self, null])
 
 
 func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
@@ -250,8 +249,8 @@ func _on_level_button_toggled(toggled_on: bool) -> void:
 		select_unit_roster()
 		level_button.set_pressed_no_signal(true)
 
-func make_leveling_ui(_selected_unit : unit):
-	pass
+func make_leveling_ui(selected_unit : unit):
+	SceneLoader.process_scene("character_level_menu",[selected_unit],SceneLoader.SCENE_PROCESS_TYPE.ACTIVATE)
 
 
 func _on_character_one_button_pressed() -> void:

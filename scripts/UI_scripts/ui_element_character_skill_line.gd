@@ -39,21 +39,21 @@ func make_skill_line_ui_element(unit_skill_line : skill_line):
 	var is_skill_two_open : bool = true
 	var is_skill_three_open : bool = true
 
-	for skill_in_skill_line : skill in unit_skill_line:
+	for skill_in_skill_line : skill in unit_skill_line.skill_line_bound_skill:
 		if unit_skill_line.skill_line_level >= unit_skill_line.skill_line_bound_skill[skill_in_skill_line]:
 			if is_skill_one_open:
 				is_skill_one_open = false
 				skill_one_icon_buffer = load(skill_in_skill_line.skill_icon_path)
-			if is_skill_two_open:
+			elif is_skill_two_open:
 				is_skill_two_open = false
 				skill_two_icon_buffer = load(skill_in_skill_line.skill_icon_path)
-			if is_skill_three_open:
+			elif is_skill_three_open:
 				is_skill_three_open = false
 				skill_three_icon_buffer = load(skill_in_skill_line.skill_icon_path)
 
-	set_level_buttons(unit_skill_line.skill_line_level)
+	#set_level_buttons(unit_skill_line.skill_line_level)
 
-	skill_line_name.text = unit_skill_line.skill_line_name
+	#skill_line_name.text = unit_skill_line.skill_line_name
 
 func set_level_buttons(skill_line_level : int):
 	if skill_line_level >= 1:
