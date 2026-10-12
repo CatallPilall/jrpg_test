@@ -18,7 +18,7 @@ func _exit_tree() -> void:
 	ConsoleLog.DEBUG("TEST EXIT TREE BASE_UI")
 	# EventBus.disconnect_function_from_signal(self, _prepare_scene, EventBus.prepare_scene)
 
-func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
+func _prepare_scene(_called_node : Node, _arguments : Array, _signal_key : int):
 	# ConsoleLog.ERROR("FUNCTION _prepare_scene() not aviable in child class (UI)")
 	# assert(false, "FUNCTION _prepare_scene() has to be overriden by child class")
 	pass

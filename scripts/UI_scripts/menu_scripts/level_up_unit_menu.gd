@@ -24,6 +24,8 @@ func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 				selected_unit_reference = arguments[0]
 			else:
 				ConsoleLog.ERROR("wrong type, is: " + str(arguments[0] + " needs to be unit"))
+		
+		ConsoleLog.SIGNAL(EventBus.prepare_scene,"processed",signal_key)
 
 
 func _on_exit_button_pressed() -> void:
