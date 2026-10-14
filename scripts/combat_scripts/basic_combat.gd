@@ -46,6 +46,10 @@ class_name combat_scene
 
 @onready var camera_2d: Camera2D = $Camera2D
 
+
+@onready var combat_manager_node: combat_manager = $combat_manager
+
+
 # var combat_hud_packed_scene : PackedScene = preload("res://scenes/UI_scenes/combat_hud.tscn")
 
 var ally_team : Array[unit]
@@ -68,7 +72,8 @@ func _ready() -> void:
 	camera_2d.make_current()
 
 	copy_combat_team_locally()
-
+	give_combat_manager_enemies()
+	
 	_connect_signals()
 
 	load_ally_sprites()
@@ -84,6 +89,17 @@ func _ready() -> void:
 	# var new_combat_hud : Control = combat_hud_packed_scene.instantiate()
 	# new_signal_key = EventBus.generate_signal_key()
 
+func give_combat_manager_enemies():
+	if enemy_one:
+		combat_manager_node.enemy_team_reference.append(enemy_one)
+	if enemy_two:
+		combat_manager_node.enemy_team_reference.append(enemy_two)
+	if enemy_three:
+		combat_manager_node.enemy_team_reference.append(enemy_three)
+	if enemy_four:
+		combat_manager_node.enemy_team_reference.append(enemy_four)
+	if enemy_five:
+		combat_manager_node.enemy_team_reference.append(enemy_five)
 
 func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 	if called_node == self:
@@ -233,6 +249,36 @@ func _apply_skill_targeting(primary_skill_targeting : skill.enum_skill_targeting
 			ally_area_one_area_2d.show()
 			ally_area_two_area_2d.show()
 			ally_area_three_area_2d.show()
+		skill.enum_skill_targeting.SINGLE_FRONT_ALLY:
+			hide_individual_area_2d()
+			ally_one_area_2d.show()
+			ally_two_area_2d.show()
+			ally_three_area_2d.show()
+		skill.enum_skill_targeting.SINGLE_BACK_ALLY:
+			hide_individual_area_2d()
+			ally_four_area_2d.show()
+			ally_five_area_2d.show()
+		skill.enum_skill_targeting.SINGLE_FRONT_ENEMY:
+			hide_individual_area_2d()
+			enemy_one_area_2d.show()
+			enemy_two_area_2d.show()
+			enemy_three_area_2d.show()
+		skill.enum_skill_targeting.SINGLE_BACK_ENEMY:
+			hide_individual_area_2d()
+			enemy_four_area_2d.show()
+			enemy_five_area_2d.show()
+		skill.enum_skill_targeting.SINGLE_NOT_SELF_ALLY:
+			hide_individual_area_2d()
+			if ally_team[0] != casting_unit:
+				ally_one_area_2d.show()
+			if ally_team[1] != casting_unit:
+				ally_two_area_2d.show()
+			if ally_team[2] != casting_unit:
+				ally_three_area_2d.show()
+			if ally_team[3] != casting_unit:
+				ally_four_area_2d.show()
+			if ally_team[4] != casting_unit:
+				ally_five_area_2d.show()
 
 	set_secondary_targets(secondary_skill_targeting, casting_unit)
 

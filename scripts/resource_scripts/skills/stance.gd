@@ -20,6 +20,7 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, skill
 				EventBus.connect_function_with_signal(self, _chase_stance_triggered, EventBus.chase_stance_triggered)
 			enum_stance_type.GUARD:
 				EventBus.connect_function_with_signal(self, _guard_stance_triggered, EventBus.guard_stance_triggered)
+		caster.stance.append(self)
 	
 	if skill_duration == 0:
 		match stance_type:
@@ -178,7 +179,10 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var target_def : float = target.active_stats.get("phys_def")
 		var caster_crit_chance : float = caster.active_stats.get("crit_chance")
 		
-		var premitigated_damage : float = base_value * (1 + (caster_atk - target_def)/100) * damage_fork
+		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_scaling_stat
+		var target_scaling : float = caster.active_stats.get(get_scaling_stat(false)) * target_stat_scaling
+		
+		var premitigated_damage : float = (caster_scaling + target_scaling) * (1 + (caster_atk - target_def)/100) * damage_fork
 		if premitigated_damage < 2:
 			premitigated_damage = 2
 		
@@ -236,3 +240,18 @@ func calculate_magic_onhit_damage(elemental_atk : float, target : unit, elementa
 		return postmitigated_elemental_damage
 	else:
 		return 0
+
+func reverse_buff(_caster : unit, _target : unit):
+	match stance_type:
+		enum_stance_type.BLOCK:
+			EventBus.disconnect_function_with_signal(self, _block_stance_triggered, EventBus.block_stance_triggered)
+		enum_stance_type.PARRY:
+			EventBus.disconnect_function_with_signal(self, _parry_stance_triggered, EventBus.parry_stance_triggered)
+		enum_stance_type.RETALIATE:
+			EventBus.disconnect_function_with_signal(self, _retaliate_stance_triggered, EventBus.retaliate_stance_triggered)
+		enum_stance_type.COUNTERSPELL:
+			EventBus.disconnect_function_with_signal(self, _counterspell_stance_triggered, EventBus.counterspell_stance_triggered)
+		enum_stance_type.CHASE:
+			EventBus.disconnect_function_with_signal(self, _chase_stance_triggered, EventBus.chase_stance_triggered)
+		enum_stance_type.GUARD:
+			EventBus.disconnect_function_with_signal(self, _guard_stance_triggered, EventBus.guard_stance_triggered)

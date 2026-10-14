@@ -34,6 +34,7 @@ var attributes : Dictionary[String,int] = {
 }
 
 var base_stats : Dictionary[String,float] = {
+	"null" : 0,
 	"health_points":0,
 	"phys_atk":0,
 	"phys_def":0,
@@ -163,8 +164,9 @@ func copy_unit_skills_from_class():
 		unit_attack_skill = unit_class.attack_skill_variant
 		unit_defense_skill = unit_class.defense_skill_variant
 		
-		unit_skill_lines.append(unit_class.bound_skill_line)
-		copy_unit_skills_from_skill_lines()
+		if unit_team == enum_unit_team.ALLY:
+			unit_skill_lines.append(unit_class.bound_skill_line)
+			copy_unit_skills_from_skill_lines()
 
 func copy_unit_skills_from_skill_lines():
 	for selected_skill_line : skill_line in unit_skill_lines:

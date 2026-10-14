@@ -39,7 +39,10 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var target_def : float = target.active_stats.get("phys_def")
 		var caster_crit_chance : float = caster.active_stats.get("crit_chance")
 		
-		var premitigated_damage : float = base_value * (1 + (caster_atk - target_def)/100) * damage_fork
+		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_scaling_stat
+		var target_scaling : float = caster.active_stats.get(get_scaling_stat(false)) * target_stat_scaling
+		
+		var premitigated_damage : float = (base_value + caster_scaling + target_scaling) * (1 + (caster_atk - target_def)/100) * damage_fork
 		if premitigated_damage < 2:
 			premitigated_damage = 2
 		
@@ -125,7 +128,10 @@ func deal_magic_damage(caster : unit, target : unit, magic_affinity : String, de
 		var target_type_res : float = target.active_stats.get(defensive_stat)
 		var target_damage_res : float = target.active_stats.get("damage_res")
 		
-		var premitigated_damage : float = base_value * (1 + (caster_atk - target_def)/100) # * winds
+		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_scaling_stat
+		var target_scaling : float = caster.active_stats.get(get_scaling_stat(false)) * target_stat_scaling
+		
+		var premitigated_damage : float = (base_value + caster_scaling + target_scaling) * (1 + (caster_atk - target_def)/100) # * winds
 		if premitigated_damage < 2:
 			premitigated_damage = 2
 		

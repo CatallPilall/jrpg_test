@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("2_w0hpf")
 buff_type = 5
-stat_buff = 9
+stat_buff = 7
 base_value = 10.0
-stat_scaling = 1.15
-scaling_stat = 9
+caster_stat_scaling = 0.1
+caster_scaling_stat = 7
 child_skill_fragment = ExtResource("1_wcgvq")

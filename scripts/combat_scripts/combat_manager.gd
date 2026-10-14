@@ -1,5 +1,7 @@
 extends Node
 
+class_name combat_manager
+
 var related_functions_to_signals : Dictionary[Callable, Signal] = {
 	_skill_button_pressed: EventBus.skill_button_pressed,
 	_unit_targets_selected: EventBus.unit_targets_selected,
@@ -17,6 +19,7 @@ var selected_unit_array_position : int
 var selected_unit : unit
 
 var combat_team_reference : Array[unit]
+var enemy_team_reference : Array[unit]
 
 var selected_skill : skill
 
@@ -56,6 +59,7 @@ func store_combat_team_locally():
 	combat_team_reference = TeamRoster.combat_team
 	for i in combat_team_reference.size():
 		item_usage_array.append(false)
+	
 	selected_unit_array_position = 0
 	new_unit_selected()
 
@@ -235,3 +239,13 @@ func _combat_state_changed_via_combat_hud(signal_key : int):
 	else:
 		combat_state = combat_state_machine.CHARACTER_SELECTED
 	ConsoleLog.SIGNAL(EventBus.combat_state_changed_via_combat_hud, "processed", signal_key)
+
+
+
+
+
+
+
+
+func queue_enemy_turns():
+	pass

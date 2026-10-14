@@ -148,8 +148,8 @@ func apply_buff_debuff(target : unit, buff_stat : String, reversing : int, buff_
 			enum_buff_type.BLESSING:
 				target.blessing.append(self)
 	
-	stat_scaling = stat_scaling + buff_power/100
-	var resulting_buff = (base_value + target.base_stats.get(get_scaling_stat()) * stat_scaling) * reversing
+	caster_stat_scaling = caster_stat_scaling + buff_power/100
+	var resulting_buff = (base_value + target.base_stats.get(get_scaling_stat(false)) * caster_stat_scaling) * reversing
 	var updated_target_stat = target.active_stats.get(buff_stat) + resulting_buff
 	target.active_stats.set(buff_stat, updated_target_stat)
 	ConsoleLog.INFO(["resulting_buff","updated_target_stats"],[resulting_buff,updated_target_stat])

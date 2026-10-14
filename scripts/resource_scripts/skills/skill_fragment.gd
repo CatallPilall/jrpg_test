@@ -28,8 +28,13 @@ enum enum_stance_type {NONE,BLOCK,PARRY,RETALIATE,COUNTERSPELL,CHASE,GUARD}
 @export var first_buff : bool
 
 @export var base_value : float
-@export var stat_scaling : float
-@export var scaling_stat : enum_stat_buff
+
+@export var caster_stat_scaling : float
+@export var caster_scaling_stat : enum_stat_buff
+
+@export var target_stat_scaling : float
+@export var target_scaling_stat : enum_stat_buff
+
 @export var base_crit_chance : float
 @export var base_accuracy : float
 
@@ -80,8 +85,16 @@ func add_unit_to_defined_targets(target : unit):
 func roll_d_hundred() -> int:
 	return randi_range(1,100)
 
-func get_scaling_stat() -> String:
+func get_scaling_stat(caster : bool) -> String:
+	var scaling_stat : enum_stat_buff
+	if caster:
+		scaling_stat = caster_scaling_stat
+	else:
+		scaling_stat = target_scaling_stat
+	
 	match scaling_stat:
+		enum_stat_buff.NONE:
+			return "null"
 		enum_stat_buff.PHYS_ATK:
 			return "phys_atk"
 		enum_stat_buff.PHYS_DEF:
