@@ -22,7 +22,7 @@ func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 
 func _on_brunhilde_button_pressed() -> void:
 	ConsoleLog.INPUT("Bruhilde_Button", "pressed", [])
-	TeamRoster.put_unit_into_combat_team(brunhilde_unit)
+	TeamRoster.put_unit_into_combat_team(brunhilde_unit.duplicate_deep(Resource.DEEP_DUPLICATE_ALL))
 	TeamRoster.put_unit_into_combat_team(casandra_unit)
 	TeamRoster.put_unit_into_combat_team(derek_uit)
 	TeamRoster.put_unit_into_combat_team(karion_unit)

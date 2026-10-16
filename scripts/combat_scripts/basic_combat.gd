@@ -112,19 +112,19 @@ func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 				var world_encounter : encounter = arguments[0]
 				if world_encounter.enemy_one:
 					ConsoleLog.DEBUG("ENEMY_ONE SET")
-					enemy_one = world_encounter.enemy_one.duplicate()
+					enemy_one = world_encounter.enemy_one.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 				if world_encounter.enemy_two:
 					ConsoleLog.DEBUG("ENEMY_TWO SET")
-					enemy_two = world_encounter.enemy_two.duplicate()
+					enemy_two = world_encounter.enemy_two.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 				if world_encounter.enemy_three:
 					ConsoleLog.DEBUG("ENEMY_THREE SET")
-					enemy_three = world_encounter.enemy_three.duplicate()
+					enemy_three = world_encounter.enemy_three.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 				if world_encounter.enemy_four:
 					ConsoleLog.DEBUG("ENEMY_FOUR SET")
-					enemy_four = world_encounter.enemy_four.duplicate()
+					enemy_four = world_encounter.enemy_four.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 				if world_encounter.enemy_five:
 					ConsoleLog.DEBUG("ENEMY_FIVE SET")
-					enemy_five = world_encounter.enemy_five.duplicate()
+					enemy_five = world_encounter.enemy_five.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 				combat_duration = world_encounter.end_condition
 				overworld_encounter = self
 				ConsoleLog.DEBUG("COMBAT SCENE WURDE INITIALISIERT")
