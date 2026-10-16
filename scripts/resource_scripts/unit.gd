@@ -106,6 +106,8 @@ var unit_attack_skill : skill
 var unit_defense_skill : skill
 var unit_skills : Array[skill]
 
+@export var ai_skills_and_decisions : Array[ai_action_decision]
+
 func set_unit_attributes():
 	if unit_class and unit_race:
 		for selected_attribute : String in attributes:
@@ -160,11 +162,11 @@ func set_base_stat(stat : String, value : float):
 	base_stats.set(stat,value + stat_buffer)
 
 func copy_unit_skills_from_class():
-	if unit_class:
-		unit_attack_skill = unit_class.attack_skill_variant
-		unit_defense_skill = unit_class.defense_skill_variant
-		
-		if unit_team == enum_unit_team.ALLY:
+	if unit_team == enum_unit_team.ALLY:
+		if unit_class:
+			unit_attack_skill = unit_class.attack_skill_variant
+			unit_defense_skill = unit_class.defense_skill_variant
+			
 			unit_skill_lines.append(unit_class.bound_skill_line)
 			copy_unit_skills_from_skill_lines()
 

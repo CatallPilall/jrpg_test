@@ -155,6 +155,9 @@ func sort_skill_order_array(a : skill, b : skill):
 
 
 func _end_turn_button_pressed(signal_key : int):
+	
+	queue_enemy_turns()
+	
 	skill_order_array = skill_order_array.filter(func(n): return n != null)
 
 	#for i : skill in item_order_array:
@@ -248,4 +251,39 @@ func _combat_state_changed_via_combat_hud(signal_key : int):
 
 
 func queue_enemy_turns():
-	pass
+	for selected_enemy_unit : unit in enemy_team_reference:
+		var enemy_skill : skill = choose_enemy_skill(selected_enemy_unit)
+		var enemy_skill_primary_targets : Array[unit] = choose_enemy_targets(enemy_skill.primary_skill_targeting)
+		var enemy_skill_secondary_targets : Array[unit] = choose_enemy_targets(enemy_skill.secondary_skill_targeting)
+		
+		make_enemy_skill(selected_enemy_unit, enemy_skill, enemy_skill_primary_targets, enemy_skill_secondary_targets)
+
+
+func choose_enemy_skill(enemy_unit : unit) -> skill:
+	var enemy_selected_skill : skill = null
+	for ai_decision : ai_action_decision in enemy_unit.ai_skills_and_decisions:
+		ConsoleLog.DEBUG(str(enemy_unit) + " has a decision to make")
+		if ai_decision.made_decision():
+			enemy_selected_skill = ai_decision.bound_skill.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
+			ConsoleLog.DEBUG("decision is made: " + str(enemy_selected_skill))
+			return enemy_selected_skill
+	
+	ConsoleLog.ERROR("Enemy has no skill to choose")
+	return null
+
+
+
+func choose_enemy_targets(enemy_skill : skill.enum_skill_targeting) -> Array[unit]:
+	match enemy_skill:
+		skill.enum_skill_targeting.SINGLE_ENEMY:
+			return [combat_team_reference[0]]
+	
+	return []
+
+
+
+func make_enemy_skill(enemy_unit : unit ,enemy_skill : skill, primary_targets : Array[unit], secondary_targets : Array[unit]):
+	
+	enemy_skill.set_caster_and_targets(enemy_unit, primary_targets, secondary_targets)
+	queue_skill(enemy_skill)
+	

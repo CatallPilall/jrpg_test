@@ -15,7 +15,7 @@ enum enum_buff_type {NONE,WEAPON,BODY,AURA,BLESSING,STANCE,CURSE}
 @export var buff_type : enum_buff_type
 
 enum enum_stat_buff {
-	NONE,PHYS_ATK,PHYS_DEF,MAGIC_ATK,MAGIC_DEF,SPEED,ACCURACY,EVASION,CRIT_CHANCE,
+	NONE,HEALTH_POINTS,PHYS_ATK,PHYS_DEF,MAGIC_ATK,MAGIC_DEF,SPEED,ACCURACY,EVASION,CRIT_CHANCE,
 	PIERCE_RES,SLASH_RES,BLUD_RES,FIRE_RES,ELEC_RES,ICE_RES,DAMAGE_RES,
 	CC_CHANCE,CC_RES,CURSE_CHANCE,CURSE_RES,BLEED_CHANCE,BLEED_RES,POI_CHANCE,POI_RES,
 	BUFF_STRENGTH,HEALING_STRENGTH,LUCKY_CHANCE,
@@ -95,6 +95,8 @@ func get_scaling_stat(caster : bool) -> String:
 	match scaling_stat:
 		enum_stat_buff.NONE:
 			return "null"
+		enum_stat_buff.HEALTH_POINTS:
+			return "health_points"
 		enum_stat_buff.PHYS_ATK:
 			return "phys_atk"
 		enum_stat_buff.PHYS_DEF:
