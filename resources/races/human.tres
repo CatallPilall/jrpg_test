@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="race" format=3 uid="uid://b0pprwmye8ndr"]
 
 [ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="1_tthec"]
+[ext_resource type="Resource" uid="uid://dodh1r0r65xmn" path="res://resources/skills/test_stance_skills/test_block_skill/test_block_skill.tres" id="2_ojrk1"]
 [ext_resource type="Script" uid="uid://cw0geraqpl885" path="res://scripts/resource_scripts/race.gd" id="2_qo0wv"]
 
 [resource]
@@ -31,3 +32,4 @@ innate_stat_boost = Dictionary[String, float]({
 "phys_def": 7.0,
 "speed": 6.0
 })
+innate_skills = Array[ExtResource("1_tthec")]([ExtResource("2_ojrk1")])

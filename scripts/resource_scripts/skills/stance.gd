@@ -22,7 +22,7 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, skill
 				EventBus.connect_function_with_signal(self, _guard_stance_triggered, EventBus.guard_stance_triggered)
 		caster.stance.append(self)
 	
-	if skill_duration == 0:
+	if skill_duration == 0 and base_value > 0:
 		match stance_type:
 			enum_stance_type.BLOCK:
 				EventBus.disconnect_function_with_signal(self, _block_stance_triggered, EventBus.block_stance_triggered)
@@ -63,13 +63,17 @@ func check_cc(caster : unit, relevant_cc : skill.enum_skill_type) -> bool:
 	
 	return can_act
 
-func _block_stance_triggered(target : unit, postmitigated_damage_array : Array[float], signal_key : int):
+func _block_stance_triggered(target : unit, damage_packet : Dictionary[String,float], signal_key : int):
+	ConsoleLog.DEBUG("block entered with target: "+ str(target))
 	if target == stance_target:
-		
+		ConsoleLog.DEBUG("block entered if statement")
 		if check_cc(stance_caster,skill.enum_skill_type.MANOUVRE):
+			ConsoleLog.DEBUG("block not in cc")
 			
-			postmitigated_damage_array[0] = postmitigated_damage_array[0] * 0.5
-			postmitigated_damage_array[1] = postmitigated_damage_array[1] * 0.5
+			damage_packet.set("phys", damage_packet.get("phys") * 0.5)
+			damage_packet.set("elem", damage_packet.get("elem") * 0.5)
+			
+			ConsoleLog.INFO(["new_phys_damage","new_elem_damage"],[damage_packet.get("phys"),damage_packet.get("elem")])
 			
 			base_value = base_value -1
 			if base_value < 1:

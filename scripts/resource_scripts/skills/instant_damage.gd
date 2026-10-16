@@ -1,5 +1,6 @@
 extends skill_fragment
 
+
 var consistent_spell_cast : bool = true
 var spellcast_hit : bool = false
 
@@ -61,18 +62,24 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		
 		var postmitigated_elemental_damage : float = apply_onhit_damage(caster,target,damage_fork,is_crit)
 		
+		var new_damage_packet : Dictionary[String,float] = {
+			"phys" : postmitigated_damage,
+			"elem" : postmitigated_elemental_damage}
+		
+		ConsoleLog.INFO(["postmitigated_damage","postmitigated_elemental_damage"],[new_damage_packet.get("phys"),new_damage_packet.get("elem")])
 		# activate block stance
-		EventBus.emit_signal_with_log(EventBus.block_stance_triggered,[[postmitigated_damage,postmitigated_elemental_damage]])
+		EventBus.emit_signal_with_log(EventBus.block_stance_triggered,[target, new_damage_packet])
+		ConsoleLog.INFO(["postmitigated_damage","postmitigated_elemental_damage"],[new_damage_packet.get("phys"),new_damage_packet.get("elem")])
 		
 		var target_current_health_points : float = target.active_stats.get("health_points")
-		var remaining_target_health : int = roundi(target_current_health_points - postmitigated_damage - postmitigated_elemental_damage)
+		var remaining_target_health : int = roundi(target_current_health_points - new_damage_packet.get("phys") - new_damage_packet.get("elem"))
 		target.active_stats.set("health_points",remaining_target_health)
 		
 		# activate retaliation stance
 		EventBus.emit_signal_with_log(EventBus.retaliate_stance_triggered,[caster,target])
 		
 		ConsoleLog.INFO(["hit_chance","hit","damage_fork","crit_chance","premitigated_damage","postmitigated_damage","elemental_damage","remaining_health"],
-		[hit_chance,hit,damage_fork,crit_chance,premitigated_damage,postmitigated_damage,postmitigated_elemental_damage,remaining_target_health])
+		[hit_chance,hit,damage_fork,crit_chance,premitigated_damage,new_damage_packet.get("phys"),new_damage_packet.get("elem"),remaining_target_health])
 	else:
 		ConsoleLog.DEBUG("missed")
 	

@@ -169,7 +169,11 @@ func copy_unit_skills_from_class():
 			
 			unit_skill_lines.append(unit_class.bound_skill_line)
 			copy_unit_skills_from_skill_lines()
+			copy_unit_innate_skills_from_race()
 
 func copy_unit_skills_from_skill_lines():
 	for selected_skill_line : skill_line in unit_skill_lines:
 		selected_skill_line.add_bound_skills_to_unit(self)
+
+func copy_unit_innate_skills_from_race():
+	unit_skills.append_array(unit_race.innate_skills)

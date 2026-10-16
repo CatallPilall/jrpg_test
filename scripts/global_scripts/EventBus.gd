@@ -86,7 +86,7 @@ signal prepare_scene(called_by : Node, arguments : Array, signal_key : int)
 
 # Signals for skills and relics -------------------------------------------------
 @warning_ignore("unused_signal")
-signal block_stance_triggered(target : unit, postmitigated_damage_array : Array[float], signal_key : int)
+signal block_stance_triggered(target : unit, damage_packet : Dictionary[String, float], signal_key : int)
 @warning_ignore("unused_signal")
 signal parry_stance_triggered(target : unit, activating_skill : skill, signal_key : int)
 @warning_ignore("unused_signal")
@@ -150,7 +150,7 @@ func emit_signal_with_log(signal_to_emit : Signal, args_for_signal : Array = [],
 
 	# var args_with_key : Array = args.duplicate()
 	# args_with_key.append(signal_key)
-
+	
 	if signal_key == -1:
 		signal_key = generate_signal_key()
 
