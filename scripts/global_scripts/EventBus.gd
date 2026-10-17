@@ -9,7 +9,7 @@ func generate_signal_key() -> int:
 @warning_ignore("unused_signal")
 signal display_unit_info(selected_unit : unit, signal_key : int)
 
-# Signals for scenes ------------------------------------------------------
+# Signals for scenes ------------------------------------------------------------
 # LOADED
 # MENU
 # HUD
@@ -76,12 +76,42 @@ signal combat_ended(signal_key : int)
 # -------------------------------------------------------------------------------
 
 
-
+# Signal for Keyboard input -----------------------------------------------------
+@warning_ignore("unused_signal")
+signal interact_pressed(signal_key : int)
 # -------------------------------------------------------------------------------
+
+
+# Signal to play Spatial_Audio_effects ------------------------------------------
+@warning_ignore("unused_signal")
+signal play_spatial_audio_effects(signal_key : int)
+# -------------------------------------------------------------------------------
+
+
+# Signal from Music/SFX-Player --------------------------------------------------
+@warning_ignore("unused_signal")
+signal song_started(signal_key : int)
+@warning_ignore("unused_signal")
+signal song_ended(signal_key : int)
+@warning_ignore("unused_signal")
+signal song_paused(signal_key : int)
+@warning_ignore("unused_signal")
+signal song_resumed(signal_key : int)
+@warning_ignore("unused_signal")
+signal sfx_started(signal_key : int)
+@warning_ignore("unused_signal")
+signal sfx_ended(signal_key : int)
+@warning_ignore("unused_signal")
+signal sfx_paused(signal_key : int)
+@warning_ignore("unused_signal")
+signal sfx_resumed(signal_key : int)
+# -------------------------------------------------------------------------------
+
+
+# Signals for Scene preperation -------------------------------------------------
 @warning_ignore("unused_signal")
 signal prepare_scene(called_by : Node, arguments : Array, signal_key : int)
 # -------------------------------------------------------------------------------
-
 
 
 # Signals for skills and relics -------------------------------------------------
@@ -106,6 +136,7 @@ signal set_current_button_focus(new_button_focus : Button, signal_key : int)
 @warning_ignore("unused_signal")
 signal timer_updated(time_as_string : String, signal_key : int)
 # -------------------------------------------------------------------------------
+
 
 func connect_function_with_signal(called_by : Object, function_to_connect : Callable, signal_connect_to : Signal) -> void:
 	if not function_to_connect.is_valid():
@@ -143,18 +174,24 @@ func disconnect_functions_from_signals(called_by : Object, functions_to_disconne
 		disconnect_function_from_signal(called_by, function_to_disconnect, signal_disconnect_from)
 
 
-func emit_signal_with_log(signal_to_emit : Signal, args_for_signal : Array = [], signal_key : int = -1) -> void:
+func _emit_signal(logging : bool, signal_to_emit : Signal, args_for_signal : Array = [], signal_key : int = -1) -> void:
 	if not signal_to_emit.has_connections():
-		ConsoleLog.WARNING("signal " + signal_to_emit.get_name() + " does not have any connections")
+		if logging:
+			ConsoleLog.WARNING("signal " + signal_to_emit.get_name() + " does not have any connections")
 		return
-
-	# var args_with_key : Array = args.duplicate()
-	# args_with_key.append(signal_key)
 
 	if signal_key == -1:
 		signal_key = generate_signal_key()
 
 	args_for_signal.append(signal_key)
-	ConsoleLog.SIGNAL(signal_to_emit, "emit", signal_key)
-	# signal_to_emit.emit.callv(args_with_key)
+	if logging:
+		ConsoleLog.SIGNAL(signal_to_emit, "emit", signal_key)
 	signal_to_emit.emit.callv(args_for_signal)
+
+
+func emit_signal_with_log(signal_to_emit : Signal, args_for_signal : Array = [], signal_key : int = -1) -> void:
+	_emit_signal(true, signal_to_emit, args_for_signal, signal_key)
+
+
+func emit_signal_no_log(signal_to_emit : Signal, args_for_signal : Array = [], signal_key : int = -1) -> void:
+	_emit_signal(false, signal_to_emit, args_for_signal, signal_key)

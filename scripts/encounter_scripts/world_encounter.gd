@@ -14,6 +14,7 @@ func _ready() -> void:
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	# SceneLoader.process_scene("basic_combat", [], SceneLoader.SCENE_PROCESS_TYPE.LOAD)
+	MusicPlayer.play_sound("combat", 2.5)
 	SceneLoader.process_scene("basic_combat", [world_encounter], SceneLoader.SCENE_PROCESS_TYPE.ACTIVATE)
 	#var new_combat_scene : combat_scene = combat_scene_packed_scene.instantiate()
 	# var loaded_combat_scene = SceneLoader.load_scene(SceneLoader.SCENE_TYPE.COMBAT, -1, 0) as combat_scene
