@@ -1,0 +1,8 @@
+[gd_resource type="Resource" format=3 uid="uid://b1vl7bcn50gyd"]
+
+[ext_resource type="Script" uid="uid://bjs2v35xecel5" path="res://scripts/resource_scripts/skills/stance.gd" id="1_8krqd"]
+
+[resource]
+script = ExtResource("1_8krqd")
+stance_type = 2
+base_value = 1.0

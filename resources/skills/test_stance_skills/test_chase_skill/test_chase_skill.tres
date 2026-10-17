@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://bk7w6aykj3nos"]
+
+[ext_resource type="Resource" uid="uid://cx5uodgexyl7f" path="res://resources/skills/test_stance_skills/test_chase_skill/buff_debuff_fragment.tres" id="1_vxik5"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_5b7ex"]
+
+[resource]
+script = ExtResource("2_5b7ex")
+skill_name = "_test_ Chase"
+primary_skill_targeting = 9
+secondary_skill_targeting = 1
+skill_type = 2
+skill_speed = 7
+skill_duration = 2
+first_skill_fragment = ExtResource("1_vxik5")

@@ -3,6 +3,11 @@
 [ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="1_tthec"]
 [ext_resource type="Resource" uid="uid://dodh1r0r65xmn" path="res://resources/skills/test_stance_skills/test_block_skill/test_block_skill.tres" id="2_ojrk1"]
 [ext_resource type="Script" uid="uid://cw0geraqpl885" path="res://scripts/resource_scripts/race.gd" id="2_qo0wv"]
+[ext_resource type="Resource" uid="uid://brn6g12h1x6d" path="res://resources/skills/test_stance_skills/test_retal_skill/test_retal_skill.tres" id="3_ojrk1"]
+[ext_resource type="Resource" uid="uid://bk7w6aykj3nos" path="res://resources/skills/test_stance_skills/test_chase_skill/test_chase_skill.tres" id="4_yg10q"]
+[ext_resource type="Resource" uid="uid://c6hjaebw348qa" path="res://resources/skills/test_stance_skills/test_guard_skill/test_guard_skill.tres" id="5_ua1nc"]
+[ext_resource type="Resource" uid="uid://c6o04u2ke617e" path="res://resources/skills/test_stance_skills/test_parry_skill/test_parry_skill.tres" id="6_d25js"]
+[ext_resource type="Resource" uid="uid://b6tdobss1pfif" path="res://resources/skills/test_stance_skills/test_counterspell_skill/test_counterspell_skill.tres" id="7_h8sn3"]
 
 [resource]
 script = ExtResource("2_qo0wv")
@@ -32,4 +37,4 @@ innate_stat_boost = Dictionary[String, float]({
 "phys_def": 7.0,
 "speed": 6.0
 })
-innate_skills = Array[ExtResource("1_tthec")]([ExtResource("2_ojrk1")])
+innate_skills = Array[ExtResource("1_tthec")]([ExtResource("2_ojrk1"), ExtResource("3_ojrk1"), ExtResource("4_yg10q"), ExtResource("5_ua1nc"), ExtResource("6_d25js"), ExtResource("7_h8sn3")])

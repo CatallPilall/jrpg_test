@@ -1,0 +1,10 @@
+[gd_resource type="Resource" format=3 uid="uid://c7pb75tbjpxlv"]
+
+[ext_resource type="Resource" uid="uid://o7rv1y57enr7" path="res://resources/skills/test_stance_skills/test_counterspell_skill/stance_fragment.tres" id="1_56w7t"]
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="2_20iix"]
+
+[resource]
+script = ExtResource("2_20iix")
+buff_type = 5
+first_buff = true
+child_skill_fragment = ExtResource("1_56w7t")

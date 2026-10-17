@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3 uid="uid://dcm5vqe6dx5qd"]
+
+[ext_resource type="Resource" uid="uid://b1vl7bcn50gyd" path="res://resources/skills/test_stance_skills/test_parry_skill/stance_fragment.tres" id="1_u2mid"]
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="2_dog4h"]
+
+[resource]
+script = ExtResource("2_dog4h")
+buff_type = 5
+stat_buff = 7
+base_value = 5.0
+child_skill_fragment = ExtResource("1_u2mid")

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ai_action_decision" format=3 uid="uid://duwe75moen04j"]
+
+[ext_resource type="Resource" uid="uid://bpwcy8l3gipva" path="res://resources/skills/test_stance_skills/test_spell/test_spell_skill.tres" id="1_mqo7k"]
+[ext_resource type="Script" uid="uid://clu27iehj1oa8" path="res://scripts/resource_scripts/ai_action_decision.gd" id="2_llj3a"]
+
+[resource]
+script = ExtResource("2_llj3a")
+bound_skill = ExtResource("1_mqo7k")
+chance_to_be_chosen = 100

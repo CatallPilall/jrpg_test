@@ -110,7 +110,7 @@ func _retaliate_stance_triggered(caster : unit, target : unit, signal_key : int)
 				game_class.enum_class_weapon_type.BLUD:
 					class_damage_type = "blud_res"
 			
-			deal_phys_damage(caster,target,class_damage_type)
+			deal_phys_damage(target,caster,class_damage_type)
 			
 			base_value = base_value -1
 			if base_value < 1:
@@ -149,7 +149,7 @@ func _chase_stance_triggered(caster : unit, target : unit, signal_key : int):
 			
 			base_value = base_value -1
 			if base_value < 1:
-				EventBus.disconnect_function_from_signal(self,_retaliate_stance_triggered, EventBus.retaliate_stance_triggered)
+				EventBus.disconnect_function_from_signal(self,_chase_stance_triggered, EventBus.chase_stance_triggered)
 			
 			ConsoleLog.SIGNAL(EventBus.chase_stance_triggered,"processed",signal_key)
 
@@ -183,7 +183,7 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var target_def : float = target.active_stats.get("phys_def")
 		var caster_crit_chance : float = caster.active_stats.get("crit_chance")
 		
-		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_scaling_stat
+		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_stat_scaling
 		var target_scaling : float = caster.active_stats.get(get_scaling_stat(false)) * target_stat_scaling
 		
 		var premitigated_damage : float = (caster_scaling + target_scaling) * (1 + (caster_atk - target_def)/100) * damage_fork
@@ -210,7 +210,7 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var remaining_target_health : int = roundi(target_current_health_points - postmitigated_damage - postmitigated_elemental_damage)
 		target.active_stats.set("health_points",remaining_target_health)
 		
-		ConsoleLog.INFO(["hit_chance","hit","damage_fork","crit_chance","premitigated_damage","postmitigated_damage","elemental_damage","remaining_health"],
+		ConsoleLog.INFO(["hit_chance","hit","damage_fork","crit_chance","is_crit","postmitigated_damage","elemental_damage","remaining_health"],
 		[hit_chance,hit,damage_fork,crit_chance,premitigated_damage,postmitigated_damage,postmitigated_elemental_damage,remaining_target_health])
 	else:
 		ConsoleLog.DEBUG("missed")

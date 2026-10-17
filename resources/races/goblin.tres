@@ -22,3 +22,6 @@ attribute_scaling = Dictionary[String, int]({
 "strength": 2,
 "vitality": 2
 })
+innate_stat_boost = Dictionary[String, float]({
+"fire_affinity": 100.0
+})

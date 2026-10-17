@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://brn6g12h1x6d"]
+
+[ext_resource type="Resource" uid="uid://cxp0de3800daa" path="res://resources/skills/test_stance_skills/test_retal_skill/buff_debuff_fragment.tres" id="1_i6evg"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_hcbil"]
+
+[resource]
+script = ExtResource("2_hcbil")
+skill_name = "_test_ Retaliation"
+primary_skill_targeting = 1
+skill_type = 2
+skill_speed = 9
+skill_duration = 6
+first_skill_fragment = ExtResource("1_i6evg")

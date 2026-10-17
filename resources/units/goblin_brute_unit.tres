@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bhkrh7qiqh1s5" path="res://scripts/resource_scripts/unit.gd" id="1_4r3jm"]
 [ext_resource type="Script" uid="uid://clu27iehj1oa8" path="res://scripts/resource_scripts/ai_action_decision.gd" id="1_s132r"]
 [ext_resource type="Resource" uid="uid://bl6wqcep1rr13" path="res://resources/game_classes/goblin_brute_class.tres" id="2_b7sym"]
+[ext_resource type="Resource" uid="uid://duwe75moen04j" path="res://resources/ai_action_decisions/goblin_spell_decision.tres" id="2_n85fw"]
 [ext_resource type="Resource" uid="uid://hexcjubesjsw" path="res://resources/ai_action_decisions/goblin_attack_decision.tres" id="2_on100"]
 [ext_resource type="Resource" uid="uid://bshui3sh5oeq" path="res://resources/races/goblin.tres" id="3_s132r"]
 
@@ -13,4 +14,4 @@ unit_name = "Goblin Brute"
 unit_team = 1
 unit_race = ExtResource("3_s132r")
 unit_class = ExtResource("2_b7sym")
-ai_skills_and_decisions = Array[ExtResource("1_s132r")]([ExtResource("2_on100")])
+ai_skills_and_decisions = Array[ExtResource("1_s132r")]([ExtResource("2_n85fw"), ExtResource("2_on100")])
