@@ -15,10 +15,10 @@ func _load_sound() -> void:
 func _emit_signal(type_to_emit : PlayerEmitSignalType) -> void:
 	match type_to_emit:
 		PlayerEmitSignalType.STARTED:
-			EventBus.emit_signal_with_log(EventBus.song_started)
+			EventBus.emit_signal_log(EventBus.song_started)
 		PlayerEmitSignalType.ENDED:
-			EventBus.emit_signal_with_log(EventBus.song_ended)
+			EventBus.emit_signal_log(EventBus.song_ended)
 		PlayerEmitSignalType.PAUSED:
-			EventBus.emit_signal_with_log(EventBus.song_paused)
+			EventBus.emit_signal_log(EventBus.song_paused)
 		PlayerEmitSignalType.RESUMED:
-			EventBus.emit_signal_with_log(EventBus.song_resumed)
+			EventBus.emit_signal_log(EventBus.song_resumed)

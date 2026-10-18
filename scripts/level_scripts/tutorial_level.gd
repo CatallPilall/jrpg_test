@@ -60,7 +60,7 @@ func _on_interact_pressed(_signal_key : int) -> void:
 	ConsoleLog.DEBUG("Interact pressed in tutorial_level.gd")
 	if player_in_range:
 		ConsoleLog.DEBUG("Interacted with this specific Area2D!")
-		EventBus.emit_signal_with_log(EventBus.play_spatial_audio_effects)
+		EventBus.emit_signal_log(EventBus.play_spatial_audio_effects)
 
 
 

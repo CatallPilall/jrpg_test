@@ -75,7 +75,7 @@ func _scene_activation(scene_data : SceneData, activate: bool, arguments : Array
 	scene_db.set_scenedata_activation_by_name(scene_data.scene_name, activate)
 
 	if activate:
-		EventBus.emit_signal_with_log(EventBus.prepare_scene, [scene_data.instantiated_node, arguments])
+		EventBus.emit_signal_log(EventBus.prepare_scene, [scene_data.instantiated_node, arguments])
 		scene_types_main_nodes[scene_data.is_scene_type].add_child.call_deferred(scene_data.instantiated_node)
 	else:
 		scene_types_main_nodes[scene_data.is_scene_type].remove_child.call_deferred(scene_data.instantiated_node)

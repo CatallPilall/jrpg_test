@@ -36,4 +36,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		pause_toggled = false
 	elif event.is_action_pressed("interact"):
 		ConsoleLog.INPUT("interact", "pressed", [])
-		EventBus.emit_signal_with_log(EventBus.interact_pressed)
+		EventBus.emit_signal_log(EventBus.interact_pressed)

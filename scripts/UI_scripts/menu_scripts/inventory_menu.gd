@@ -38,7 +38,7 @@ func _ready() -> void:
 	item_button.grab_focus.call_deferred()
 	return_chain.append(exit_button)
 	fill_character_container()
-	#EventBus.emit_signal_with_log(EventBus.inventory_menu_has_loaded, [self, null])
+	#EventBus.emit_signal_log(EventBus.inventory_menu_has_loaded, [self, null])
 
 
 func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
@@ -195,7 +195,7 @@ func make_formation():
 # 		ConsoleLog.SIGNAL(self,"set_current_button_focus","disconnected",0)
 
 # Auch habe ich etwas die Signale angepasst, also das aufrufen von denen:
-# diese werden immer automatisch geloggt, wenn man die Funktion EventBus.emit_signal_with_log() benutzt.
+# diese werden immer automatisch geloggt, wenn man die Funktion EventBus.emit_signal_log() benutzt.
 # Somit muss man nicht mehr in jedem script die Signale loggen.
 
 # Auch habe ich das ConsoleLog angepasst. Man muss jetzt nicht mehr script und zeile angeben, da diese automatisch im logger erkannt

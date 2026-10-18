@@ -35,7 +35,7 @@ func _ready() -> void:
 	combat_state = combat_state_machine.FIRST_CHARACTER
 
 	# Siehe Kommentar in _combat_hud_has_loaded() -> das signal wird emitted bevor überhaupt das combat gestartet hat
-	EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
+	EventBus.emit_signal_log(EventBus.new_selected_unit, [selected_unit])
 
 
 func _clean_up_skill(skill_to_clean : skill, signal_key : int):
@@ -50,7 +50,7 @@ func _combat_hud_has_loaded(_called_by : Node, signal_key : int):
 	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
 	#
-	# EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
+	# EventBus.emit_signal_log(EventBus.new_selected_unit, [selected_unit])
 	# ConsoleLog.SIGNAL(EventBus.combat_hud_has_loaded, "processed", signal_key)
 	pass
 
@@ -59,7 +59,7 @@ func store_combat_team_locally():
 	combat_team_reference = TeamRoster.combat_team
 	for i in combat_team_reference.size():
 		item_usage_array.append(false)
-	
+
 	selected_unit_array_position = 0
 	new_unit_selected()
 
@@ -68,12 +68,12 @@ func new_unit_selected():
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"new_selected_unit","emit",new_signal_key)
 	# EventBus.new_selected_unit.emit(selected_unit,new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.new_selected_unit, [selected_unit])
+	EventBus.emit_signal_log(EventBus.new_selected_unit, [selected_unit])
 
 	# new_signal_key = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
 	# EventBus.disable_item_button.emit(item_usage_array[selected_unit_array_position],new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.disable_item_button, [item_usage_array[selected_unit_array_position]])
+	EventBus.emit_signal_log(EventBus.disable_item_button, [item_usage_array[selected_unit_array_position]])
 
 
 func _skill_button_pressed(new_skill : skill, signal_key : int):
@@ -82,7 +82,7 @@ func _skill_button_pressed(new_skill : skill, signal_key : int):
 
 	combat_state = combat_state_machine.SKILL_SELECTED
 	ConsoleLog.INFO(["selected_skill","selected_unit"], [selected_skill,selected_unit])
-	EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, selected_unit])
+	EventBus.emit_signal_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, selected_unit])
 	ConsoleLog.SIGNAL(EventBus.skill_button_pressed, "processed", signal_key)
 
 
@@ -91,7 +91,7 @@ func _item_button_pressed(_pressed_item : item, signal_key : int):
 	# var item_skill : skill = selected_item.item_skill
 	# combat_state = combat_state_machine.ITEM_SELECTED
 	# ConsoleLog.INFO(self,["selected_skill","selected_unit"],[item_skill,selected_unit])
-	# EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [item_skill.skill_targeting])
+	# EventBus.emit_signal_log(EventBus.apply_skill_targeting, [item_skill.skill_targeting])
 	ConsoleLog.SIGNAL(EventBus.item_button_pressed, "processed", signal_key)
 
 
@@ -111,12 +111,12 @@ func _unit_targets_selected(selected_targets : Array[unit], secondary_targets : 
 		# var new_signal_key : int = EventBus.generate_signal_key()
 		# ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
 		# EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
+		EventBus.emit_signal_log(EventBus.remove_combat_hud_skill_buttons)
 
 		# new_signal_key = EventBus.generate_signal_key()
 		# ConsoleLog.SIGNAL(self,"disable_item_button","emit",new_signal_key)
 		# EventBus.disable_item_button.emit(true,new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.disable_item_button, [true])
+		EventBus.emit_signal_log(EventBus.disable_item_button, [true])
 
 	ConsoleLog.SIGNAL(EventBus.unit_targets_selected, "processed", signal_key)
 
@@ -124,18 +124,18 @@ func cycle_ally_unit():
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
 	# EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
+	EventBus.emit_signal_log(EventBus.remove_combat_hud_skill_buttons)
 
 	# new_signal_key = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 	# EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [skill.enum_skill_targeting.NONE, skill.enum_skill_targeting.NONE, null])
+	EventBus.emit_signal_log(EventBus.apply_skill_targeting, [skill.enum_skill_targeting.NONE, skill.enum_skill_targeting.NONE, null])
 
 	if selected_unit_array_position == TeamRoster.combat_team.size()-1:
 		# new_signal_key = EventBus.generate_signal_key()
 		# ConsoleLog.SIGNAL(self,"disable_combat_hud_actions","emit",new_signal_key)
 		# EventBus.disable_combat_hud_actions.emit(new_signal_key)
-		EventBus.emit_signal_with_log(EventBus.disable_combat_hud_actions)
+		EventBus.emit_signal_log(EventBus.disable_combat_hud_actions)
 
 		combat_state = combat_state_machine.LAST_CHARACTER
 	else:
@@ -155,9 +155,9 @@ func sort_skill_order_array(a : skill, b : skill):
 
 
 func _end_turn_button_pressed(signal_key : int):
-	
+
 	queue_enemy_turns()
-	
+
 	skill_order_array = skill_order_array.filter(func(n): return n != null)
 
 	#for i : skill in item_order_array:
@@ -171,7 +171,7 @@ func _end_turn_button_pressed(signal_key : int):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"combat_turn_ended","emit",new_signal_key)
 	# EventBus.combat_turn_ended.emit(new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.combat_turn_ended)
+	EventBus.emit_signal_log(EventBus.combat_turn_ended)
 
 	start_new_turn()
 	ConsoleLog.SIGNAL(EventBus.end_turn_button_pressed, "processed", signal_key)
@@ -183,7 +183,7 @@ func start_new_turn():
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
 	# EventBus.enable_combat_hud_actions.emit(new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.enable_combat_hud_actions)
+	EventBus.emit_signal_log(EventBus.enable_combat_hud_actions)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("right_click"):
@@ -203,7 +203,7 @@ func undo_last_action():
 			# var new_signal_key :int = EventBus.generate_signal_key()
 			# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 			# EventBus.apply_skill_targeting.emit(skill.enum_skill_targeting.NONE,skill.enum_skill_targeting.NONE,null,new_signal_key)
-			EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [skill.enum_skill_targeting.NONE, skill.enum_skill_targeting.NONE, null])
+			EventBus.emit_signal_log(EventBus.apply_skill_targeting, [skill.enum_skill_targeting.NONE, skill.enum_skill_targeting.NONE, null])
 
 		combat_state_machine.CHARACTER_SELECTED:
 			selected_unit_array_position -= 1
@@ -214,20 +214,20 @@ func undo_last_action():
 			# var new_signal_key :int = EventBus.generate_signal_key()
 			# ConsoleLog.SIGNAL(self,"apply_skill_targeting","emit",new_signal_key)
 			# EventBus.apply_skill_targeting.emit(selected_skill.primary_skill_targeting,selected_skill.secondary_skill_targeting,null,new_signal_key)
-			EventBus.emit_signal_with_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, null])
+			EventBus.emit_signal_log(EventBus.apply_skill_targeting, [selected_skill.primary_skill_targeting, selected_skill.secondary_skill_targeting, null])
 
 		combat_state_machine.LAST_CHARACTER:
 			selected_skill = skill_order_array.pop_back()
 			# var new_signal_key : int = EventBus.generate_signal_key()
 			# ConsoleLog.SIGNAL(self,"enable_combat_hud_actions","emit",new_signal_key)
 			# EventBus.enable_combat_hud_actions.emit(new_signal_key)
-			EventBus.emit_signal_with_log(EventBus.enable_combat_hud_actions)
+			EventBus.emit_signal_log(EventBus.enable_combat_hud_actions)
 			combat_state = combat_state_machine.SKILL_SELECTED
 		combat_state_machine.SKILL_PENDING:
 			# var new_signal_key : int = EventBus.generate_signal_key()
 			# ConsoleLog.SIGNAL(self,"remove_combat_hud_skill_buttons","emit",new_signal_key)
 			# EventBus.remove_combat_hud_skill_buttons.emit(new_signal_key)
-			EventBus.emit_signal_with_log(EventBus.remove_combat_hud_skill_buttons)
+			EventBus.emit_signal_log(EventBus.remove_combat_hud_skill_buttons)
 			if selected_unit_array_position == 0:
 				combat_state = combat_state_machine.FIRST_CHARACTER
 			else:
@@ -255,7 +255,7 @@ func queue_enemy_turns():
 		var enemy_skill : skill = choose_enemy_skill(selected_enemy_unit)
 		var enemy_skill_primary_targets : Array[unit] = choose_enemy_targets(enemy_skill.primary_skill_targeting)
 		var enemy_skill_secondary_targets : Array[unit] = choose_enemy_targets(enemy_skill.secondary_skill_targeting)
-		
+
 		make_enemy_skill(selected_enemy_unit, enemy_skill, enemy_skill_primary_targets, enemy_skill_secondary_targets)
 
 
@@ -267,7 +267,7 @@ func choose_enemy_skill(enemy_unit : unit) -> skill:
 			enemy_selected_skill = ai_decision.bound_skill.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 			ConsoleLog.DEBUG("decision is made: " + str(enemy_selected_skill))
 			return enemy_selected_skill
-	
+
 	ConsoleLog.ERROR("Enemy has no skill to choose")
 	return null
 
@@ -277,13 +277,12 @@ func choose_enemy_targets(enemy_skill : skill.enum_skill_targeting) -> Array[uni
 	match enemy_skill:
 		skill.enum_skill_targeting.SINGLE_ENEMY:
 			return [combat_team_reference[0]]
-	
+
 	return []
 
 
 
 func make_enemy_skill(enemy_unit : unit ,enemy_skill : skill, primary_targets : Array[unit], secondary_targets : Array[unit]):
-	
+
 	enemy_skill.set_caster_and_targets(enemy_unit, primary_targets, secondary_targets)
 	queue_skill(enemy_skill)
-	

@@ -21,7 +21,7 @@ func _ready() -> void:
 	# ConsoleLog.SIGNAL(self,"set_current_button_focus","emit",new_signal_key)
 	# EventBus.set_current_button_focus.emit(team_captain_button,new_signal_key)
 
-	EventBus.emit_signal_with_log(EventBus.set_current_button_focus, [team_captain_button])
+	EventBus.emit_signal_log(EventBus.set_current_button_focus, [team_captain_button])
 
 	team_captain_button.grab_focus.call_deferred()
 

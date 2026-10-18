@@ -41,7 +41,7 @@ func set_caster_and_targets(new_caster : unit, new_primary_targets : Array[unit]
 
 func execute_skill():
 	ConsoleLog.DEBUG("execute skill with targets: " + str(primary_targets) + " " + str(secondary_targets))
-	
+
 	if turn_one or is_channel:
 		if check_caster_cc():
 			pass
@@ -49,47 +49,47 @@ func execute_skill():
 			ConsoleLog.DEBUG("caster is cc'd, skill is interrupted")
 			prepare_skill_for_deletion()
 			return
-		
+
 		#activate guard stance
-		EventBus.emit_signal_with_log(EventBus.guard_stance_triggered,[primary_targets])
-	
+		EventBus.emit_signal_log(EventBus.guard_stance_triggered,[primary_targets])
+
 	# activate counterspell stance
 	if skill_type == enum_skill_type.SPELL:
-		EventBus.emit_signal_with_log(EventBus.counterspell_stance_triggered,[caster,self])
-	
+		EventBus.emit_signal_log(EventBus.counterspell_stance_triggered,[caster,self])
+
 	for selected_target : unit in primary_targets:
 		# activate parry stance
 		if skill_type == enum_skill_type.ATTACK:
-			EventBus.emit_signal_with_log(EventBus.parry_stance_triggered,[selected_target,self])
+			EventBus.emit_signal_log(EventBus.parry_stance_triggered,[selected_target,self])
 			if primary_targets.is_empty():
 				return
-	
-	
+
+
 	first_skill_fragment.iterate_through_skill_fragments(caster,primary_targets,secondary_targets,turn_one,skill_duration)
-	
+
 	turn_one = false
 	if skill_duration == 0:
 		prepare_skill_for_deletion()
 	else:
 		skill_duration = skill_duration -1
-		
+
 		if primary_targets.is_empty() and secondary_targets.is_empty():
 			prepare_skill_for_deletion()
-	
-	
+
+
 	ConsoleLog.DEBUG("skill_duration: "+ str(skill_duration))
 
 
 func check_caster_cc() -> bool:
 	var cc_check : bool = true
-	
+
 	var is_disarmed : bool = caster.disarm.size()
 	var is_silenced : bool = caster.silence.size()
 	var is_rooted : bool = caster.root.size()
 	var is_sleeping : bool = caster.sleep.size()
 	var is_stunned : bool = caster.stun.size()
 	var is_paralyzed : bool = caster.paralyze.size()
-	
+
 	match skill_type:
 		enum_skill_type.ATTACK:
 			if is_disarmed or is_sleeping or is_stunned or is_paralyzed:
@@ -103,7 +103,7 @@ func check_caster_cc() -> bool:
 		enum_skill_type.SPECIAL:
 			if is_paralyzed:
 				cc_check = false
-	
+
 	return cc_check
 
 func prepare_skill_for_deletion():
@@ -122,6 +122,6 @@ func _combat_turn_ended(signal_key : int):
 	# ConsoleLog.SIGNAL(self,"clean_up_skill","emit",new_signal_key)
 	# EventBus.clean_up_skill.emit(self,new_signal_key)
 
-	EventBus.emit_signal_with_log(EventBus.clean_up_skill, [self])
+	EventBus.emit_signal_log(EventBus.clean_up_skill, [self])
 
 	ConsoleLog.SIGNAL(EventBus.combat_turn_ended, "processed", signal_key)
