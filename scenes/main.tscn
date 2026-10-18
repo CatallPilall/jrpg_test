@@ -14,3 +14,9 @@ script = ExtResource("1_o5qli")
 [node name="level_scenes" type="Node" parent="." unique_id=1357924759]
 
 [node name="combat_scenes" type="Node" parent="." unique_id=364705881]
+
+[node name="bgm_player" type="AudioStreamPlayer" parent="." unique_id=133829522]
+bus = &"Music"
+
+[node name="action_sfx_player" type="AudioStreamPlayer" parent="." unique_id=569878313]
+bus = &"SFX"

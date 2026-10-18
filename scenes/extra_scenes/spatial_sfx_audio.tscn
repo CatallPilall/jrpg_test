@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cywclmxjkemd0"]
+
+[ext_resource type="Script" uid="uid://bsf6tpntwbfnl" path="res://scripts/extra_scripts/spatial_sfx_audio.gd" id="1_8lfju"]
+
+[node name="spatial_sfx_audio" type="Node2D" unique_id=548412364]
+script = ExtResource("1_8lfju")
+
+[node name="spatial_player" type="AudioStreamPlayer2D" parent="." unique_id=1715497950]

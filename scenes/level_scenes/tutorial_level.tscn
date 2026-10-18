@@ -5,6 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://bp533jpxebcw2" path="res://scenes/encounter_scenes/world_encounter.tscn" id="3_o4wvv"]
 [ext_resource type="Texture2D" uid="uid://dfbchf70wjc6s" path="res://assets/portraits/place_holder_portrait.png" id="5_dxlpm"]
 [ext_resource type="Resource" uid="uid://ce1icev426vjh" path="res://resources/encounter/goblin_gang_encounter.tres" id="5_hrdtw"]
+[ext_resource type="PackedScene" uid="uid://cywclmxjkemd0" path="res://scenes/extra_scenes/spatial_sfx_audio.tscn" id="5_o4wvv"]
+[ext_resource type="AudioStream" uid="uid://cwqqx5twgjnuw" path="res://audio/effects/knock.wav" id="6_hrdtw"]
+[ext_resource type="Texture2D" uid="uid://cl17uedolnsc7" path="res://assets/portraits/place_holder_lul.png" id="8_703ga"]
+[ext_resource type="AudioStream" uid="uid://bptsbm0a3y4oj" path="res://audio/effects/effects6.wav" id="9_7grsw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xnydk"]
 texture = ExtResource("2_sjj8o")
@@ -2618,6 +2622,9 @@ point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oq8uu"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_osore"]
+radius = 20.22375
+
 [node name="tutorial_level" type="Node2D" unique_id=1160916508]
 script = ExtResource("1_dxlpm")
 
@@ -2653,6 +2660,14 @@ loop = false
 
 [node name="world_encounter3" parent="Path2D/PathFollow2D" unique_id=1170504980 instance=ExtResource("3_o4wvv")]
 
+[node name="spatial_sfx_audio" parent="Path2D/PathFollow2D/world_encounter3" unique_id=548412364 instance=ExtResource("5_o4wvv")]
+sound_effects = Array[AudioStream]([ExtResource("6_hrdtw")])
+loop_audio_effects = true
+autoplay_on_ready = true
+randomness_of_pitch_value = 12.0
+bus = 2
+distance_max_pixel = 164.0
+
 [node name="enter_other_level" type="Node2D" parent="." unique_id=223705208]
 position = Vector2(498, 492)
 
@@ -2673,4 +2688,41 @@ text = "Enter Other Level"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enter_other_level/Area2D" unique_id=739638261]
 shape = SubResource("CircleShape2D_oq8uu")
 
+[node name="funny_test" type="Node2D" parent="." unique_id=2062153372]
+position = Vector2(423, 432)
+
+[node name="Sprite2D" type="Sprite2D" parent="funny_test" unique_id=1789161510]
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("8_703ga")
+
+[node name="Label" type="Label" parent="funny_test" unique_id=1081920719]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -92.0
+offset_top = -38.0
+offset_right = 93.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press \"E\" for interaction"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spatial_sfx_audio" parent="funny_test" unique_id=1691799845 instance=ExtResource("5_o4wvv")]
+sound_effects = Array[AudioStream]([ExtResource("9_7grsw")])
+play_on_signal = true
+randomness_of_pitch = 0.0
+randomness_of_pitch_value = 0.0
+bus = 3
+distance_max_pixel = 300.0
+
+[node name="Area2D" type="Area2D" parent="funny_test" unique_id=189206656]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="funny_test/Area2D" unique_id=657546965]
+shape = SubResource("CircleShape2D_osore")
+
 [connection signal="area_entered" from="enter_other_level/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="funny_test/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="funny_test/Area2D" to="." method="_on_area_2d_body_exited"]

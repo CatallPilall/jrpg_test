@@ -30,6 +30,7 @@ func _on_brunhilde_button_pressed() -> void:
 
 
 	SceneLoader.process_active_scene(SceneDB.SCENE_TYPE.MENU, [], SceneLoader.SCENE_PROCESS_TYPE.DEACTIVATE)
+	MusicPlayer.play_sound("ambient_7", 2.5)
 	SceneLoader.process_scene("tutorial_level", [], SceneLoader.SCENE_PROCESS_TYPE.ACTIVATE)
 	# SceneLoader.load_scene(self, "tutorial_level")
 	# SceneLoader.activate_scene(self, "tutorial_level")
