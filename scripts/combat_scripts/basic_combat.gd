@@ -73,7 +73,7 @@ func _ready() -> void:
 
 	copy_combat_team_locally()
 	give_combat_manager_enemies()
-	
+
 	_connect_signals()
 
 	load_ally_sprites()
@@ -477,7 +477,7 @@ func _unit_left_clicked(selected_unit : unit):
 	var new_targets : Array[unit]
 	new_targets.append(selected_unit)
 	# EventBus.unit_targets_selected.emit(new_targets,secondary_targets,new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.unit_targets_selected, [new_targets, secondary_targets])
+	EventBus.emit_signal_log(EventBus.unit_targets_selected, [new_targets, secondary_targets])
 
 func _on_ally_one_area_2d_mouse_entered() -> void:
 	_unit_hovered(ally_team[0])
@@ -490,7 +490,7 @@ func _unit_hovered(hovered_unit : unit):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"display_unit_info","emit",new_signal_key)
 	# EventBus.display_unit_info.emit(hovered_unit,new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.display_unit_info, [hovered_unit])
+	EventBus.emit_signal_log(EventBus.display_unit_info, [hovered_unit])
 
 
 func _on_enemy_two_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -592,7 +592,7 @@ func interpret_complex_targeting(targeted_units : Array[unit]):
 	# var new_signal_key : int = EventBus.generate_signal_key()
 	# ConsoleLog.SIGNAL(self,"unit_targets_selected","emit",new_signal_key)
 	# EventBus.unit_targets_selected.emit(new_targets,secondary_targets,new_signal_key)
-	EventBus.emit_signal_with_log(EventBus.unit_targets_selected, [new_targets, secondary_targets])
+	EventBus.emit_signal_log(EventBus.unit_targets_selected, [new_targets, secondary_targets])
 
 func _on_enemy_team_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("left_click"):
