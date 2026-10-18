@@ -20,8 +20,9 @@ func execute_skill_fragment(caster : unit, target : unit, turn_one : bool, skill
 				EventBus.connect_function_with_signal(self, _chase_stance_triggered, EventBus.chase_stance_triggered)
 			enum_stance_type.GUARD:
 				EventBus.connect_function_with_signal(self, _guard_stance_triggered, EventBus.guard_stance_triggered)
+		caster.stance.append(self)
 	
-	if skill_duration == 0:
+	if skill_duration == 0 and base_value > 0:
 		match stance_type:
 			enum_stance_type.BLOCK:
 				EventBus.disconnect_function_with_signal(self, _block_stance_triggered, EventBus.block_stance_triggered)
@@ -62,13 +63,17 @@ func check_cc(caster : unit, relevant_cc : skill.enum_skill_type) -> bool:
 	
 	return can_act
 
-func _block_stance_triggered(target : unit, postmitigated_damage_array : Array[float], signal_key : int):
+func _block_stance_triggered(target : unit, damage_packet : Dictionary[String,float], signal_key : int):
+	ConsoleLog.DEBUG("block entered with target: "+ str(target))
 	if target == stance_target:
-		
+		ConsoleLog.DEBUG("block entered if statement")
 		if check_cc(stance_caster,skill.enum_skill_type.MANOUVRE):
+			ConsoleLog.DEBUG("block not in cc")
 			
-			postmitigated_damage_array[0] = postmitigated_damage_array[0] * 0.5
-			postmitigated_damage_array[1] = postmitigated_damage_array[1] * 0.5
+			damage_packet.set("phys", damage_packet.get("phys") * 0.5)
+			damage_packet.set("elem", damage_packet.get("elem") * 0.5)
+			
+			ConsoleLog.INFO(["new_phys_damage","new_elem_damage"],[damage_packet.get("phys"),damage_packet.get("elem")])
 			
 			base_value = base_value -1
 			if base_value < 1:
@@ -105,7 +110,7 @@ func _retaliate_stance_triggered(caster : unit, target : unit, signal_key : int)
 				game_class.enum_class_weapon_type.BLUD:
 					class_damage_type = "blud_res"
 			
-			deal_phys_damage(caster,target,class_damage_type)
+			deal_phys_damage(target,caster,class_damage_type)
 			
 			base_value = base_value -1
 			if base_value < 1:
@@ -144,7 +149,7 @@ func _chase_stance_triggered(caster : unit, target : unit, signal_key : int):
 			
 			base_value = base_value -1
 			if base_value < 1:
-				EventBus.disconnect_function_from_signal(self,_retaliate_stance_triggered, EventBus.retaliate_stance_triggered)
+				EventBus.disconnect_function_from_signal(self,_chase_stance_triggered, EventBus.chase_stance_triggered)
 			
 			ConsoleLog.SIGNAL(EventBus.chase_stance_triggered,"processed",signal_key)
 
@@ -178,7 +183,10 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var target_def : float = target.active_stats.get("phys_def")
 		var caster_crit_chance : float = caster.active_stats.get("crit_chance")
 		
-		var premitigated_damage : float = base_value * (1 + (caster_atk - target_def)/100) * damage_fork
+		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_stat_scaling
+		var target_scaling : float = caster.active_stats.get(get_scaling_stat(false)) * target_stat_scaling
+		
+		var premitigated_damage : float = (caster_scaling + target_scaling) * (1 + (caster_atk - target_def)/100) * damage_fork
 		if premitigated_damage < 2:
 			premitigated_damage = 2
 		
@@ -202,7 +210,7 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var remaining_target_health : int = roundi(target_current_health_points - postmitigated_damage - postmitigated_elemental_damage)
 		target.active_stats.set("health_points",remaining_target_health)
 		
-		ConsoleLog.INFO(["hit_chance","hit","damage_fork","crit_chance","premitigated_damage","postmitigated_damage","elemental_damage","remaining_health"],
+		ConsoleLog.INFO(["hit_chance","hit","damage_fork","crit_chance","is_crit","postmitigated_damage","elemental_damage","remaining_health"],
 		[hit_chance,hit,damage_fork,crit_chance,premitigated_damage,postmitigated_damage,postmitigated_elemental_damage,remaining_target_health])
 	else:
 		ConsoleLog.DEBUG("missed")
@@ -236,3 +244,18 @@ func calculate_magic_onhit_damage(elemental_atk : float, target : unit, elementa
 		return postmitigated_elemental_damage
 	else:
 		return 0
+
+func reverse_buff(_caster : unit, _target : unit):
+	match stance_type:
+		enum_stance_type.BLOCK:
+			EventBus.disconnect_function_with_signal(self, _block_stance_triggered, EventBus.block_stance_triggered)
+		enum_stance_type.PARRY:
+			EventBus.disconnect_function_with_signal(self, _parry_stance_triggered, EventBus.parry_stance_triggered)
+		enum_stance_type.RETALIATE:
+			EventBus.disconnect_function_with_signal(self, _retaliate_stance_triggered, EventBus.retaliate_stance_triggered)
+		enum_stance_type.COUNTERSPELL:
+			EventBus.disconnect_function_with_signal(self, _counterspell_stance_triggered, EventBus.counterspell_stance_triggered)
+		enum_stance_type.CHASE:
+			EventBus.disconnect_function_with_signal(self, _chase_stance_triggered, EventBus.chase_stance_triggered)
+		enum_stance_type.GUARD:
+			EventBus.disconnect_function_with_signal(self, _guard_stance_triggered, EventBus.guard_stance_triggered)

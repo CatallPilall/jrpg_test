@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://c6hjaebw348qa"]
+
+[ext_resource type="Resource" uid="uid://b5rrhbwj8y5pm" path="res://resources/skills/test_stance_skills/test_guard_skill/buff_debuff_fragment.tres" id="1_4ik1o"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_ppmjw"]
+
+[resource]
+script = ExtResource("2_ppmjw")
+skill_name = "_test_ Guard"
+primary_skill_targeting = 9
+secondary_skill_targeting = 1
+skill_speed = 9
+skill_duration = 2
+first_skill_fragment = ExtResource("1_4ik1o")

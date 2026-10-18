@@ -34,6 +34,7 @@ var attributes : Dictionary[String,int] = {
 }
 
 var base_stats : Dictionary[String,float] = {
+	"null" : 0,
 	"health_points":0,
 	"phys_atk":0,
 	"phys_def":0,
@@ -105,6 +106,8 @@ var unit_attack_skill : skill
 var unit_defense_skill : skill
 var unit_skills : Array[skill]
 
+@export var ai_skills_and_decisions : Array[ai_action_decision]
+
 func set_unit_attributes():
 	if unit_class and unit_race:
 		for selected_attribute : String in attributes:
@@ -159,13 +162,18 @@ func set_base_stat(stat : String, value : float):
 	base_stats.set(stat,value + stat_buffer)
 
 func copy_unit_skills_from_class():
-	if unit_class:
-		unit_attack_skill = unit_class.attack_skill_variant
-		unit_defense_skill = unit_class.defense_skill_variant
-		
-		unit_skill_lines.append(unit_class.bound_skill_line)
-		copy_unit_skills_from_skill_lines()
+	if unit_team == enum_unit_team.ALLY:
+		if unit_class:
+			unit_attack_skill = unit_class.attack_skill_variant
+			unit_defense_skill = unit_class.defense_skill_variant
+			
+			unit_skill_lines.append(unit_class.bound_skill_line)
+			copy_unit_skills_from_skill_lines()
+			copy_unit_innate_skills_from_race()
 
 func copy_unit_skills_from_skill_lines():
 	for selected_skill_line : skill_line in unit_skill_lines:
 		selected_skill_line.add_bound_skills_to_unit(self)
+
+func copy_unit_innate_skills_from_race():
+	unit_skills.append_array(unit_race.innate_skills)

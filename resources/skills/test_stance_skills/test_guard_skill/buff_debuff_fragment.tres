@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://b5rrhbwj8y5pm"]
+
+[ext_resource type="Resource" uid="uid://d35i58kyg6tb" path="res://resources/skills/test_stance_skills/test_guard_skill/stance_fragment.tres" id="1_5doe4"]
+[ext_resource type="Script" uid="uid://c52e3jvwsdiyf" path="res://scripts/resource_scripts/skills/buff_debuff.gd" id="2_mpgh8"]
+
+[resource]
+script = ExtResource("2_mpgh8")
+targeting = 1
+buff_type = 5
+stat_buff = 3
+first_buff = true
+base_value = 5.0
+child_skill_fragment = ExtResource("1_5doe4")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://c6o04u2ke617e"]
+
+[ext_resource type="Resource" uid="uid://dcm5vqe6dx5qd" path="res://resources/skills/test_stance_skills/test_parry_skill/buff_debuff_fragment.tres" id="1_r3pnk"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_u1pjh"]
+
+[resource]
+script = ExtResource("2_u1pjh")
+skill_name = "_test_ Parry"
+primary_skill_targeting = 1
+skill_type = 2
+skill_speed = 8
+skill_duration = 2
+first_skill_fragment = ExtResource("1_r3pnk")

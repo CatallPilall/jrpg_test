@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://b6tdobss1pfif"]
+
+[ext_resource type="Resource" uid="uid://c7pb75tbjpxlv" path="res://resources/skills/test_stance_skills/test_counterspell_skill/buff_debuff_fragment.tres" id="1_wbd0a"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_caanh"]
+
+[resource]
+script = ExtResource("2_caanh")
+skill_name = "_test_ Counterspell"
+primary_skill_targeting = 1
+skill_type = 2
+skill_speed = 8
+skill_duration = 1
+first_skill_fragment = ExtResource("1_wbd0a")

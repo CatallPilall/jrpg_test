@@ -1,5 +1,6 @@
 extends skill_fragment
 
+
 var consistent_spell_cast : bool = true
 var spellcast_hit : bool = false
 
@@ -39,7 +40,10 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		var target_def : float = target.active_stats.get("phys_def")
 		var caster_crit_chance : float = caster.active_stats.get("crit_chance")
 		
-		var premitigated_damage : float = base_value * (1 + (caster_atk - target_def)/100) * damage_fork
+		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_scaling_stat
+		var target_scaling : float = caster.active_stats.get(get_scaling_stat(false)) * target_stat_scaling
+		
+		var premitigated_damage : float = (base_value + caster_scaling + target_scaling) * (1 + (caster_atk - target_def)/100) * damage_fork
 		if premitigated_damage < 2:
 			premitigated_damage = 2
 		
@@ -58,18 +62,24 @@ func deal_phys_damage(caster : unit, target : unit, defensive_stat : String):
 		
 		var postmitigated_elemental_damage : float = apply_onhit_damage(caster,target,damage_fork,is_crit)
 		
+		var new_damage_packet : Dictionary[String,float] = {
+			"phys" : postmitigated_damage,
+			"elem" : postmitigated_elemental_damage}
+		
+		ConsoleLog.INFO(["postmitigated_damage","postmitigated_elemental_damage"],[new_damage_packet.get("phys"),new_damage_packet.get("elem")])
 		# activate block stance
-		EventBus.emit_signal_with_log(EventBus.block_stance_triggered,[[postmitigated_damage,postmitigated_elemental_damage]])
+		EventBus.emit_signal_with_log(EventBus.block_stance_triggered,[target, new_damage_packet])
+		ConsoleLog.INFO(["postmitigated_damage","postmitigated_elemental_damage"],[new_damage_packet.get("phys"),new_damage_packet.get("elem")])
 		
 		var target_current_health_points : float = target.active_stats.get("health_points")
-		var remaining_target_health : int = roundi(target_current_health_points - postmitigated_damage - postmitigated_elemental_damage)
+		var remaining_target_health : int = roundi(target_current_health_points - new_damage_packet.get("phys") - new_damage_packet.get("elem"))
 		target.active_stats.set("health_points",remaining_target_health)
 		
 		# activate retaliation stance
 		EventBus.emit_signal_with_log(EventBus.retaliate_stance_triggered,[caster,target])
 		
 		ConsoleLog.INFO(["hit_chance","hit","damage_fork","crit_chance","premitigated_damage","postmitigated_damage","elemental_damage","remaining_health"],
-		[hit_chance,hit,damage_fork,crit_chance,premitigated_damage,postmitigated_damage,postmitigated_elemental_damage,remaining_target_health])
+		[hit_chance,hit,damage_fork,crit_chance,premitigated_damage,new_damage_packet.get("phys"),new_damage_packet.get("elem"),remaining_target_health])
 	else:
 		ConsoleLog.DEBUG("missed")
 	
@@ -125,7 +135,10 @@ func deal_magic_damage(caster : unit, target : unit, magic_affinity : String, de
 		var target_type_res : float = target.active_stats.get(defensive_stat)
 		var target_damage_res : float = target.active_stats.get("damage_res")
 		
-		var premitigated_damage : float = base_value * (1 + (caster_atk - target_def)/100) # * winds
+		var caster_scaling : float = caster.active_stats.get(get_scaling_stat(true)) * caster_scaling_stat
+		var target_scaling : float = caster.active_stats.get(get_scaling_stat(false)) * target_stat_scaling
+		
+		var premitigated_damage : float = (base_value + caster_scaling + target_scaling) * (1 + (caster_atk - target_def)/100) # * winds
 		if premitigated_damage < 2:
 			premitigated_damage = 2
 		

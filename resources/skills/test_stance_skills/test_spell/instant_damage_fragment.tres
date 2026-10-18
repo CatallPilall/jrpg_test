@@ -1,0 +1,8 @@
+[gd_resource type="Resource" format=3 uid="uid://boawm1y84d0yd"]
+
+[ext_resource type="Script" uid="uid://brlbr4olsgwi7" path="res://scripts/resource_scripts/skills/instant_damage.gd" id="1_pxbb4"]
+
+[resource]
+script = ExtResource("1_pxbb4")
+damage_type = 4
+base_value = 5.0

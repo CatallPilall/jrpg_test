@@ -460,7 +460,7 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yf5fn"]
 
-[node name="player_character" type="CharacterBody2D" unique_id=2140881236]
+[node name="player_character" type="CharacterBody2D" unique_id=2140881236 groups=["player"]]
 script = ExtResource("1_y4gj2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1618851556]
@@ -484,8 +484,8 @@ parameters/move/blend_position = Vector2(0.048701286, 0.48858452)
 root_node = NodePath("../AnimationTree")
 libraries/ = SubResource("AnimationLibrary_j5ftk")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1976932539]
+[node name="PlayerArea" type="Area2D" parent="." unique_id=1976932539]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1378398974]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea" unique_id=1378398974]
 shape = SubResource("CircleShape2D_yf5fn")

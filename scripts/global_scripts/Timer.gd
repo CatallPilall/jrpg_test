@@ -76,7 +76,7 @@ func _update_time():
 
 func _background_time_check(_timer_counter_id : int) -> void:
 	_calc_current_time_of_day()
-	EventBus.emit_signal_with_log(EventBus.timer_updated, [" --- " + _convert_enum_to_string() + " --- " + _convert_time_to_string() + " --- "])
+	EventBus.emit_signal_no_log(EventBus.timer_updated, [" --- " + _convert_enum_to_string() + " --- " + _convert_time_to_string() + " --- "])
 
 	while true:
 		await get_tree().create_timer(time_update_interval_in_seconds).timeout
@@ -91,7 +91,7 @@ func _background_time_check(_timer_counter_id : int) -> void:
 		_update_time()
 		_calc_current_time_of_day()
 
-		EventBus.emit_signal_with_log(EventBus.timer_updated, [" --- " + _convert_enum_to_string() + " --- " + _convert_time_to_string() + " --- "])
+		EventBus.emit_signal_no_log(EventBus.timer_updated, [" --- " + _convert_enum_to_string() + " --- " + _convert_time_to_string() + " --- "])
 
 
 func start_timer(_hours : int = 0, _minutes : int = 0, _update_interval : float = 0.5) -> void:
