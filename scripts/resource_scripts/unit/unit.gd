@@ -44,7 +44,7 @@ var base_stats : Dictionary[String,float] = {
 	"accuracy":0,
 	"evasion":0,
 	"crit_chance":0,
-	
+
 	"pierce_res":0,
 	"slash_res":0,
 	"blud_res":0,
@@ -52,7 +52,7 @@ var base_stats : Dictionary[String,float] = {
 	"elec_res":0,
 	"ice_res":0,
 	"damage_res":0,
-	
+
 	"cc_chance":0,
 	"cc_res":0,
 	"curse_chance":0,
@@ -61,11 +61,11 @@ var base_stats : Dictionary[String,float] = {
 	"bleed_res":0,
 	"poi_chance":0,
 	"poi_res":0,
-	
+
 	"buff_strength":0,
 	"healing_strength":0,
 	"lucky_chance":0,
-	
+
 	"fire_atk":0,
 	"elec_atk":0,
 	"ice_atk":0,
@@ -110,12 +110,12 @@ var unit_skills : Array[skill]
 
 func set_unit_attributes():
 	if unit_class and unit_race:
+		ConsoleLog.INFO(["innate_attributes"],[unit_race.innate_attributes])
 		for selected_attribute : String in attributes:
-			ConsoleLog.INFO(["innate_attributes"],[unit_race.innate_attributes])
 			ConsoleLog.DEBUG("Looking for key: " + selected_attribute + " | Exists: " + str(unit_race.innate_attributes.has(selected_attribute)))
 			var new_value : int = unit_race.innate_attributes.get(selected_attribute) + unit_level * unit_race.attribute_scaling.get(selected_attribute)
 			attributes.set(selected_attribute,new_value)
-		
+
 		scale_base_stats()
 		apply_race_and_class_innate_stats()
 
@@ -126,24 +126,24 @@ func scale_base_stats():
 	var vitality_scaling : int = attributes.get("vitality")
 	var endurance_scaling : int = attributes.get("endurance")
 	var luck_scaling : int = attributes.get("luck")
-	
+
 	set_base_stat("phys_atk",strength_scaling * 1.7)
-	
+
 	set_base_stat("accuracy",agility_scaling * 0.3)
 	set_base_stat("speed",agility_scaling * 0.2)
 	set_base_stat("evasion",agility_scaling * 0.25)
-	
+
 	set_base_stat("magic_atk",intelligence_scaling * 1.4)
 	set_base_stat("magic_def",intelligence_scaling * 0.8)
-	
+
 	set_base_stat("health_points",vitality_scaling * 2.2)
 	set_base_stat("phys_def",vitality_scaling * 1.1)
 	set_base_stat("poi_res",vitality_scaling * 0.4)
 	set_base_stat("bleed_res",vitality_scaling * 0.6)
-	
+
 	set_base_stat("cc_res",endurance_scaling * 1.2)
 	set_base_stat("curse_res", endurance_scaling * 0.2)
-	
+
 	set_base_stat("crit_chance",luck_scaling * 0.6)
 	set_base_stat("lucky_chance", luck_scaling * 0.1)
 
@@ -151,7 +151,7 @@ func apply_race_and_class_innate_stats():
 	for selected_stat : String in unit_race.innate_stat_boost:
 		var stat_value : float = unit_race.innate_stat_boost.get(selected_stat)
 		set_base_stat(selected_stat,stat_value)
-	
+
 	for selected_stat : String in unit_class.class_stat_boost:
 		var stat_value : float = unit_class.class_stat_boost.get(selected_stat)
 		set_base_stat(selected_stat,stat_value)
@@ -166,7 +166,7 @@ func copy_unit_skills_from_class():
 		if unit_class:
 			unit_attack_skill = unit_class.attack_skill_variant
 			unit_defense_skill = unit_class.defense_skill_variant
-			
+
 			unit_skill_lines.append(unit_class.bound_skill_line)
 			copy_unit_skills_from_skill_lines()
 			copy_unit_innate_skills_from_race()

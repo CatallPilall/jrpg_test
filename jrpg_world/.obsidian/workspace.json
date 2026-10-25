@@ -4,37 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "e5bd444da266b47b",
+        "id": "c610a3011c96f60f",
         "type": "tabs",
         "children": [
           {
-            "id": "70fe775813e7c581",
+            "id": "d378f7106c65a6ac",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Welcome.md",
+                "file": "Erstmal zusammenführen code funktion oder auch ablauf.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Welcome"
-            }
-          }
-        ]
-      },
-      {
-        "id": "2783eca4a97d3ee0",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "a1a62a7e30fdf029",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph-Ansicht"
+              "title": "Erstmal zusammenführen code funktion oder auch ablauf"
             }
           }
         ]
@@ -112,7 +96,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Welcome.md",
+                "file": "Ressourcen/level.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -122,7 +106,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Welcome"
+              "title": "Rückverweise"
             }
           },
           {
@@ -131,12 +115,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Welcome.md",
+                "file": "Ressourcen/level.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Welcome"
+              "title": "Ausgehende Links"
             }
           },
           {
@@ -165,7 +149,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-archive",
-              "title": "All properties"
+              "title": "Alle Eigenschaften"
             }
           },
           {
@@ -182,13 +166,43 @@
               "icon": "lucide-list",
               "title": "Outline of Welcome"
             }
+          },
+          {
+            "id": "79b7abb10b02781c",
+            "type": "leaf",
+            "state": {
+              "type": "mermaid-toolbar-view",
+              "state": {},
+              "icon": "trident-custom",
+              "title": "Mermaid Toolbar"
+            }
+          },
+          {
+            "id": "01f74a4d707d58de",
+            "type": "leaf",
+            "state": {
+              "type": "copilot-agent-chat-view",
+              "state": {},
+              "icon": "copilot-agent",
+              "title": "Copilot Agent Chat"
+            }
+          },
+          {
+            "id": "5c38c2699f2132e8",
+            "type": "leaf",
+            "state": {
+              "type": "smart-connections-view",
+              "state": {},
+              "icon": "smart-connections",
+              "title": "Connections"
+            }
           }
-        ]
+        ],
+        "currentTab": 7
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 310.73828125
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -198,18 +212,52 @@
       "daily-notes:Heutige Notiz öffnen": false,
       "templates:Vorlage einfügen": false,
       "command-palette:Befehlspalette öffnen": false,
-      "bases:Neue Base erstellen": false
+      "bases:Neue Base erstellen": false,
+      "copilot:Open Copilot Agent Chat": false,
+      "mermaid-tools:Open Mermaid Toolbar": false,
+      "smart-connections:Smart Connections: Open random connection": false,
+      "smart-connections:Smart Connections: Open connections view": false,
+      "smart-connections:Toggle Footer Connections": false
     }
   },
-  "active": "70fe775813e7c581",
+  "active": "d378f7106c65a6ac",
   "lastOpenFiles": [
-    "Main_Node/Activity Diagram.md",
+    "Test Flowchart.canvas",
+    "Erstmal zusammenführen code funktion oder auch ablauf.md",
+    "Test Flowchart.md",
+    "Wichtig TODO.md",
     "Welcome.md",
-    "Daten in Datenbank speichern.md",
-    "Main_Node/Functions.md",
-    "Main_Node/Variables.md",
+    "Ressourcen/level.md",
+    "Ressourcen/quest.md",
+    "Ressourcen/npc_overlay.md",
+    "Ressourcen/skill_line.md",
+    "Ressourcen/scene.md",
+    "Ressourcen/combat",
+    "Ressourcen/level",
+    "Ressourcen/unit",
+    "Ressourcen/ui",
     "Events",
-    "Hello_World.md",
-    "Main_Node"
+    "Unbenannt.md",
+    "UI",
+    "Ressourcen/skills",
+    "Ressourcen/items",
+    "copilot/skills/copilot-fetch-x/SKILL.md",
+    "Unbenannt.base",
+    "copilot/copilot-conversations/agent__Hey,_kannst_du_mir_eine_simple_testflowchart_erstellen@20261023_113227.md",
+    "Ressourcen",
+    "copilot/skills/obsidian-markdown/references/CALLOUTS.md",
+    "copilot/skills/json-canvas/SKILL.md",
+    "copilot/skills/json-canvas/references/EXAMPLES.md",
+    "copilot/skills/obsidian-bases/SKILL.md",
+    "copilot/skills/obsidian-bases/references/EXAMPLES.md",
+    "copilot/skills/obsidian-bases/references/FUNCTIONS_REFERENCE.md",
+    "copilot/skills/obsidian-markdown/SKILL.md",
+    "copilot/skills/obsidian-markdown/references/PROPERTIES.md",
+    "copilot/skills/obsidian-markdown/references/EMBEDS.md",
+    "copilot/skills/copilot-youtube-transcript/SKILL.md",
+    "2026-10-23.md",
+    "Unbenannt.canvas",
+    "Main_Node/Activity Diagram.md",
+    "Daten in Datenbank speichern.md"
   ]
 }

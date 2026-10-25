@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://kslisqjgrtku" path="res://resources/skills/attack_skills/slash_attack_skill/slash_attack_skill.tres" id="1_0j188"]
 [ext_resource type="Resource" uid="uid://caychs3ruyyl6" path="res://resources/skill_lines/warrior_skill_line.tres" id="1_1u52p"]
-[ext_resource type="Script" uid="uid://bcwybskysf7cd" path="res://scripts/resource_scripts/game_class.gd" id="2_0j188"]
+[ext_resource type="Script" uid="uid://bcwybskysf7cd" path="res://scripts/resource_scripts/unit/game_class.gd" id="2_0j188"]
 [ext_resource type="Resource" uid="uid://i4r7l0ilsog6" path="res://resources/skills/defense_skills/heavy_defense_skill/heavy_defense_skill.tres" id="3_eoced"]
 
 [resource]

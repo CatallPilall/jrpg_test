@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HudData" format=3 uid="uid://bkcxlswl4pnfa"]
 
-[ext_resource type="Script" uid="uid://c4ep1evq5vcer" path="res://scripts/resource_scripts/hud.gd" id="1_18mk4"]
+[ext_resource type="Script" uid="uid://c4ep1evq5vcer" path="res://scripts/resource_scripts/ui/hud.gd" id="1_18mk4"]
 [ext_resource type="PackedScene" uid="uid://b7mvyioiqjlso" path="res://scenes/UI_scenes/hud_scenes/level_hud.tscn" id="1_b5f2h"]
 
 [resource]

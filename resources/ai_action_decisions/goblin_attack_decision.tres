@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ai_action_decision" format=3 uid="uid://hexcjubesjsw"]
 
 [ext_resource type="Resource" uid="uid://byphgaqsjkc2j" path="res://resources/skills/attack_skills/blud_attack_skill/blud_attack_skill.tres" id="1_iiscp"]
-[ext_resource type="Script" uid="uid://clu27iehj1oa8" path="res://scripts/resource_scripts/ai_action_decision.gd" id="2_7i0sy"]
+[ext_resource type="Script" uid="uid://clu27iehj1oa8" path="res://scripts/resource_scripts/combat/ai_action_decision.gd" id="2_7i0sy"]
 
 [resource]
 script = ExtResource("2_7i0sy")

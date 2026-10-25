@@ -3,3 +3,7 @@
 /android/
 .zed/
 .editorconfig
+./jrpg_world/.obsidian/plugins/copilot/
+./jrpg_world/.obsidian/plugins/copilot/*
+./jrpg_world/copilot/
+./jrpg_world/copilot/*

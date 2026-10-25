@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="race" format=3 uid="uid://bshui3sh5oeq"]
 
 [ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="1_cq5mv"]
-[ext_resource type="Script" uid="uid://cw0geraqpl885" path="res://scripts/resource_scripts/race.gd" id="2_yucmm"]
+[ext_resource type="Script" uid="uid://cw0geraqpl885" path="res://scripts/resource_scripts/unit/race.gd" id="2_yucmm"]
 
 [resource]
 script = ExtResource("2_yucmm")
