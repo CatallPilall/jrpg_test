@@ -24,6 +24,7 @@ var enemy_team_reference : Array[unit]
 var selected_skill : skill
 
 var skill_order_array : Array[skill]
+var item_order_array : Array[skill]
 
 var item_usage_array : Array[bool]
 

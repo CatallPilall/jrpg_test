@@ -70,60 +70,71 @@ layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "1"
 
 [node name="level_two" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1089536710]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "2"
 
 [node name="level_three" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1468461500]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "3"
 
 [node name="level_four" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=92110739]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "4"
 
 [node name="level_five" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1960318355]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "5"
 
 [node name="level_six" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=543112825]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "6"
 
 [node name="level_seven" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1570552866]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "7"
 
 [node name="level_eight" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=656083452]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "8"
 
 [node name="level_nine" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=275085233]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "9"
 
 [node name="level_ten" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=397099225]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 button_mask = 0
+text = "10"
 
 [node name="skill_line_button" type="Button" parent="MarginContainer" unique_id=838017783]
+visible = false
 layout_mode = 2

@@ -19,14 +19,15 @@ func _ready() -> void:
 	put_quest_into_logbook(third_quest)
 
 func put_unit_into_combat_team(new_unit : unit):
+	var duped_unit : unit = new_unit.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 	if combat_team.size()<5:
 		if not team_captain:
-			team_captain = new_unit
-		combat_team.append(new_unit)
+			team_captain = duped_unit
+		combat_team.append(duped_unit)
 	ConsoleLog.INFO(["team_captain","combat_team"],[team_captain,combat_team])
 
 func put_item_into_inventory(new_item : item):
-	var duped_item : item = new_item.duplicate()
+	var duped_item : item = new_item.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 
 	if new_item is consumable:
 		consumables.append(duped_item)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://pjitcygooaan"]
+
+[ext_resource type="Script" uid="uid://cgp6rdh1pomwl" path="res://scripts/resource_scripts/skills/instant_heal.gd" id="1_ghdn0"]
+
+[resource]
+script = ExtResource("1_ghdn0")
+base_value = 10.0
+caster_stat_scaling = 1.0
+caster_scaling_stat = 26

@@ -2665,7 +2665,6 @@ sound_effects = Array[AudioStream]([ExtResource("6_hrdtw")])
 loop_audio_effects = true
 autoplay_on_ready = true
 randomness_of_pitch_value = 12.0
-bus = 2
 distance_max_pixel = 164.0
 
 [node name="enter_other_level" type="Node2D" parent="." unique_id=223705208]

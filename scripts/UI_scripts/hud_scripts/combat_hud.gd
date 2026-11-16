@@ -77,6 +77,16 @@ func make_combat_hud_skill_buttons():
 
 	disable_non_skill_buttons(true)
 
+func make_combat_hud_item_buttons():
+	
+	for inventory_item : consumable in TeamRoster.consumables:
+		if inventory_item.combat_skill:
+			var new_button = Button.new()
+			new_button.text = inventory_item.item_name
+			
+			skill_buttons_vbox.add_child.call_deferred(new_button)
+	
+	disable_non_item_buttons(true)
 
 func disable_non_item_buttons(disable : bool):
 	are_non_item_buttons_disabled = disable
@@ -178,3 +188,11 @@ func _on_end_turn_button_pressed() -> void:
 	# ConsoleLog.SIGNAL(self,"end_turn_button_pressed","emit",new_signal_key)
 	# EventBus.end_turn_button_pressed.emit(new_signal_key)
 	EventBus.emit_signal_log(EventBus.end_turn_button_pressed)
+
+
+func _on_item_button_pressed() -> void:
+	if are_non_item_buttons_disabled:
+		EventBus.emit_signal_log(EventBus.remove_combat_hud_skill_buttons)
+		EventBus.emit_signal_log(EventBus.combat_state_changed_via_combat_hud)
+	else:
+		make_combat_hud_item_buttons()

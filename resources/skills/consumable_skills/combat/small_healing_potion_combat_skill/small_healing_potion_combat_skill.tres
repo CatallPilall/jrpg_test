@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="skill" format=3 uid="uid://choc353aq2t2f"]
+
+[ext_resource type="Resource" uid="uid://pjitcygooaan" path="res://resources/skills/consumable_skills/combat/small_healing_potion_combat_skill/healing_fragment.tres" id="1_r3agv"]
+[ext_resource type="Script" uid="uid://d4g1qtrdqkcj3" path="res://scripts/resource_scripts/skills/skill.gd" id="2_tici7"]
+
+[resource]
+script = ExtResource("2_tici7")
+skill_name = "Small healing potion"
+primary_skill_targeting = 9
+skill_type = 3
+first_skill_fragment = ExtResource("1_r3agv")

@@ -8,6 +8,9 @@ var derek_uit : unit = preload("res://resources/units/derek_unit.tres")
 var karion_unit : unit = preload("res://resources/units/karion_unit.tres")
 var ungor_unit : unit = preload("res://resources/units/ungor_unit.tres")
 
+var small_healing_potion : item = preload("res://resources/items/small_healing_potion.tres")
+var med_kit : item = preload("res://resources/items/med_kit.tres")
+
 func _ready() -> void:
 	ConsoleLog.SCENE(true)
 
@@ -22,12 +25,14 @@ func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 
 func _on_brunhilde_button_pressed() -> void:
 	ConsoleLog.INPUT("Bruhilde_Button", "pressed", [])
-	TeamRoster.put_unit_into_combat_team(brunhilde_unit.duplicate_deep(Resource.DEEP_DUPLICATE_ALL))
+	TeamRoster.put_unit_into_combat_team(brunhilde_unit)
 	TeamRoster.put_unit_into_combat_team(casandra_unit)
 	TeamRoster.put_unit_into_combat_team(derek_uit)
 	TeamRoster.put_unit_into_combat_team(karion_unit)
 	TeamRoster.put_unit_into_combat_team(ungor_unit)
-
+	
+	TeamRoster.put_item_into_inventory(small_healing_potion)
+	TeamRoster.put_item_into_inventory(med_kit)
 
 	SceneLoader.process_active_scene(SceneDB.SCENE_TYPE.MENU, [], SceneLoader.SCENE_PROCESS_TYPE.DEACTIVATE)
 	MusicPlayer.play_sound("ambient_7", 2.5)

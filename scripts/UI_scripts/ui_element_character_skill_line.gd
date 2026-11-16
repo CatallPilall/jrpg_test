@@ -23,10 +23,15 @@ var skill_one_icon_buffer : Texture
 var skill_two_icon_buffer : Texture
 var skill_three_icon_buffer : Texture
 
+var skill_line_reference : skill_line
+
 func _ready() -> void:
 	skill_one.icon = skill_one_icon_buffer
 	skill_two.icon = skill_two_icon_buffer
 	skill_three.icon = skill_three_icon_buffer
+	
+	set_level_buttons(skill_line_reference.skill_line_level)
+	skill_line_name.text = skill_line_reference.skill_line_name
 
 
 func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
@@ -35,6 +40,9 @@ func _prepare_scene(called_node : Node, arguments : Array, signal_key : int):
 
 
 func make_skill_line_ui_element(unit_skill_line : skill_line):
+	
+	skill_line_reference = unit_skill_line
+	
 	var is_skill_one_open : bool = true
 	var is_skill_two_open : bool = true
 	var is_skill_three_open : bool = true
@@ -51,9 +59,6 @@ func make_skill_line_ui_element(unit_skill_line : skill_line):
 				is_skill_three_open = false
 				skill_three_icon_buffer = load(skill_in_skill_line.skill_icon_path)
 
-	#set_level_buttons(unit_skill_line.skill_line_level)
-
-	#skill_line_name.text = unit_skill_line.skill_line_name
 
 func set_level_buttons(skill_line_level : int):
 	if skill_line_level >= 1:

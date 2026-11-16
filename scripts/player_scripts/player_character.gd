@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-@onready var animation_tree: AnimationTree = $AnimationTree
-
 # var inv_toggle : bool = false
 
 var speed : int = 75
@@ -14,12 +12,6 @@ func _physics_process(_delta: float) -> void:
 	# delta wird schon in move_and_slide verrechnet
 	velocity = input_dir * speed
 
-	if velocity == Vector2.ZERO:
-		animation_tree["parameters/playback"].travel("idle")
-	else:
-		animation_tree.set("parameters/idle/blend_position",velocity)
-		animation_tree.set("parameters/move/blend_position",velocity)
-		animation_tree["parameters/playback"].travel("move")
 	move_and_slide()
 
 # func _input(event: InputEvent) -> void:

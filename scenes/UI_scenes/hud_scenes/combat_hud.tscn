@@ -143,3 +143,4 @@ layout_mode = 2
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer/attack_button" to="." method="_on_attack_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/skill_button" to="." method="_on_skill_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/defend_button" to="." method="_on_defend_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/item_button" to="." method="_on_item_button_pressed"]
